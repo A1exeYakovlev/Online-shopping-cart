@@ -1,0 +1,9 @@
+.container {
+  margin: 0 auto;
+  max-width: 140rem;
+  padding: 0 1.6rem;
+
+  &--wide {
+    padding: 0 1.3rem;
+  }
+}

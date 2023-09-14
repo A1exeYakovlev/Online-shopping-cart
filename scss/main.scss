@@ -1,11 +1,14 @@
-*,
-*::before,
-*::after {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
+@import "abstract/variables";
 
-html {
-  font-size: 62.5%;
-}
+@import "vendors/segoeUI";
+
+@import "base/base";
+@import "base/typography";
+
+@import "components/header";
+@import "components/cart";
+@import "components/custom-checkbox";
+@import "components/footer";
+@import "components/navbar";
+
+@import "layout/container";
