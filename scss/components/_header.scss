@@ -1,24 +1,173 @@
 .header {
   &__inner {
-    padding: 1.4rem 0 1.4rem 0;
+    padding: 1.6rem 0 1.6rem 0;
     display: flex;
     justify-content: space-between;
-    align-items: flex-start;
+    align-items: center;
+    height: 5.6rem;
+
+    @include responsive(desktop-sm) {
+      height: 8.8rem;
+    }
+  }
+
+  &__title-link {
+    @include responsive(desktop-sm) {
+      margin-left: 1.6rem;
+      width: 10.64rem;
+    }
+  }
+
+  &__nav-links {
+    display: none;
+
+    @include responsive(desktop-sm) {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 4.35rem;
+      margin-left: 3.25rem;
+      margin-bottom: 0.21rem;
+    }
+  }
+
+  &__profile-link,
+  &__cart-link {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 0.7rem;
+    position: relative;
+  }
+
+  &__profile-link {
+    svg {
+      margin-left: 0.3rem;
+      position: relative;
+    }
+  }
+
+  &__cart-link {
+    svg {
+      margin-right: 0.8rem;
+      position: relative;
+    }
+  }
+
+  &__profile-badge,
+  &__cart-badge {
+    position: absolute;
+    top: -0.4rem;
+    right: 0.5rem;
   }
 
   &__title {
-    margin-top: -0.25rem;
+    margin-top: -0.87rem;
+
+    @include responsive(desktop-sm) {
+      margin-top: -0.4rem;
+    }
+  }
+
+  &__search-form {
+    display: none;
+
+    @include responsive(desktop-sm) {
+      margin-left: 3.15rem;
+      max-width: 97rem;
+      padding: 0 2rem;
+      height: 4.8rem;
+      border-radius: 3.6rem;
+      background: rgba(255, 255, 255, 0.2);
+      flex: 1 0 auto;
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+    }
+  }
+
+  &__search-input {
+    flex: 1 0 auto;
+    margin-bottom: 0.4rem;
+    background-color: transparent;
+    border: transparent;
+    outline: none;
+
+    &::placeholder {
+      opacity: 0.5;
+      color: var(--system-white);
+      font-family: "Segoe UI";
+      font-size: 1.8rem;
+      font-style: normal;
+      font-weight: 400;
+      line-height: 2.4rem; /* 133.333% */
+    }
+
+    &:focus {
+      opacity: 1;
+    }
   }
 
   &__menu,
-  &__search {
+  &__search-btn {
     background-color: transparent;
     border: transparent;
+  }
 
-    svg {
+  &__menu {
+    display: flex;
+    justify-content: center;
+
+    @include responsive(desktop-sm) {
+      align-items: center;
+      width: 4.8rem;
+      height: 4.8rem;
+      padding: 1.2rem 0.95rem;
+      border-radius: 0.8rem;
+      border: 1px solid rgba(255, 255, 255, 0.45);
+    }
+
+    &-icon-mob {
       display: block;
       width: 2.8rem;
       height: 2.8rem;
+
+      @include responsive(desktop-sm) {
+        display: none;
+      }
+    }
+
+    &-icon-desktop {
+      display: none;
+
+      @include responsive(desktop-sm) {
+        display: block;
+        width: 2.8rem;
+        height: 2.4rem;
+      }
+    }
+  }
+
+  &__search-btn {
+    svg.mob-only {
+      display: block;
+      width: 2.8rem;
+      height: 2.8rem;
+
+      @include responsive(desktop-sm) {
+        display: none;
+      }
+    }
+
+    svg.desktop-only {
+      display: none;
+
+      @include responsive(desktop-sm) {
+        display: block;
+        width: 2.4rem;
+        height: 2.4rem;
+      }
     }
   }
 }

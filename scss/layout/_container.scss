@@ -3,7 +3,31 @@
   max-width: 140rem;
   padding: 0 1.6rem;
 
+  @include responsive(desktop-sm) {
+    padding: 0 2.4rem;
+  }
+
   &--wide {
     padding: 0 1.3rem;
+
+    @include responsive(desktop-sm) {
+      padding: 0 2.3rem 0 2.4rem;
+    }
+  }
+
+  &--desktop-only {
+    padding: 0;
+
+    @include responsive(desktop-sm) {
+      padding: 0 2.4rem;
+    }
+  }
+
+  &--mob-only {
+    padding: 0 1.6rem;
+
+    @include responsive(desktop-sm) {
+      padding: 0;
+    }
   }
 }

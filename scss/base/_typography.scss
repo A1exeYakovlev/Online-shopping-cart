@@ -1,5 +1,4 @@
 .headline-main {
-  margin: 0;
   color: var(--system-white);
   font-family: "Segoe UI", sans-serif;
   font-size: 2.6rem;
@@ -7,6 +6,12 @@
   font-weight: 600;
   font-variant: all-small-caps;
   letter-spacing: 0.052rem;
+
+  @include responsive(desktop-sm) {
+    font-size: 2.8rem;
+    line-height: 2.4rem; /* 85.714% */
+    letter-spacing: 0.056rem;
+  }
 }
 
 .headline2 {
@@ -17,6 +22,28 @@
   font-weight: 700;
   line-height: 2.8rem; /* 140% */
   letter-spacing: -0.02rem;
+
+  @include responsive(desktop-sm) {
+    font-size: 2.4rem;
+    line-height: 3.2rem; /* 133.333% */
+    letter-spacing: -0.024rem;
+  }
+
+  &--lg-for-desktop {
+    @include responsive(desktop-sm) {
+      font-size: 2.8rem;
+      line-height: 3.6rem; /* 128.571% */
+      letter-spacing: -0.028rem;
+    }
+  }
+
+  &--sm-for-desktop {
+    @include responsive(desktop-sm) {
+      font-size: 2rem;
+      line-height: 2.8rem;
+      letter-spacing: -0.02rem;
+    }
+  }
 }
 
 .headline3 {
@@ -33,6 +60,13 @@
 
   &--white {
     color: var(--system-white);
+  }
+
+  //выключается, если не умещается по длине
+  &--lg {
+    @include responsive(desktop-sm) {
+      font-size: 2rem;
+    }
   }
 }
 
@@ -56,6 +90,13 @@
   &--gray {
     color: var(--system-gray);
   }
+
+  &--sm-for-desktop {
+    @include responsive(desktop-sm) {
+      font-size: 1.3rem;
+      line-height: 1.6rem; /* 123.077% */
+    }
+  }
 }
 
 .body-text2 {
@@ -64,7 +105,15 @@
   font-size: 1.4rem;
   font-style: normal;
   font-weight: 400;
-  line-height: 2rem; /* 142.857% */
+  --body-text2-lh: 2rem; /* 142.857% */
+  line-height: var(--body-text2-lh);
+
+  @include responsive(desktop-sm) {
+    font-size: 1.6rem;
+    font-style: normal;
+    --body-text2-lh: 2.4rem; /* 150% */
+    line-height: 2.4rem;
+  }
 }
 
 .body-text3 {
@@ -100,6 +149,10 @@
   &--white {
     color: var(--system-white);
   }
+
+  &--magenta {
+    color: var(--system-magenta);
+  }
 }
 
 .caption2 {
@@ -128,4 +181,13 @@
   font-style: normal;
   font-weight: 400;
   line-height: 1.4rem; /* 116.667% */
+}
+
+.caption5 {
+  color: var(--system-white);
+  font-family: "Segoe UI";
+  font-size: 1.8rem;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 2.4rem; /* 133.333% */
 }

@@ -8,6 +8,7 @@
   height: 5.6rem;
   box-shadow: 0px -0.5px 0px 0px rgba(0, 0, 0, 0.3);
   backdrop-filter: blur(2.5px);
+  z-index: 3;
 
   &__wrap {
     display: flex;
@@ -17,23 +18,15 @@
   & a {
     position: relative;
   }
+
+  @include responsive(desktop-sm) {
+    display: none;
+  }
 }
 
-.badge-count {
-  position: absolute;
-  display: none;
-  justify-content: center;
-  align-items: center;
-  padding: 0.2rem 0;
+.navbar__profile-badge,
+.navbar__favourites-badge,
+.navbar__cart-badge {
   top: -0.4rem;
   right: -0.6rem;
-  z-index: 2;
-  border-radius: 1.6rem;
-  background: var(--system-red);
-  width: 1.6rem;
-  height: 1.6rem;
-
-  &--1digit {
-    display: flex;
-  }
 }

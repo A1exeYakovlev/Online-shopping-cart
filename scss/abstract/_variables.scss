@@ -10,3 +10,17 @@
   --system-magenta: #cb11ab;
   --system-red: #f55123;
 }
+
+/* Breakpoints ($breakpoint):
+- desktop-sm - 1024px - 64em
+- desktop-md
+- desktop-lg
+*/
+
+@mixin responsive($breakpoint) {
+  @if $breakpoint == desktop-sm {
+    @media (min-width: 64em) {
+      @content;
+    }
+  }
+}

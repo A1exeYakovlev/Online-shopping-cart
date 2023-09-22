@@ -2,7 +2,14 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 0 2.4rem;
   height: 6.4rem;
   opacity: 70%;
+}
+
+.page__footer {
+  margin: 0 0 5.6rem 0;
+
+  @include responsive(desktop-sm) {
+    margin: -0.03rem 0 0 0;
+  }
 }
