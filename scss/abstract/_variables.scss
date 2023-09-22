@@ -13,13 +13,18 @@
 
 /* Breakpoints ($breakpoint):
 - desktop-sm - 1024px - 64em
-- desktop-md
-- desktop-lg
+- desktop-md - 1440px - 87.5em
 */
 
 @mixin responsive($breakpoint) {
   @if $breakpoint == desktop-sm {
     @media (min-width: 64em) {
+      @content;
+    }
+  }
+
+  @if $breakpoint == desktop-md {
+    @media (min-width: 87.5em) {
       @content;
     }
   }
