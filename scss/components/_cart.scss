@@ -291,10 +291,15 @@
     justify-content: space-between;
     gap: 1.6rem;
 
+    @include responsive(tablet) {
+      padding: 0 15vw;
+    }
+
     @include responsive(desktop-sm) {
       flex-direction: column;
       justify-content: flex-start;
       gap: 0rem;
+      padding: 0;
     }
   }
 
@@ -378,8 +383,6 @@
   }
 
   &__remains {
-    align-self: center;
-
     @include responsive(desktop-sm) {
       align-self: flex-start;
     }
@@ -631,7 +634,7 @@
   border-radius: 1.6rem;
   background: var(--system-white);
 
-  @include responsive(desktop-sm) {
+  @include responsive(tablet) {
     padding: 1.54rem 0 1.94rem 0;
   }
 
@@ -642,7 +645,7 @@
   }
 
   &__delivery-point-info {
-    @include responsive(desktop-sm) {
+    @include responsive(tablet) {
       display: flex;
       flex-direction: column;
     }
@@ -651,7 +654,7 @@
   &__delivery-point {
     margin-top: 0.8rem;
 
-    @include responsive(desktop-sm) {
+    @include responsive(tablet) {
       margin-top: 1.6rem;
     }
   }
@@ -680,7 +683,7 @@
     margin-top: 1.6rem;
     padding-bottom: 0.42rem;
 
-    @include responsive(desktop-sm) {
+    @include responsive(tablet) {
       margin-top: 1.67rem;
       padding-bottom: 0;
     }
@@ -689,7 +692,7 @@
   &__date {
     margin-top: 1.2rem;
 
-    @include responsive(desktop-sm) {
+    @include responsive(tablet) {
       margin-top: 1.62rem;
     }
   }
@@ -700,7 +703,7 @@
     align-items: center;
     gap: 0.8rem;
 
-    @include responsive(desktop-sm) {
+    @include responsive(tablet) {
       padding: 0;
     }
   }
@@ -773,7 +776,7 @@
   &__delivery-point,
   &__charge,
   &__date {
-    @include responsive(desktop-sm) {
+    @include responsive(tablet) {
       display: flex;
       gap: 3.2rem;
       > p {
@@ -890,7 +893,7 @@
   border-radius: 1.6rem;
   background-color: var(--system-white);
 
-  @include responsive(desktop-sm) {
+  @include responsive(tablet) {
     padding: 1.6rem 0 1.1rem 0;
   }
 
@@ -904,7 +907,7 @@
     margin-top: 0.8rem;
     position: relative;
 
-    @include responsive(desktop-sm) {
+    @include responsive(tablet) {
       margin-top: 2.1rem;
     }
   }
@@ -913,14 +916,14 @@
     display: flex;
     flex-direction: column;
 
-    @include responsive(desktop-sm) {
+    @include responsive(tablet) {
       margin-top: -0.8rem;
     }
   }
 
   &__pers-info,
   &__other-info {
-    @include responsive(desktop-sm) {
+    @include responsive(tablet) {
       flex-direction: row;
       gap: 2.4rem;
     }
@@ -969,7 +972,7 @@
       transition: all 0.4s;
       z-index: 2;
 
-      @include responsive(desktop-sm) {
+      @include responsive(tablet) {
         left: 0;
       }
     }
@@ -1003,6 +1006,14 @@ input:not(:placeholder-shown) + span {
     display: flex;
     justify-content: space-between;
     align-items: flex-end;
+
+    @include responsive(tablet) {
+      padding: 0 15vw;
+    }
+
+    @include responsive(desktop-sm) {
+      padding: 0;
+    }
   }
 
   .container {

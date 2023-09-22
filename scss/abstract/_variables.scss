@@ -12,11 +12,18 @@
 }
 
 /* Breakpoints ($breakpoint):
+- tablet - 630px - 39.375em
 - desktop-sm - 1024px - 64em
 - desktop-md - 1440px - 87.5em
 */
 
 @mixin responsive($breakpoint) {
+  @if $breakpoint == tablet {
+    @media (min-width: 39.375em) {
+      @content;
+    }
+  }
+
   @if $breakpoint == desktop-sm {
     @media (min-width: 64em) {
       @content;

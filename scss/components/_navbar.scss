@@ -19,6 +19,10 @@
     position: relative;
   }
 
+  @include responsive(tablet) {
+    padding: 1.4rem 10vw;
+  }
+
   @include responsive(desktop-sm) {
     display: none;
   }
