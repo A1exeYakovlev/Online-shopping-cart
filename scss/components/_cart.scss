@@ -25,15 +25,7 @@
     }
   }
 
-  &__items {
-    padding-bottom: 1.51rem;
-
-    @include responsive(desktop-sm) {
-      padding-bottom: 2.09rem;
-    }
-  }
-
-  &__selectAll {
+  &__items-top {
     margin: 1.5rem 0 1.5rem 0;
     display: flex;
     justify-content: space-between;
@@ -45,6 +37,21 @@
       border-bottom: 0.1rem solid rgba(0, 0, 0, 0.1);
     }
 
+    &.show-summary {
+      height: 4.26rem;
+    }
+  }
+
+  &__items-summary {
+    display: none;
+  }
+
+  .show-summary &__items-summary {
+    display: block;
+    margin-top: -0.3rem;
+  }
+
+  &__selectAll {
     &-label {
       margin-bottom: 0.2rem;
       display: flex;
@@ -63,22 +70,45 @@
       }
     }
 
-    &-btn {
-      display: block;
-      margin-right: 0.4rem;
-      border: transparent;
-      background-color: transparent;
-      width: 2rem;
-      height: 2rem;
-
-      @include responsive(desktop-sm) {
-        margin: 0;
-      }
-    }
-
     &-input:checked ~ &-label &-checkbox::before {
       opacity: 1;
     }
+  }
+
+  .show-summary &__selectAll {
+    display: none;
+  }
+
+  &__collapse-btn {
+    display: block;
+    margin-right: 0.4rem;
+    border: transparent;
+    background-color: transparent;
+    width: 2rem;
+    height: 2rem;
+
+    @include responsive(desktop-sm) {
+      margin: 0;
+    }
+  }
+
+  &__items-wrap {
+    margin-bottom: 4.59rem;
+
+    @include responsive(desktop-sm) {
+      margin-bottom: 3.8rem;
+    }
+  }
+
+  &__missing-wrap,
+  &__items-wrap {
+    transition: max-height 0.5s ease-out;
+    overflow: hidden;
+  }
+
+  //При сворачивании блока по collapse-btn
+  .hide.cart__items-wrap {
+    margin-bottom: 0;
   }
 
   &__cart-item {
@@ -87,24 +117,22 @@
     @include responsive(desktop-sm) {
       margin-bottom: 2rem;
     }
+
+    &:last-child {
+      margin-bottom: 0;
+    }
   }
 
   &__missing {
-    margin: 4.59rem 0 0 0;
-
     @include responsive(desktop-sm) {
-      margin: 3.8rem 0 0;
+      margin: 1.4rem 0 0;
     }
 
-    &-wrap {
+    &-title-wrap {
       padding-bottom: 1.85rem;
       display: flex;
       justify-content: space-between;
       align-items: end;
-
-      @include responsive(desktop-sm) {
-        border-bottom: 0.1rem solid rgba(0, 0, 0, 0.1);
-      }
     }
 
     &-btn {
@@ -114,6 +142,19 @@
         margin-right: 0.03rem;
       }
     }
+  }
+
+  &__missing-wrap {
+    margin-bottom: 3.13rem;
+
+    @include responsive(desktop-sm) {
+      margin-bottom: 4.09rem;
+    }
+  }
+
+  //при сворачивании блока по collapse-btn
+  &__missing-wrap.hide {
+    margin-bottom: 2.45rem;
   }
 
   &__payment {
@@ -176,6 +217,11 @@
   width: 2rem;
   height: 2rem;
   cursor: pointer;
+  transition: transform 0.5s;
+
+  &--closed {
+    transform: rotate(-180deg) translateY(-0.2rem);
+  }
 }
 
 .cart-item {
@@ -528,6 +574,7 @@
     margin-top: 0.03rem;
   }
 }
+
 //если cart-item__properties - пустая строка
 .empty-properties .cart-item__storage {
   margin-top: -2.19rem;
@@ -547,6 +594,17 @@
 //если cart-item__pic-property отсутствует
 .empty-pic-property .cart-item__pic-property {
   display: none;
+}
+
+.cart-item--missing:first-child {
+  @include responsive(desktop-sm) {
+    border-top: 0.1rem solid rgba(0, 0, 0, 0.1);
+  }
+}
+
+//При сворачивании блока по collabse-btn
+.hide .cart-item--missing:first-child {
+  border: transparent;
 }
 
 .cart-item--missing .cart-item__name {
@@ -1023,7 +1081,11 @@ input:not(:placeholder-shown) + span {
   }
 
   &__goods {
-    margin-top: 0.7rem;
+    margin-top: 0.65rem;
+
+    @include responsive(desktop-sm) {
+      margin-top: 0.7rem;
+    }
   }
 
   &__delivery-point {
