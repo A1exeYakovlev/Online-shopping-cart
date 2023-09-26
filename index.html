@@ -247,7 +247,7 @@
                   </button>
                 </div>
                 <div class="cart__items-wrap">
-                  <div class="cart-item cart__cart-item">
+                  <div class="cart-item cart__cart-item" id="cart-item1">
                     <div class="cart-item__pic">
                       <div class="cart-item__select custom-checkbox">
                         <input
@@ -324,18 +324,31 @@
                       </svg>
                     </div>
                     <div class="cart-item__management">
-                      <div class="cart-item__quantity minimal-value">
-                        <button class="cart-item__minus-btn body-text3">
+                      <div class="cart-item__quantity">
+                        <button
+                          class="cart-item__minus-btn body-text3"
+                          data-item="1"
+                        >
                           −
                         </button>
-                        <span class="cart-item__quantity-number body-text2"
+                        <span
+                          class="cart-item__quantity-number body-text2"
+                          data-item="1"
+                          id="cart-item1-quantity"
                           >1</span
                         >
-                        <button class="cart-item__plus-btn body-text3">
+                        <button
+                          class="cart-item__plus-btn body-text3"
+                          data-item="1"
+                        >
                           +
                         </button>
                       </div>
-                      <p class="cart-item__remains caption caption--coral">
+                      <p
+                        class="cart-item__remains caption caption--coral"
+                        data-item="1"
+                        id="cart-item1-remains"
+                      >
                         Осталось 2 шт.
                       </p>
                       <div class="cart-item__buttons">
@@ -386,6 +399,7 @@
                   </div>
                   <div
                     class="cart-item cart__cart-item multiline-name empty-pic-property empty-remains"
+                    id="cart-item2"
                   >
                     <div class="cart-item__pic">
                       <div class="cart-item__select custom-checkbox">
@@ -464,17 +478,30 @@
                     </div>
                     <div class="cart-item__management">
                       <div class="cart-item__quantity">
-                        <button class="cart-item__minus-btn body-text3">
+                        <button
+                          class="cart-item__minus-btn body-text3"
+                          data-item="2"
+                        >
                           −
                         </button>
-                        <span class="cart-item__quantity-number body-text2"
+                        <span
+                          class="cart-item__quantity-number body-text2"
+                          data-item="2"
+                          id="cart-item2-quantity"
                           >200</span
                         >
-                        <button class="cart-item__plus-btn body-text3">
+                        <button
+                          class="cart-item__plus-btn body-text3"
+                          data-item="2"
+                        >
                           +
                         </button>
                       </div>
-                      <p class="cart-item__remains caption caption--coral"></p>
+                      <p
+                        class="cart-item__remains caption caption--coral"
+                        data-item="2"
+                        id="cart-item2-remains"
+                      ></p>
                       <div class="cart-item__buttons">
                         <svg
                           class="cart-item__buttons-favourite"
@@ -523,6 +550,7 @@
                   </div>
                   <div
                     class="cart-item cart__cart-item multiline-name empty-properties empty-pic-property"
+                    id="cart-item3"
                   >
                     <div class="cart-item__pic">
                       <div class="cart-item__select custom-checkbox">
@@ -597,18 +625,31 @@
                       </svg>
                     </div>
                     <div class="cart-item__management">
-                      <div class="cart-item__quantity maximum-value">
-                        <button class="cart-item__minus-btn body-text3">
+                      <div class="cart-item__quantity">
+                        <button
+                          class="cart-item__minus-btn body-text3"
+                          data-item="3"
+                        >
                           −
                         </button>
-                        <span class="cart-item__quantity-number body-text2"
+                        <span
+                          class="cart-item__quantity-number body-text2"
+                          data-item="3"
+                          id="cart-item3-quantity"
                           >2</span
                         >
-                        <button class="cart-item__plus-btn body-text3">
+                        <button
+                          class="cart-item__plus-btn body-text3"
+                          data-item="3"
+                        >
                           +
                         </button>
                       </div>
-                      <p class="cart-item__remains caption caption--coral">
+                      <p
+                        class="cart-item__remains caption caption--coral"
+                        data-item="3"
+                        id="cart-item3-remains"
+                      >
                         Осталось 2 шт.
                       </p>
                       <div class="cart-item__buttons">

@@ -397,10 +397,11 @@
     }
   }
 
-  //если cart-item__quantity-number имеет минимальное значение 1 (единица)
-  .minimal-value &__minus-btn,
-  .maximum-value &__plus-btn {
+  //если cart-item__quantity-number имеет минимальное значение 1 (единица) или максимальное (остаток 0)
+  .minimal-number &__minus-btn,
+  .maximum-number &__plus-btn {
     opacity: 0.2;
+    cursor: default;
   }
 
   &__buttons {

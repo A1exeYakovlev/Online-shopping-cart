@@ -621,9 +621,10 @@ body {
         margin: -0.31rem 0.8rem 0 1rem;
         height: 2.4rem;
         text-align: center; } }
-  .minimal-value .cart-item__minus-btn,
-  .maximum-value .cart-item__plus-btn {
-    opacity: 0.2; }
+  .minimal-number .cart-item__minus-btn,
+  .maximum-number .cart-item__plus-btn {
+    opacity: 0.2;
+    cursor: default; }
   .cart-item__buttons {
     padding-left: 0.1rem;
     display: flex;
