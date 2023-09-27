@@ -1066,6 +1066,12 @@ input:not(:placeholder-shown) + span {
     justify-content: space-between;
     align-items: flex-end;
 
+    & span {
+      display: flex;
+      align-items: flex-end;
+      justify-content: flex-end;
+    }
+
     @include responsive(tablet) {
       padding: 0 15vw;
     }

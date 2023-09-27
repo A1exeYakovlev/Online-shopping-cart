@@ -1084,6 +1084,10 @@ input:not(:placeholder-shown) + span {
   display: flex;
   justify-content: space-between;
   align-items: flex-end; }
+  .result__title-wrap span, .result__goods span, .result__discount span, .result__delivery span, .result__delivery-point span {
+    display: flex;
+    align-items: flex-end;
+    justify-content: flex-end; }
   @media (min-width: 39.375em) {
     .result__title-wrap, .result__goods, .result__discount, .result__delivery, .result__delivery-point {
       padding: 0 15vw; } }
