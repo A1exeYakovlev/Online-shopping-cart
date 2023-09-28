@@ -269,6 +269,26 @@ itemRemainsValArr.forEach((item, index) => {
   }
 })
 
+//Удаление товара из корзины
+cartItemsWrap.addEventListener("click", function (e) {
+  if (!e.target) { return };
+
+  if (e.target.classList.contains('cart-item__buttons-delete')) {
+    const clickedItem = e.target.dataset.item;
+    cartItemElArr[clickedItem - 1].style.opacity = "0";
+
+    cartItemElArr[clickedItem - 1].addEventListener('transitionend', function () {
+      cartItemElArr[clickedItem - 1].remove();
+    })
+
+    //Обнуление цен и количества удаленного товара, пересчет суммарных значений
+    itemDiscPriceValArr[clickedItem - 1] = 0;
+    itemFullPriceValArr[clickedItem - 1] = 0;
+    itemQuantValArr[clickedItem - 1] = 0;
+    calcTotal();
+  }
+})
+
 //Функционал изменения единиц одного товара кнопками +/-
 function quantBtns(buttonType) {
   cartItemsWrap.addEventListener("click", function (e) {
