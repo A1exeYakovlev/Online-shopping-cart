@@ -209,13 +209,15 @@
                 </h1>
                 <div class="cart__items-top">
                   <div class="cart__items-summary headline4">
-                    <span class="items-total-quantity">266 товаров</span> ·
-                    <span id="items-total-cost">2 100 569</span
+                    <span class="items-top-quantity">266 товаров</span> ·
+                    <span id="items-top-sum">2 100 569</span
                     ><span class="current-currency">&nbsp;сом</span>
                   </div>
                   <div class="cart__selectAll custom-checkbox">
                     <input
-                      class="custom-checkbox__input cart__selectAll-input"
+                      class="custom-checkbox__input cart__selectAll-input cart-item__select-input"
+                      checked
+                      data-item="all"
                       name="selectAll"
                       type="checkbox"
                       id="selectAll"
@@ -253,6 +255,8 @@
                       <div class="cart-item__select custom-checkbox">
                         <input
                           class="custom-checkbox__input cart-item__select-input"
+                          checked
+                          data-item="1"
                           name="selectItem1"
                           type="checkbox"
                           id="selectItem1"
@@ -416,6 +420,8 @@
                       <div class="cart-item__select custom-checkbox">
                         <input
                           class="custom-checkbox__input cart-item__select-input"
+                          checked
+                          data-item="2"
                           name="selectItem2"
                           type="checkbox"
                           id="selectItem2"
@@ -574,6 +580,8 @@
                       <div class="cart-item__select custom-checkbox">
                         <input
                           class="custom-checkbox__input cart-item__select-input"
+                          checked
+                          data-item="3"
                           name="selectItem3"
                           type="checkbox"
                           id="selectItem3"
@@ -757,7 +765,7 @@
                       <div class="cart-item__pic">
                         <div class="cart-item__select custom-checkbox">
                           <input
-                            class="custom-checkbox__input cart-item__select-input"
+                            class="custom-checkbox__input"
                             name="selectMissItem1"
                             type="checkbox"
                             id="selectMissItem1"
@@ -863,7 +871,7 @@
                       <div class="cart-item__pic">
                         <div class="cart-item__select custom-checkbox">
                           <input
-                            class="custom-checkbox__input cart-item__select-input"
+                            class="custom-checkbox__input"
                             name="selectMissItem2"
                             type="checkbox"
                             id="selectMissItem2"
@@ -968,7 +976,8 @@
                       <div class="cart-item__pic">
                         <div class="cart-item__select custom-checkbox">
                           <input
-                            class="custom-checkbox__input cart-item__select-input"
+                            class="custom-checkbox__input"
+                            data-item="6"
                             name="selectMissItem3"
                             type="checkbox"
                             id="selectMissItem3"
@@ -1322,7 +1331,7 @@
                 <div class="result__title-wrap">
                   <span class="result__title headline2">Итого</span>
                   <span class="result__total-price headline2"
-                    ><span class="result__total-price-value result-cost"
+                    ><span class="result__total-price-value items-result-cost"
                       >2 101 063</span
                     ><span
                       class="headline2 headline2--sm-for-desktop current-currency"
@@ -1331,18 +1340,18 @@
                   >
                 </div>
                 <div class="result__goods">
-                  <span class="body-text body-text items-total-quantity"
+                  <span class="body-text body-text items-result-quantity"
                     >203 товара</span
                   >
                   <span class="body-text body-text"
-                    ><span class="items-total-full">2 302 048</span
+                    ><span class="items-result-full">2 302 048</span
                     ><span class="current-currency">&nbsp;сом</span></span
                   >
                 </div>
                 <div class="result__discount">
                   <span class="body-text body-text">Скидка</span>
                   <span class="body-text body-text">
-                    <span class="items-total-discount">−200 985</span>
+                    <span class="items-result-discount">−200 985</span>
                     <span class="current-currency">&nbsp;сом</span></span
                   >
                 </div>
@@ -1396,7 +1405,7 @@
             <div class="result__title-wrap">
               <span class="result__title headline2">Итого</span>
               <span class="result__total-price headline2"
-                ><span class="result__total-price-value result-cost"
+                ><span class="result__total-price-value items-result-cost"
                   >2 101 063</span
                 ><span
                   class="headline2 headline2--sm-for-desktop current-currency"
@@ -1405,18 +1414,18 @@
               >
             </div>
             <div class="result__goods">
-              <span class="body-text body-text items-total-quantity"
+              <span class="body-text body-text items-result-quantity"
                 >203 товара</span
               >
               <span class="body-text body-text">
-                <span class="items-total-full">2 302 048</span>
+                <span class="items-result-full">2 302 048</span>
                 <span class="current-currency">&nbsp;сом</span></span
               >
             </div>
             <div class="result__discount">
               <span class="body-text body-text">Скидка</span>
               <span class="body-text body-text">
-                <span class="items-total-discount">−200 985</span>
+                <span class="items-result-discount">−200 985</span>
                 <span class="current-currency">&nbsp;сом</span></span
               >
             </div>

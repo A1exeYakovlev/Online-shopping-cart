@@ -51,7 +51,11 @@ const cartItem3El = document.getElementById("cart-item3");
 const cartItem4El = document.getElementById("cart-item4");
 const cartItem5El = document.getElementById("cart-item5");
 const cartItem6El = document.getElementById("cart-item6");
-const cartItemElArr = [cartItem1El, cartItem2El, cartItem3El, cartItem4El, cartItem5El, cartItem6El]
+const cartItemElArr = [cartItem1El, cartItem2El, cartItem3El, cartItem4El, cartItem5El, cartItem6El];
+
+const selectAllCheckboxEl = document.querySelector(".cart__selectAll-input");
+//selectCheckboxEl включает в себя selectAllCheckboxEl
+const selectCheckboxEl = document.querySelectorAll(".cart-item__select-input");
 
 const collapseBtnEl = document.querySelectorAll(".collapse-btn");
 const cartItems = document.querySelector(".cart__items");
@@ -92,12 +96,13 @@ const item2FullCurEl = document.getElementById("cart-item2-full-cur");
 const item3FullCurEl = document.getElementById("cart-item3-full-cur");
 
 //Total
-const itemsTotalQuantEl = document.querySelectorAll(".items-total-quantity");
-const itemsTotalCostEl = document.getElementById("items-total-cost");
+const itemsTopQuantEl = document.querySelectorAll(".items-top-quantity");
+const selectedResultQuantEl = document.querySelectorAll(".items-result-quantity");
+const itemsTopSumEl = document.getElementById("items-top-sum");
 const missItemsTopEl = document.querySelector(".cart__missing-title");
-const resultCostEl = document.querySelectorAll(".result-cost");
-const itemsTotalFullPriceEl = document.querySelectorAll(".items-total-full");
-const itemsTotalDiscountEl = document.querySelectorAll(".items-total-discount");
+const selectedResultCostEl = document.querySelectorAll(".items-result-cost");
+const selectedResultFullPriceEl = document.querySelectorAll(".items-result-full");
+const selectedResultDiscountEl = document.querySelectorAll(".items-result-discount");
 const deliveryCostEl = document.querySelectorAll(".delivery-cost");
 
 ////Начальные функции
@@ -225,45 +230,102 @@ item2FullCurEl.textContent = "\u00A0" + item2FullCurVal;
 item3FullCurEl.textContent = "\u00A0" + item3FullCurVal;
 
 //Total
-let itemsTotalQuantVal;
-let itemsTotalCostVal;
-let itemsTotalFullPriceVal;
-let itemsTotalDiscountVal;
-let resultCostVal;
+let itemsTopQuantVal;
+let itemsTopSumVal;
+let missItemsTopVal;
+let selectedResultFullPriceVal;
+let selectedResultDiscPriceVal;
+let selectedResultDiscountVal;
+let selectedResultCostVal;
 let deliveryCostVal = storeTerms.deliveryCost;
+let selectedResultQuantVal;
+const selectedResultQuantValArr = [];
+const selectedResultDiscPriceValArr = [];
+const selectedResultFullPriceValArr = [];
+
 deliveryCostEl.forEach((el) => {
   deliveryCostVal === 0 ? el.textContent = "Бесплатно" : el.textContent = deliveryCostVal;
 })
 
 //Подсчет отсутствующих товаров
 const calcMissItems = function () {
-  let missItemsTopVal = document.querySelectorAll(".cart-item--missing").length;
+  missItemsTopVal = document.querySelectorAll(".cart-item--missing").length;
   missItemsTopEl.textContent = quantityFormatting(missItemsTopVal);
 }
 
 calcMissItems();
 
-////Расчет суммарных значений по корзине
-const calcTotal = function () {
-  itemsTotalQuantVal = itemQuantValArr.reduce((sum, item) => sum += item);
-  itemsTotalQuantEl.forEach((el) => { el.textContent = quantityFormatting(itemsTotalQuantVal) });
+// Чекбокс "Выбрать все"
+selectAllCheckboxEl.addEventListener("click", function () {
+  selectCheckboxEl.forEach((el) => {
+    el.checked = selectAllCheckboxEl.checked;
+  })
+})
 
-  //Сумма по товарам в корзине при сворачивании блока
-  itemsTotalCostVal = itemDiscPriceValArr.reduce((sum, item) => sum += item);
-  itemsTotalCostEl.textContent = priceFormatting(itemsTotalCostVal, "largeSpace");
+//пересчет данных после клика на чекбоксе
+selectCheckboxEl.forEach((el) => {
+  el.addEventListener(
+    "click", function () {
+      calcResult();
 
-  //Итоговая сумма по товарам с учетом стоимости доставки
-  itemsTotalFullPriceVal = itemFullPriceValArr.reduce((sum, item) => sum += item);
-  itemsTotalFullPriceEl.forEach((el) => { el.textContent = priceFormatting(itemsTotalFullPriceVal, "largeSpace") });
+      //снятие галочки с "выбрать все"
+      if (el.dataset.item !== "all") {
+        if (!this.checked) { selectAllCheckboxEl.checked = false; };
+      }
+    })
+})
 
-  itemsTotalDiscountVal = itemsTotalFullPriceVal - itemsTotalCostVal;
-  itemsTotalDiscountEl.forEach((el) => { el.textContent = "−" + priceFormatting(itemsTotalDiscountVal) });
+////Расчет суммарных значений 
 
-  resultCostVal = itemsTotalFullPriceVal - itemsTotalDiscountVal + deliveryCostVal;
-  resultCostEl.forEach((el) => { el.textContent = priceFormatting(resultCostVal, "largeSpace") });
+//Сумма по товарам в корзине наверху при сворачивании блока
+const calcTopSum = function () {
+
+  itemsTopQuantVal = itemQuantValArr.reduce((sum, item) => sum += item);
+  itemsTopQuantEl.forEach((el) => { el.textContent = quantityFormatting(itemsTopQuantVal) });
+
+  itemsTopSumVal = itemDiscPriceValArr.reduce((sum, item) => sum += item);
+  itemsTopSumEl.textContent = priceFormatting(itemsTopSumVal, "largeSpace");
 }
 
-calcTotal();
+calcTopSum();
+
+//Итоговый результат расчетов по выбранным товарам с учетом стоимости доставки
+
+const calcResult = function () {
+  //Cбор значений по выбранным товарам
+  selectCheckboxEl.forEach((el) => {
+
+    if (el.checked && el.dataset.item !== "all") {
+      selectedResultQuantValArr.push(itemQuantValArr[el.dataset.item - 1]);
+      selectedResultDiscPriceValArr.push(itemDiscPriceValArr[el.dataset.item - 1]);
+      selectedResultFullPriceValArr.push(itemFullPriceValArr[el.dataset.item - 1]);
+    }
+  });
+
+  //подсчет сумм значений по выбранным товарам
+  selectedResultQuantValArr.length === 0 ? selectedResultQuantVal = 0 : selectedResultQuantVal = selectedResultQuantValArr.reduce((sum, item) => sum += item);
+  selectedResultDiscPriceValArr.length === 0 ? selectedResultDiscPriceVal = 0 : selectedResultDiscPriceVal = selectedResultDiscPriceValArr.reduce((sum, item) => sum += item);
+  selectedResultFullPriceValArr.length === 0 ? selectedResultFullPriceVal = 0 : selectedResultFullPriceVal = selectedResultFullPriceValArr.reduce((sum, item) => sum += item);
+
+  //вывод результатов
+  selectedResultQuantEl.forEach((el) => { el.textContent = quantityFormatting(selectedResultQuantVal) });
+  selectedResultFullPriceEl.forEach((el) => { el.textContent = priceFormatting(selectedResultFullPriceVal, "largeSpace") });
+
+  selectedResultDiscountVal = selectedResultFullPriceVal - selectedResultDiscPriceVal;
+  selectedResultDiscountEl.forEach((el) => { el.textContent = "−" + priceFormatting(selectedResultDiscountVal) });
+
+  selectedResultCostVal = selectedResultFullPriceVal - selectedResultDiscountVal + deliveryCostVal;
+  selectedResultCostEl.forEach((el) => {
+    el.textContent = priceFormatting(selectedResultCostVal, "largeSpace")
+  });
+
+  //очистка массивов с данными по выбранным товарам
+  selectedResultQuantValArr.length = 0;
+  selectedResultDiscPriceValArr.length = 0;
+  selectedResultFullPriceValArr.length = 0;
+}
+
+calcResult();
 
 ////Изменение количества товаров
 
@@ -281,9 +343,9 @@ itemRemainsValArr.forEach((item, index) => {
 
 //Удаление товара из корзины
 cartItems.addEventListener("click", function (e) {
-  if (!e.target) { return };
+  if (!e.target) { return }
 
-  if (e.target.classList.contains('cart-item__buttons-delete')) {
+  else if (e.target.classList.contains('cart-item__buttons-delete')) {
     const wasMissItem = e.target.closest(".cart__missing");
     const clickedItem = e.target.dataset.item;
     cartItemElArr[clickedItem - 1].style.opacity = "0";
@@ -299,7 +361,8 @@ cartItems.addEventListener("click", function (e) {
         itemDiscPriceValArr[clickedItem - 1] = 0;
         itemFullPriceValArr[clickedItem - 1] = 0;
         itemQuantValArr[clickedItem - 1] = 0;
-        calcTotal();
+        calcTopSum();
+        calcResult();
       }
     })
   }
@@ -308,13 +371,20 @@ cartItems.addEventListener("click", function (e) {
 //Функционал изменения единиц одного товара кнопками +/-
 function quantBtns(buttonType) {
   cartItemsWrap.addEventListener("click", function (e) {
+    if (!e.target) { return }
 
-    if (!e.target) { return };
-
-    if (e.target.classList.contains(`cart-item__${buttonType}-btn`)) {
+    else if (e.target.classList.contains(`cart-item__${buttonType}-btn`)) {
 
       // определяем номер cart-item, в котором произошел клик
       const clickedItem = e.target.dataset.item;
+
+      //функция пересчета цены
+      const priceRecalc = function () {
+        itemDiscPriceValArr[clickedItem - 1] = cartItemObjArr[clickedItem - 1].discPrice.value * itemQuantValArr[clickedItem - 1];
+        itemDiscPriceElArr[clickedItem - 1].textContent = priceFormatting(itemDiscPriceValArr[clickedItem - 1]);
+        itemFullPriceValArr[clickedItem - 1] = cartItemObjArr[clickedItem - 1].fullPrice.value * itemQuantValArr[clickedItem - 1];
+        itemFullPriceElArr[clickedItem - 1].textContent = priceFormatting(itemFullPriceValArr[clickedItem - 1], "smallSpace", 6);
+      }
 
       //кнопка минус выключается, когда выбрана 1 единица товара
       if (buttonType === "minus" && itemQuantValArr[clickedItem - 1] != 1) {
@@ -330,13 +400,23 @@ function quantBtns(buttonType) {
         if (itemQuantValArr[clickedItem - 1] === 1) {
           cartItemElArr[clickedItem - 1].classList.add("minimal-number");
         }
+
+        priceRecalc();
+
+        //пересчет суммарных значений наверху корзины
+        calcTopSum();
+
+        //пересчет результатов для выбранных товаров (clickedItem совпадает по индексу в selectCheckboxEl)
+        if (selectCheckboxEl[clickedItem].checked) {
+          calcResult();
+        }
       }
 
       //кнопка плюс выключается, когда остаток товара 0
       if (buttonType === "plus" && itemRemainsValArr[clickedItem - 1] != 0) {
 
         itemQuantValArr[clickedItem - 1] += 1;
-        itemQuantElArr[clickedItem - 1].textContent = itemQuantValArr[clickedItem - 1]
+        itemQuantElArr[clickedItem - 1].textContent = itemQuantValArr[clickedItem - 1];
 
         itemRemainsValArr[clickedItem - 1] -= 1;
         itemRemainsElArr[clickedItem - 1].textContent = remainsComment(itemRemainsValArr[clickedItem - 1]);
@@ -347,16 +427,17 @@ function quantBtns(buttonType) {
         if (itemRemainsValArr[clickedItem - 1] === 0) {
           cartItemElArr[clickedItem - 1].classList.add("maximum-number");
         }
+
+        priceRecalc();
+
+        //пересчет суммарных значений наверху корзины
+        calcTopSum();
+
+        //пересчет результатов для выбранных товаров (clickedItem совпадает по индексу в selectCheckboxEl)
+        if (selectCheckboxEl[clickedItem].checked) {
+          calcResult();
+        }
       }
-
-      //пересчет цены
-      itemDiscPriceValArr[clickedItem - 1] = cartItemObjArr[clickedItem - 1].discPrice.value * itemQuantValArr[clickedItem - 1]
-      itemDiscPriceElArr[clickedItem - 1].textContent = priceFormatting(itemDiscPriceValArr[clickedItem - 1]);
-      itemFullPriceValArr[clickedItem - 1] = cartItemObjArr[clickedItem - 1].fullPrice.value * itemQuantValArr[clickedItem - 1]
-      itemFullPriceElArr[clickedItem - 1].textContent = priceFormatting(itemFullPriceValArr[clickedItem - 1], "smallSpace", 6);
-
-      //пересчет итоговых значений
-      calcTotal();
     }
   })
 }
