@@ -377,7 +377,7 @@ body {
     .cart__title {
       margin-top: 1.95rem; } }
   .cart__items-top {
-    margin: 1.5rem 0 1.5rem 0;
+    margin: 1.4rem 0 1.54rem 0;
     display: flex;
     justify-content: space-between;
     align-items: center; }
@@ -395,14 +395,13 @@ body {
     margin-top: -0.3rem; }
   .cart__selectAll-label {
     margin-bottom: 0.2rem;
-    display: flex;
-    position: relative;
-    bottom: 0.1015rem; }
+    display: flex; }
   .cart__selectAll-checkbox {
     display: block;
-    margin: 0.25rem 1.1rem 0 0;
-    position: relative;
-    top: 0.02rem; }
+    margin: 0.29rem 1.09rem 0 0; }
+    @media (min-width: 64em) {
+      .cart__selectAll-checkbox {
+        margin: 0.25rem 1.1rem 0 0; } }
     .cart__selectAll-checkbox::before {
       opacity: 0; }
   .cart__selectAll-input:checked ~ .cart__selectAll-label .cart__selectAll-checkbox::before {
@@ -411,7 +410,7 @@ body {
     display: none; }
   .cart__collapse-btn {
     display: block;
-    margin-right: 0.4rem;
+    margin: 0.2rem 0.4rem 0 0;
     border: transparent;
     background-color: transparent;
     width: 2rem;
@@ -472,7 +471,7 @@ body {
       .cart__receiver {
         margin-top: 1.6rem; } }
   .cart__result {
-    margin-top: 2.37rem; }
+    margin-top: 2.39rem; }
     @media (min-width: 64em) {
       .cart__result {
         display: none; } }
@@ -607,7 +606,7 @@ body {
     .cart-item__quantity span {
       display: block;
       width: 3.2rem;
-      margin-top: -0.5rem;
+      margin-top: -0.3rem;
       text-align: center; }
       @media (min-width: 64em) {
         .cart-item__quantity span {
@@ -616,7 +615,7 @@ body {
           height: 2.3rem; } }
   .cart-item__plus-btn, .cart-item__minus-btn {
     height: 3.2rem;
-    margin: -0.5rem 0.67rem 0rem 0.8rem; }
+    margin: -0.34rem 0.67rem 0rem 0.8rem; }
     @media (min-width: 64em) {
       .cart-item__plus-btn, .cart-item__minus-btn {
         margin: -0.31rem 0.8rem 0 1rem;
@@ -752,7 +751,7 @@ body {
   margin-top: 0.4rem; }
 
 .multiline-name .cart-item__name {
-  margin-top: 0.11rem; }
+  margin-top: 0.13rem; }
   @media (min-width: 64em) {
     .multiline-name .cart-item__name {
       margin-top: 0.03rem; } }
@@ -824,12 +823,12 @@ body {
       grid-template: "picture . name management ." min-content "picture . properties . ." min-content "picture . . . ." min-content / 7.2rem 1.6rem auto auto 12.6rem; } }
 
 .delivery {
-  padding: 1.7rem 0 1.55rem 0;
+  padding: 1.72rem 0 1.55rem 0;
   border-radius: 1.6rem;
   background: var(--system-white); }
   @media (min-width: 39.375em) {
     .delivery {
-      padding: 1.54rem 0 1.94rem 0; } }
+      padding: 1.6rem 0 1.94rem 0; } }
   .delivery__title-wrap {
     display: flex;
     justify-content: space-between;
@@ -844,8 +843,11 @@ body {
       .delivery__delivery-point {
         margin-top: 1.6rem; } }
   .delivery__schedule {
-    margin-top: 0.35rem;
+    margin-top: 0.33rem;
     position: relative; }
+    @media (min-width: 64em) {
+      .delivery__schedule {
+        margin-top: 0.35rem; } }
     .delivery__schedule::before {
       content: "";
       display: inline-block;
@@ -853,12 +855,12 @@ body {
       height: 1.2rem;
       width: 1.2rem;
       position: relative;
-      top: 0.09rem;
+      top: 0.05rem;
       background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="12" height="13" viewBox="0 0 12 13" fill="none"><path fill-rule="evenodd" clip-rule="evenodd" d="M6.69769 1.48247C6.43817 0.861648 5.56198 0.861639 5.30244 1.48244L6.69769 1.48247ZM5.30244 1.48244L4.14719 4.24303L1.19202 4.49939C0.519264 4.55792 0.262282 5.39291 0.759713 5.82789L3.00514 7.7924L2.33207 10.7156C2.18436 11.3571 2.87792 11.89 3.46133 11.5356L6.00032 9.98936L8.53797 11.5348C9.12269 11.892 9.81568 11.3559 9.66861 10.7159L8.99549 7.79241L11.2402 5.82862C11.7385 5.39286 11.4793 4.55844 10.8083 4.49992L7.85294 4.24355L6.69769 1.48247" fill="%23FF970D"/></svg>'); }
     .delivery__schedule span {
       margin-right: 0.85rem; }
   .delivery__charge {
-    margin-top: 1.6rem;
+    margin-top: 1.63rem;
     padding-bottom: 0.42rem; }
     @media (min-width: 39.375em) {
       .delivery__charge {
@@ -868,7 +870,7 @@ body {
     margin-top: 1.2rem; }
     @media (min-width: 39.375em) {
       .delivery__date {
-        margin-top: 1.62rem; } }
+        margin-top: 1.6rem; } }
   .delivery__items {
     padding: 1.2rem 0;
     display: flex;
@@ -956,7 +958,7 @@ body {
 
 .result__refuse-descr::before {
   left: 0.8rem;
-  top: 47%;
+  top: 46%;
   transform: translateY(-50%); }
 
 .change-btn {
@@ -1034,10 +1036,10 @@ body {
   .receiver__tax-number-label {
     position: relative; }
   .receiver__tax-number-descr {
-    position: absolute;
-    bottom: -0.1rem;
-    left: -0.08rem;
     display: block;
+    position: absolute;
+    bottom: -0.2rem;
+    left: -0.1rem;
     height: 1rem; }
     @media (min-width: 64em) {
       .receiver__tax-number-descr {
@@ -1103,7 +1105,7 @@ input:not(:placeholder-shown) + span {
     padding: 0; } }
 
 .result__goods {
-  margin-top: 0.65rem; }
+  margin-top: 0.6rem; }
   @media (min-width: 64em) {
     .result__goods {
       margin-top: 0.7rem; } }
@@ -1132,17 +1134,19 @@ input:not(:placeholder-shown) + span {
   margin-top: 0.58rem; }
 
 .result__refuse-descr {
-  margin-top: 1.68rem;
-  padding: 0.9rem 0.8rem 1rem 3.8rem; }
+  margin-top: 1.8rem;
+  padding: 0.9rem 0.8rem 1.06rem 3.8rem; }
   @media (min-width: 64em) {
     .result__refuse-descr {
-      margin-top: 0.9rem; } }
+      margin-top: 0.9rem;
+      padding: 0.9rem 0.8rem 1.1rem 3.8rem; } }
 
 .result__payment {
   margin-top: 0.7rem; }
   @media (min-width: 64em) {
     .result__payment {
-      padding-bottom: 1.2rem; } }
+      padding-bottom: 1.2rem;
+      margin-top: 0.6rem; } }
 
 @media (min-width: 64em) {
   .result__payment-title {
@@ -1166,6 +1170,9 @@ input:not(:placeholder-shown) + span {
   border-radius: 0.8rem;
   background: var(--system-magenta);
   border: transparent; }
+  @media (min-width: 64em) {
+    .result__order {
+      margin-top: 2.45rem; } }
 
 .result__terms {
   margin-top: 1.19rem;
@@ -1175,7 +1182,7 @@ input:not(:placeholder-shown) + span {
     content: "";
     display: block;
     position: absolute;
-    left: 0;
+    left: -0.03rem;
     top: 0;
     width: 1.3rem;
     height: 2.4rem;
@@ -1186,7 +1193,7 @@ input:not(:placeholder-shown) + span {
     display: none; } }
 
 .result__pay-option {
-  margin-top: 1.7rem; }
+  margin-top: 1.66rem; }
   @media (min-width: 64em) {
     .result__pay-option {
       margin-top: 0rem; } }
