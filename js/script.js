@@ -167,6 +167,21 @@ const quantityFormatting = function (quantity) {
   return quantityComment;
 };
 
+//Форматирование комментария по отсутствию товаров
+const missingFormatting = function (quantity) {
+  let missingComment;
+
+  if (quantity % 10 === 1 && quantity % 100 !== 11) {
+    missingComment = "Отсутствует · ";
+  }
+
+  else {
+    missingComment = "Отсутствуют · ";
+  }
+
+  return missingComment + quantityFormatting(quantity);;
+};
+
 ////Заполнение начальных значений
 
 //Quantity
@@ -250,7 +265,7 @@ deliveryCostEl.forEach((el) => {
 //Подсчет отсутствующих товаров
 const calcMissItems = function () {
   missItemsTopVal = document.querySelectorAll(".cart-item--missing").length;
-  missItemsTopEl.textContent = quantityFormatting(missItemsTopVal);
+  missItemsTopEl.textContent = missingFormatting(missItemsTopVal);
 }
 
 calcMissItems();

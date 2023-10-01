@@ -237,6 +237,7 @@
     ". . . ." 1.2rem
     "management management management management" 3.2rem
     / 8rem 1.6rem auto 7.6rem;
+  transition: opacity 0.5s ease-out;
 
   @include responsive(desktop-sm) {
     grid-template:
@@ -247,7 +248,6 @@
       / 10.6rem 1.6rem 27.5rem auto 10rem 1.6rem 11rem;
     padding-top: 1.15rem;
     border-top: none;
-    transition: opacity 0.5s ease-out;
   }
 
   &__pic {

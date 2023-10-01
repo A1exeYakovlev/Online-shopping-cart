@@ -507,13 +507,13 @@ body {
   display: grid;
   grid-auto-columns: 0;
   border-top: 0.1rem solid rgba(0, 0, 0, 0.1);
-  grid-template: "picture . price price" 2.4rem "picture . name name" min-content "picture . properties properties" min-content "picture . storage storage" min-content ". . . ." 1.2rem "management management management management" 3.2rem / 8rem 1.6rem auto 7.6rem; }
+  grid-template: "picture . price price" 2.4rem "picture . name name" min-content "picture . properties properties" min-content "picture . storage storage" min-content ". . . ." 1.2rem "management management management management" 3.2rem / 8rem 1.6rem auto 7.6rem;
+  transition: opacity 0.5s ease-out; }
   @media (min-width: 64em) {
     .cart-item {
       grid-template: "picture . name . management . price" min-content "picture . properties . management . price" min-content "picture . storage . management . ." min-content "picture . seller . management . ." min-content / 10.6rem 1.6rem 27.5rem auto 10rem 1.6rem 11rem;
       padding-top: 1.15rem;
-      border-top: none;
-      transition: opacity 0.5s ease-out; } }
+      border-top: none; } }
   .cart-item__pic {
     grid-area: picture;
     display: block;
