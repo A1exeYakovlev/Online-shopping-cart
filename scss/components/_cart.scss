@@ -239,6 +239,11 @@
     / 8rem 1.6rem auto 7.6rem;
   transition: opacity 0.5s ease-out;
 
+  @include responsive(tablet) {
+    padding-left: 10vw;
+    padding-right: 10vw;
+  }
+
   @include responsive(desktop-sm) {
     grid-template:
       "picture . name . management . price" min-content
@@ -246,7 +251,7 @@
       "picture . storage . management . ." min-content
       "picture . seller . management . ." min-content
       / 10.6rem 1.6rem 27.5rem auto 10rem 1.6rem 11rem;
-    padding-top: 1.15rem;
+    padding: 1.15rem 0 0 0;
     border-top: none;
   }
 
@@ -337,10 +342,6 @@
     align-items: center;
     justify-content: space-between;
     gap: 1.6rem;
-
-    @include responsive(tablet) {
-      padding: 0 15vw;
-    }
 
     @include responsive(desktop-sm) {
       flex-direction: column;
@@ -948,9 +949,14 @@
     }
 
     &-date {
-      margin-left: 1.2rem;
+      margin-left: 1.3rem;
+
+      @include responsive(desktop-sm) {
+        margin-left: 1.2rem;
+      }
     }
   }
+
   &__descr {
     margin-top: 0.8rem;
   }
@@ -1082,12 +1088,18 @@ input:not(:placeholder-shown) + span {
     }
 
     @include responsive(tablet) {
-      padding: 0 15vw;
+      margin: 0 auto;
+      width: 35rem;
     }
 
     @include responsive(desktop-sm) {
-      padding: 0;
+      width: auto;
     }
+  }
+
+  &__goods,
+  &__discount {
+    margin-right: 0.05rem;
   }
 
   .container {
@@ -1241,8 +1253,12 @@ input:not(:placeholder-shown) + span {
 
     &-checkbox {
       display: block;
-      margin: 0 0.8rem 0 0;
+      margin: -0.03rem 0.8rem 0 0;
       flex: 0 0 auto;
+
+      @include responsive(desktop-sm) {
+        margin: 0 0.8rem 0 0;
+      }
 
       &::before {
         opacity: 0;
