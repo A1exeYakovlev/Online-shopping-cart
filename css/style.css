@@ -269,9 +269,13 @@ body {
   position: relative; }
 
 .header__profile-badge, .header__cart-badge {
-  position: absolute;
-  top: -0.4rem;
-  right: 0.5rem; }
+  top: -0.4rem; }
+  .header__profile-badge.badge-count--1digit, .header__cart-badge.badge-count--1digit {
+    right: 0.5rem; }
+  .header__profile-badge.badge-count--2digit, .header__cart-badge.badge-count--2digit {
+    right: 0.1rem; }
+  .header__profile-badge.badge-count--3digit, .header__cart-badge.badge-count--3digit {
+    right: -0.6rem; }
 
 .header__title {
   margin-top: -0.87rem; }
@@ -1315,8 +1319,19 @@ input:not(:placeholder-shown) + span {
 .navbar__profile-badge,
 .navbar__favourites-badge,
 .navbar__cart-badge {
-  top: -0.4rem;
-  right: -0.6rem; }
+  top: -0.4rem; }
+  .navbar__profile-badge.badge-count--1digit,
+  .navbar__favourites-badge.badge-count--1digit,
+  .navbar__cart-badge.badge-count--1digit {
+    right: -0.6rem; }
+  .navbar__profile-badge.badge-count--2digit,
+  .navbar__favourites-badge.badge-count--2digit,
+  .navbar__cart-badge.badge-count--2digit {
+    right: -1rem; }
+  .navbar__profile-badge.badge-count--3digit,
+  .navbar__favourites-badge.badge-count--3digit,
+  .navbar__cart-badge.badge-count--3digit {
+    right: -1.7rem; }
 
 .badge-count {
   position: absolute;
@@ -1331,6 +1346,12 @@ input:not(:placeholder-shown) + span {
   height: 1.6rem; }
   .badge-count--1digit {
     display: flex; }
+  .badge-count--2digit {
+    display: flex;
+    width: 2rem; }
+  .badge-count--3digit {
+    display: flex;
+    width: 2.63582rem; }
 
 .container {
   margin: 0 auto;

@@ -57,6 +57,8 @@ const selectAllCheckboxEl = document.querySelector(".cart__selectAll-input");
 //selectCheckboxEl включает в себя selectAllCheckboxEl
 const selectCheckboxEl = document.querySelectorAll(".cart-item__select-input");
 
+const cartBadgeEl = document.querySelectorAll(".cart-badge");
+
 const collapseBtnEl = document.querySelectorAll(".collapse-btn");
 const cartItems = document.querySelector(".cart__items");
 const cartItemsWrap = document.querySelector(".cart__items-wrap");
@@ -297,6 +299,29 @@ const calcTopSum = function () {
 
   itemsTopQuantVal = itemQuantValArr.reduce((sum, item) => sum += item);
   itemsTopQuantEl.forEach((el) => { el.textContent = quantityFormatting(itemsTopQuantVal) });
+
+  //показываем общее количество товаров над значком корзины
+  cartBadgeEl.forEach((el) => {
+    el.textContent = itemsTopQuantVal;
+
+    if (itemsTopQuantVal >= 0 && itemsTopQuantVal < 10) {
+      el.classList.remove("badge-count--2digit");
+      el.classList.remove("badge-count--3digit");
+      el.classList.add("badge-count--1digit")
+    }
+
+    else if (itemsTopQuantVal >= 10 && itemsTopQuantVal < 100) {
+      el.classList.remove("badge-count--1digit");
+      el.classList.remove("badge-count--3digit");
+      el.classList.add("badge-count--2digit")
+    }
+
+    else if (itemsTopQuantVal >= 100) {
+      el.classList.remove("badge-count--1digit");
+      el.classList.remove("badge-count--2digit");
+      el.classList.add("badge-count--3digit")
+    }
+  })
 
   itemsTopSumVal = itemDiscPriceValArr.reduce((sum, item) => sum += item);
   itemsTopSumEl.textContent = priceFormatting(itemsTopSumVal, "largeSpace");

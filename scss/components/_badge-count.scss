@@ -13,4 +13,14 @@
   &--1digit {
     display: flex;
   }
+
+  &--2digit {
+    display: flex;
+    width: 2rem;
+  }
+
+  &--3digit {
+    display: flex;
+    width: 2.63582rem;
+  }
 }

@@ -32,5 +32,16 @@
 .navbar__favourites-badge,
 .navbar__cart-badge {
   top: -0.4rem;
-  right: -0.6rem;
+
+  &.badge-count--1digit {
+    right: -0.6rem;
+  }
+
+  &.badge-count--2digit {
+    right: -1rem;
+  }
+
+  &.badge-count--3digit {
+    right: -1.7rem;
+  }
 }

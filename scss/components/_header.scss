@@ -57,9 +57,19 @@
 
   &__profile-badge,
   &__cart-badge {
-    position: absolute;
     top: -0.4rem;
-    right: 0.5rem;
+
+    &.badge-count--1digit {
+      right: 0.5rem;
+    }
+
+    &.badge-count--2digit {
+      right: 0.1rem;
+    }
+
+    &.badge-count--3digit {
+      right: -0.6rem;
+    }
   }
 
   &__title {
