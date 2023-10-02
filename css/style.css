@@ -1107,6 +1107,12 @@ input:not(:placeholder-shown) + span {
 
 .result__goods, .result__discount {
   margin-right: 0.05rem; }
+  @media (min-width: 41.875em) {
+    .result__goods, .result__discount {
+      margin: 0 auto; } }
+  @media (min-width: 64em) {
+    .result__goods, .result__discount {
+      margin-right: 0.05rem; } }
 
 @media (min-width: 64em) {
   .result .container {

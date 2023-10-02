@@ -1100,6 +1100,14 @@ input:not(:placeholder-shown) + span {
   &__goods,
   &__discount {
     margin-right: 0.05rem;
+
+    @include responsive(tablet) {
+      margin: 0 auto;
+    }
+
+    @include responsive(desktop-sm) {
+      margin-right: 0.05rem;
+    }
   }
 
   .container {
