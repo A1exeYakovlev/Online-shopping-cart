@@ -766,7 +766,7 @@
     }
   }
 
-  &__items {
+  &__items-wrap {
     padding: 1.2rem 0;
     display: flex;
     align-items: center;
@@ -777,7 +777,7 @@
     }
   }
 
-  &__item-wrap {
+  &__item {
     display: flex;
     align-items: center;
     position: relative;
@@ -798,37 +798,25 @@
   }
 
   &__item-quantity {
-    display: none;
-    justify-content: center;
-    align-items: center;
-    position: absolute;
     top: -0.9rem;
     right: -0.2rem;
-    z-index: 2;
-    border-radius: 1.6rem;
-    background: var(--system-red);
-    width: 1.6rem;
-    height: 1.6rem;
-    padding: 0.1rem 0.2rem 0rem 0.2rem;
 
-    &--1digit {
+    &.badge-count--1digit {
       display: flex;
     }
 
-    &--2digit {
+    &.badge-count--2digit {
       display: flex;
-      top: -0.55rem;
-      right: -0.45rem;
+      top: -0.54rem;
+      right: -0.4rem;
       width: 2rem;
-      padding: 0.1rem 0.4rem 0rem 0.4rem;
     }
 
-    &--3digit {
+    &.badge-count--3digit {
       display: flex;
       width: 2.63582rem;
       top: -0.8rem;
       right: -0.35rem;
-      padding: 0.1rem 0.4rem 0rem 0.4rem;
     }
   }
 

@@ -876,52 +876,40 @@ body {
     @media (min-width: 41.875em) {
       .delivery__date {
         margin-top: 1.6rem; } }
-  .delivery__items {
+  .delivery__items-wrap {
     padding: 1.2rem 0;
     display: flex;
     align-items: center;
     gap: 0.8rem; }
     @media (min-width: 41.875em) {
-      .delivery__items {
+      .delivery__items-wrap {
         padding: 0; } }
-  .delivery__item-wrap {
+  .delivery__item {
     display: flex;
     align-items: center;
     position: relative;
     z-index: 1; }
-    .delivery__item-wrap img {
+    .delivery__item img {
       display: block;
       width: 4.09255rem;
       height: 5.6rem;
       border-radius: 0.8rem;
       background: linear-gradient(0deg, rgba(0, 0, 0, 0.05) 0%, rgba(0, 0, 0, 0.05) 100%), url(<path-to-image>), lightgray 50%/cover no-repeat; }
   .delivery__item-quantity {
-    display: none;
-    justify-content: center;
-    align-items: center;
-    position: absolute;
     top: -0.9rem;
-    right: -0.2rem;
-    z-index: 2;
-    border-radius: 1.6rem;
-    background: var(--system-red);
-    width: 1.6rem;
-    height: 1.6rem;
-    padding: 0.1rem 0.2rem 0rem 0.2rem; }
-    .delivery__item-quantity--1digit {
+    right: -0.2rem; }
+    .delivery__item-quantity.badge-count--1digit {
       display: flex; }
-    .delivery__item-quantity--2digit {
+    .delivery__item-quantity.badge-count--2digit {
       display: flex;
-      top: -0.55rem;
-      right: -0.45rem;
-      width: 2rem;
-      padding: 0.1rem 0.4rem 0rem 0.4rem; }
-    .delivery__item-quantity--3digit {
+      top: -0.54rem;
+      right: -0.4rem;
+      width: 2rem; }
+    .delivery__item-quantity.badge-count--3digit {
       display: flex;
       width: 2.63582rem;
       top: -0.8rem;
-      right: -0.35rem;
-      padding: 0.1rem 0.4rem 0rem 0.4rem; }
+      right: -0.35rem; }
   .delivery__refuse-descr {
     margin: 0.5rem 0 0 0;
     padding: 0.75rem 0.8rem 0.8rem 3.8rem; }
@@ -1338,7 +1326,7 @@ input:not(:placeholder-shown) + span {
   display: none;
   justify-content: center;
   align-items: center;
-  padding: 0.2rem 0;
+  padding: 0.2rem 0.2rem;
   z-index: 2;
   border-radius: 1.6rem;
   background: var(--system-red);
@@ -1348,9 +1336,11 @@ input:not(:placeholder-shown) + span {
     display: flex; }
   .badge-count--2digit {
     display: flex;
+    padding: 0.2rem 0.4rem;
     width: 2rem; }
   .badge-count--3digit {
     display: flex;
+    padding: 0.2rem 0.4rem;
     width: 2.63582rem; }
 
 .container {

@@ -10,7 +10,10 @@ const cartItem1Obj = {
   quantity: 1,
   remains: 2,
   discPrice: { value: 522, currency: "сом" },
-  fullPrice: { value: 1051, currency: "сом" }
+  fullPrice: { value: 1051, currency: "сом" },
+  delivery: [{ date: "5—6 февраля", quantity: 3 }, { date: "7—8 февраля", quantity: 100 }],
+  imgAlt: "Футболка мужская",
+  idNum: 1
 }
 
 const cartItem2Obj = {
@@ -21,7 +24,10 @@ const cartItem2Obj = {
   quantity: 200,
   remains: undefined,
   discPrice: { value: 10500.235, currency: "сом" },
-  fullPrice: { value: 11500.235, currency: "сом" }
+  fullPrice: { value: 11500.235, currency: "сом" },
+  delivery: [{ date: "5—6 февраля", quantity: 184 }, { date: "7—8 февраля", quantity: 300 }],
+  imgAlt: "Силиконовый чехол для iPhone",
+  idNum: 2
 }
 
 const cartItem3Obj = {
@@ -32,7 +38,10 @@ const cartItem3Obj = {
   quantity: 2,
   remains: 2,
   discPrice: { value: 247, currency: "сом" },
-  fullPrice: { value: 475, currency: "сом" }
+  fullPrice: { value: 475, currency: "сом" },
+  delivery: [{ date: "5—6 февраля", quantity: 4 }, { date: "7—8 февраля", quantity: undefined }],
+  imgAlt: "Набор цветных карандашей",
+  idNum: 3
 }
 
 const cartItemObjArr = [cartItem1Obj, cartItem2Obj, cartItem3Obj];
@@ -58,7 +67,6 @@ const selectAllCheckboxEl = document.querySelector(".cart__selectAll-input");
 const selectCheckboxEl = document.querySelectorAll(".cart-item__select-input");
 
 const cartBadgeEl = document.querySelectorAll(".cart-badge");
-
 const collapseBtnEl = document.querySelectorAll(".collapse-btn");
 const cartItems = document.querySelector(".cart__items");
 const cartItemsWrap = document.querySelector(".cart__items-wrap");
@@ -284,6 +292,7 @@ selectCheckboxEl.forEach((el) => {
   el.addEventListener(
     "click", function () {
       calcResult();
+      renderDelivery();
 
       //снятие галочки с "выбрать все"
       if (el.dataset.item !== "all") {
@@ -291,6 +300,123 @@ selectCheckboxEl.forEach((el) => {
       }
     })
 })
+
+////Расчет количества товаров для доставки по датам
+const renderDelivery = function () {
+  const deliveryDateWrap = document.querySelector(".delivery__date-wrap");
+  deliveryDateWrap.innerHTML = "";
+
+  //объект заказываемых товаров, группировка по датам доставки
+  const deliveryDatesGrouped = {};
+  //повторная декларация переменной для обновления DOM (если остались чекбоксы ранее удаленных товаров)
+  const selectCheckboxEl = document.querySelectorAll(".cart-item__select-input");
+  //проходим по всем чекбоксам и отбираем только выбранные товары
+  selectCheckboxEl.forEach((el) => {
+    if (el.checked && el.dataset.item !== "all") {
+      const selectedItemNum = el.dataset.item;
+      const selectedItem = cartItemObjArr[selectedItemNum - 1];
+
+      let firstDelivery;
+      let secondDelivery;
+      //проходим по каждой дате поставки в объекте товара 
+      selectedItem.delivery.forEach((delivery) => {
+        const dateSlot = delivery.date;
+
+        //берем даты поставок из объектов товаров как ключи для объекта группировки
+        const groupItemsByDates = function () {
+          if (!deliveryDatesGrouped[dateSlot]) {
+            deliveryDatesGrouped[dateSlot] = [];
+          }
+
+          deliveryDatesGrouped[dateSlot].push(selectedItem);
+        }
+
+        //первая дата доставки товара
+        if (firstDelivery !== "added") {
+          groupItemsByDates()
+          firstDelivery = "added";
+
+          //не хватило количества - нужна вторая дата доставки
+          if (itemQuantValArr[selectedItem.idNum - 1] > delivery.quantity) {
+            secondDelivery = "needed";
+          }
+        }
+
+        //если первая дата доставки уже добавлена и нужно добавление второй даты доставки
+        else if (firstDelivery === "added" && secondDelivery === "needed") {
+          groupItemsByDates()
+        }
+      });
+    }
+  })
+
+  //создаем html для каждой даты поставок
+  for (const dateSlot in deliveryDatesGrouped) {
+    if (deliveryDatesGrouped[dateSlot]) {
+      const deliveryDate = document.createElement("div");
+      deliveryDate.classList.add("delivery__date");
+      deliveryDateWrap.appendChild(deliveryDate);
+      deliveryDate.innerHTML = `<p class="headline4">${dateSlot}</p>`;
+
+      const deliveryItemsWrap = document.createElement("div");
+      deliveryItemsWrap.classList.add("delivery__items-wrap");
+      deliveryDate.append(deliveryItemsWrap);
+
+      //html для каждого товара, отобранного на данную дату 
+      deliveryDatesGrouped[dateSlot].forEach((item) => {
+        const deliveryItem = document.createElement("div");
+        deliveryItem.classList.add("delivery__item");
+        deliveryItemsWrap.appendChild(deliveryItem);
+
+        //файл 05x используется как 1x, потому что в разделе доставки картинки товаров вдвое меньшего разрешения
+        deliveryItem.innerHTML = `
+      <img src="img/cart__item${item.idNum}_05x.jpg"
+                alt="${item.imgAlt}"
+                srcset="
+            img/cart__item${item.idNum}_05x.jpg 1x,
+            img/cart__item${item.idNum}_1x.jpg 2x,
+            img/cart__item${item.idNum}_2x.jpg 3x,
+            img/cart__item${item.idNum}_3x.jpg 4x"
+            />
+          `
+
+        const deliveryItemBadge = document.createElement("div");
+        deliveryItemBadge.classList.add("delivery__item-quantity", "badge-count", "caption2");
+
+        //указание количества для товаров первой даты доставки
+        if (dateSlot === item.delivery[0].date) {
+          deliveryItemBadge.textContent = itemQuantValArr[item.idNum - 1] <= item.delivery[0].quantity ? itemQuantValArr[item.idNum - 1] : item.delivery[0].quantity;
+        }
+
+        //указание оставшегося количества для товаров второй даты доставки
+        if ((itemQuantValArr[item.idNum - 1] > item.delivery[0].quantity) && (dateSlot === item.delivery[1].date)) {
+          deliveryItemBadge.textContent = itemQuantValArr[item.idNum - 1] - item.delivery[0].quantity;
+        }
+
+        deliveryItem.appendChild(deliveryItemBadge)
+
+        //Простановка стилей значкам с количеством товара
+        deliveryItemBadge.classList.remove("badge-count--1digit");
+        deliveryItemBadge.classList.remove("badge-count--2digit");
+        deliveryItemBadge.classList.remove("badge-count--3digit");
+
+        if (itemQuantValArr[item.idNum - 1] > 1 && itemQuantValArr[item.idNum - 1] < 10) {
+          deliveryItemBadge.classList.add("badge-count--1digit");
+        }
+
+        if (itemQuantValArr[item.idNum - 1] >= 10 && itemQuantValArr[item.idNum - 1] < 100) {
+          deliveryItemBadge.classList.add("badge-count--2digit");
+        }
+
+        if (itemQuantValArr[item.idNum - 1] >= 100) {
+          deliveryItemBadge.classList.add("badge-count--3digit");
+        }
+      })
+    }
+  }
+}
+
+renderDelivery();
 
 ////Расчет суммарных значений 
 
@@ -304,24 +430,30 @@ const calcTopSum = function () {
   cartBadgeEl.forEach((el) => {
     el.textContent = itemsTopQuantVal;
 
-    if (itemsTopQuantVal >= 0 && itemsTopQuantVal < 10) {
-      el.classList.remove("badge-count--2digit");
-      el.classList.remove("badge-count--3digit");
-      el.classList.add("badge-count--1digit")
-    }
-
-    else if (itemsTopQuantVal >= 10 && itemsTopQuantVal < 100) {
-      el.classList.remove("badge-count--1digit");
-      el.classList.remove("badge-count--3digit");
-      el.classList.add("badge-count--2digit")
-    }
-
-    else if (itemsTopQuantVal >= 100) {
+    if (itemsTopQuantVal === 0) {
       el.classList.remove("badge-count--1digit");
       el.classList.remove("badge-count--2digit");
-      el.classList.add("badge-count--3digit")
+      el.classList.remove("badge-count--3digit");
     }
-  })
+
+    if (itemsTopQuantVal > 0 && itemsTopQuantVal < 10) {
+      el.classList.remove("badge-count--2digit");
+      el.classList.remove("badge-count--3digit");
+      el.classList.add("badge-count--1digit");
+    }
+
+    if (itemsTopQuantVal >= 10 && itemsTopQuantVal < 100) {
+      el.classList.remove("badge-count--1digit");
+      el.classList.remove("badge-count--3digit");
+      el.classList.add("badge-count--2digit");
+    }
+
+    if (itemsTopQuantVal >= 100) {
+      el.classList.remove("badge-count--1digit");
+      el.classList.remove("badge-count--2digit");
+      el.classList.add("badge-count--3digit");
+    }
+  });
 
   itemsTopSumVal = itemDiscPriceValArr.reduce((sum, item) => sum += item);
   itemsTopSumEl.textContent = priceFormatting(itemsTopSumVal, "largeSpace");
@@ -401,8 +533,10 @@ cartItems.addEventListener("click", function (e) {
         itemDiscPriceValArr[clickedItem - 1] = 0;
         itemFullPriceValArr[clickedItem - 1] = 0;
         itemQuantValArr[clickedItem - 1] = 0;
+        selectCheckboxEl[clickedItem].checked = false;
         calcTopSum();
         calcResult();
+        renderDelivery();
       }
     })
   }
@@ -449,6 +583,7 @@ function quantBtns(buttonType) {
         //пересчет результатов для выбранных товаров (clickedItem совпадает по индексу в selectCheckboxEl)
         if (selectCheckboxEl[clickedItem].checked) {
           calcResult();
+          renderDelivery();
         }
       }
 
@@ -476,6 +611,7 @@ function quantBtns(buttonType) {
         //пересчет результатов для выбранных товаров (clickedItem совпадает по индексу в selectCheckboxEl)
         if (selectCheckboxEl[clickedItem].checked) {
           calcResult();
+          renderDelivery();
         }
       }
     }
