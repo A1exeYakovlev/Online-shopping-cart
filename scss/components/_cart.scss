@@ -355,6 +355,7 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
+    padding: 0 0.67rem 0.33rem 0.77rem;
     width: 8rem;
     height: 3.2rem;
     border-radius: 0.4rem;
@@ -364,7 +365,8 @@
       width: 10rem;
       height: 4.4rem;
       border-radius: 0.8rem;
-      margin-bottom: 0.75rem;
+      margin-bottom: 0.755rem;
+      padding: 0 0.84rem 0.33rem 0.95rem;
     }
 
     button {
@@ -373,14 +375,24 @@
       cursor: pointer;
     }
 
-    span {
+    input {
       display: block;
       width: 3.2rem;
-      margin-top: -0.3rem;
+      margin-top: 0.05rem;
       text-align: center;
+      border: none;
+      outline: none;
+      appearance: none;
+      -webkit-appearance: none;
+      -moz-appearance: textfield;
+
+      &::-webkit-outer-spin-button,
+      &::-webkit-inner-spin-button {
+        -webkit-appearance: none;
+      }
 
       @include responsive(desktop-sm) {
-        margin-top: -0.6rem;
+        margin-top: -0.13rem;
         width: 4.4rem;
         height: 2.3rem;
       }
@@ -390,10 +402,8 @@
   &__plus-btn,
   &__minus-btn {
     height: 3.2rem;
-    margin: -0.34rem 0.67rem 0rem 0.8rem;
 
     @include responsive(desktop-sm) {
-      margin: -0.31rem 0.8rem 0 1rem;
       height: 2.4rem;
       text-align: center;
     }

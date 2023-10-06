@@ -7,11 +7,10 @@ const cartItem1Obj = {
   properties: { Цвет: "белый", Размер: 56 },
   storage: "Коледино WB",
   seller: "OOO Вайлдберриз",
-  quantity: 1,
-  remains: 2,
+  remains: 3,
   discPrice: { value: 522, currency: "сом" },
   fullPrice: { value: 1051, currency: "сом" },
-  delivery: [{ date: "5—6 февраля", quantity: 3 }, { date: "7—8 февраля", quantity: 100 }],
+  delivery: [{ date: "5—6 февраля", quantity: 3 }, { date: "7—8 февраля", quantity: 0 }],
   imgAlt: "Футболка мужская",
   idNum: 1
 }
@@ -21,11 +20,10 @@ const cartItem2Obj = {
   properties: { Цвет: "прозрачный" },
   storage: "Коледино WB",
   seller: "OOO Мегапрофстиль",
-  quantity: 200,
-  remains: undefined,
+  remains: 300,
   discPrice: { value: 10500.235, currency: "сом" },
   fullPrice: { value: 11500.235, currency: "сом" },
-  delivery: [{ date: "5—6 февраля", quantity: 184 }, { date: "7—8 февраля", quantity: 300 }],
+  delivery: [{ date: "5—6 февраля", quantity: 184 }, { date: "7—8 февраля", quantity: 116 }],
   imgAlt: "Силиконовый чехол для iPhone",
   idNum: 2
 }
@@ -35,11 +33,10 @@ const cartItem3Obj = {
   properties: {},
   storage: "Коледино WB",
   seller: "OOO Вайлдберриз",
-  quantity: 2,
-  remains: 2,
+  remains: 4,
   discPrice: { value: 247, currency: "сом" },
   fullPrice: { value: 475, currency: "сом" },
-  delivery: [{ date: "5—6 февраля", quantity: 4 }, { date: "7—8 февраля", quantity: undefined }],
+  delivery: [{ date: "5—6 февраля", quantity: 4 }, { date: "7—8 февраля", quantity: 0 }],
   imgAlt: "Набор цветных карандашей",
   idNum: 3
 }
@@ -139,7 +136,9 @@ const priceFormatting = function (priceValue, spaceSize = "smallSpace", stepSize
 }
 
 //Формулировка комментария по остаткам товара
-function remainsComment(remainsValue) {
+function remainsComment(remainsValue, maxLimit) {
+  //при превышении указанного лимита комментарий про остатки не показывается
+  if (remainsValue > maxLimit) { return };
 
   if (!remainsValue && remainsValue !== 0) { return }
 
@@ -195,23 +194,22 @@ const missingFormatting = function (quantity) {
 ////Заполнение начальных значений
 
 //Quantity
-let item1QuantVal = cartItem1Obj.quantity;
-let item2QuantVal = cartItem2Obj.quantity;
-let item3QuantVal = cartItem3Obj.quantity;
+let item1QuantVal = 1;
+let item2QuantVal = 1;
+let item3QuantVal = 1;
 const itemQuantValArr = [item1QuantVal, item2QuantVal, item3QuantVal];
+item1QuantEl.value = item1QuantVal;
+item2QuantEl.value = item2QuantVal;
+item3QuantEl.value = item3QuantVal;
 
-item1QuantEl.textContent = item1QuantVal;
-item2QuantEl.textContent = item2QuantVal;
-item3QuantEl.textContent = item3QuantVal;
-
-let item1RemainsVal = cartItem1Obj.remains;
-let item2RemainsVal = cartItem2Obj.remains;
-let item3RemainsVal = cartItem3Obj.remains;
+let item1RemainsVal = cartItem1Obj.remains - item1QuantVal;
+let item2RemainsVal = cartItem2Obj.remains - item2QuantVal;
+let item3RemainsVal = cartItem3Obj.remains - item3QuantVal;
 const itemRemainsValArr = [item1RemainsVal, item2RemainsVal, item3RemainsVal]
 
-item1RemainsEl.textContent = remainsComment(item1RemainsVal);
-item2RemainsEl.textContent = remainsComment(item2RemainsVal);
-item3RemainsEl.textContent = remainsComment(item3RemainsVal);
+item1RemainsEl.textContent = remainsComment(item1RemainsVal, 3);
+item2RemainsEl.textContent = remainsComment(item2RemainsVal, 3);
+item3RemainsEl.textContent = remainsComment(item3RemainsVal, 3);
 
 //Price
 const currentCurrencyVal = storeTerms.currency;
@@ -542,6 +540,14 @@ cartItems.addEventListener("click", function (e) {
   }
 })
 
+//функция пересчета цены с учетом количества товаров
+const priceRecalc = function (clickedItem) {
+  itemDiscPriceValArr[clickedItem - 1] = cartItemObjArr[clickedItem - 1].discPrice.value * itemQuantValArr[clickedItem - 1];
+  itemDiscPriceElArr[clickedItem - 1].textContent = priceFormatting(itemDiscPriceValArr[clickedItem - 1]);
+  itemFullPriceValArr[clickedItem - 1] = cartItemObjArr[clickedItem - 1].fullPrice.value * itemQuantValArr[clickedItem - 1];
+  itemFullPriceElArr[clickedItem - 1].textContent = priceFormatting(itemFullPriceValArr[clickedItem - 1], "smallSpace", 6);
+}
+
 //Функционал изменения единиц одного товара кнопками +/-
 function quantBtns(buttonType) {
   cartItemsWrap.addEventListener("click", function (e) {
@@ -552,21 +558,13 @@ function quantBtns(buttonType) {
       // определяем номер cart-item, в котором произошел клик
       const clickedItem = e.target.dataset.item;
 
-      //функция пересчета цены
-      const priceRecalc = function () {
-        itemDiscPriceValArr[clickedItem - 1] = cartItemObjArr[clickedItem - 1].discPrice.value * itemQuantValArr[clickedItem - 1];
-        itemDiscPriceElArr[clickedItem - 1].textContent = priceFormatting(itemDiscPriceValArr[clickedItem - 1]);
-        itemFullPriceValArr[clickedItem - 1] = cartItemObjArr[clickedItem - 1].fullPrice.value * itemQuantValArr[clickedItem - 1];
-        itemFullPriceElArr[clickedItem - 1].textContent = priceFormatting(itemFullPriceValArr[clickedItem - 1], "smallSpace", 6);
-      }
-
       //кнопка минус выключается, когда выбрана 1 единица товара
-      if (buttonType === "minus" && itemQuantValArr[clickedItem - 1] != 1) {
+      if (buttonType === "minus" && itemQuantValArr[clickedItem - 1] > 1) {
         itemQuantValArr[clickedItem - 1] -= 1;
-        itemQuantElArr[clickedItem - 1].textContent = itemQuantValArr[clickedItem - 1]
+        itemQuantElArr[clickedItem - 1].value = itemQuantValArr[clickedItem - 1]
 
         itemRemainsValArr[clickedItem - 1] += 1;
-        itemRemainsElArr[clickedItem - 1].textContent = remainsComment(itemRemainsValArr[clickedItem - 1]);
+        itemRemainsElArr[clickedItem - 1].textContent = remainsComment(itemRemainsValArr[clickedItem - 1], 3);
         //убираем класс, когда уже уменьшили кол-во товара (делает кнопку серой)
         cartItemElArr[clickedItem - 1].classList.remove("maximum-number");
 
@@ -575,7 +573,8 @@ function quantBtns(buttonType) {
           cartItemElArr[clickedItem - 1].classList.add("minimal-number");
         }
 
-        priceRecalc();
+        //пересчет цен с учетом количества товаров
+        priceRecalc(clickedItem);
 
         //пересчет суммарных значений наверху корзины
         calcTopSum();
@@ -588,13 +587,13 @@ function quantBtns(buttonType) {
       }
 
       //кнопка плюс выключается, когда остаток товара 0
-      if (buttonType === "plus" && itemRemainsValArr[clickedItem - 1] != 0) {
+      if (buttonType === "plus" && itemRemainsValArr[clickedItem - 1] > 0) {
 
         itemQuantValArr[clickedItem - 1] += 1;
-        itemQuantElArr[clickedItem - 1].textContent = itemQuantValArr[clickedItem - 1];
+        itemQuantElArr[clickedItem - 1].value = itemQuantValArr[clickedItem - 1];
 
         itemRemainsValArr[clickedItem - 1] -= 1;
-        itemRemainsElArr[clickedItem - 1].textContent = remainsComment(itemRemainsValArr[clickedItem - 1]);
+        itemRemainsElArr[clickedItem - 1].textContent = remainsComment(itemRemainsValArr[clickedItem - 1], 3);
         //убираем класс, когда уже увеличили кол-во товара (делает кнопку серой)
         cartItemElArr[clickedItem - 1].classList.remove("minimal-number");
 
@@ -603,14 +602,15 @@ function quantBtns(buttonType) {
           cartItemElArr[clickedItem - 1].classList.add("maximum-number");
         }
 
-        priceRecalc();
+        //пересчет цен с учетом количества товаров
+        priceRecalc(clickedItem);
 
         //пересчет суммарных значений наверху корзины
         calcTopSum();
 
         //пересчет результатов для выбранных товаров (clickedItem совпадает по индексу в selectCheckboxEl)
         if (selectCheckboxEl[clickedItem].checked) {
-          calcResult();
+          calcResult(clickedItem);
           renderDelivery();
         }
       }
@@ -619,6 +619,62 @@ function quantBtns(buttonType) {
 }
 quantBtns("minus");
 quantBtns("plus");
+
+//Изменение количества товара через ввод значения пользователем
+itemQuantElArr.forEach((item) => {
+  item.addEventListener("input", function () {
+    const inputValue = Number(item.value);
+    const clickedItem = item.dataset.item;
+
+    //если введенное количество не превышает остатки товара
+    if (inputValue < cartItemObjArr[clickedItem - 1].remains && inputValue > 1) {
+      itemQuantValArr[clickedItem - 1] = inputValue;
+      item.value = itemQuantValArr[clickedItem - 1];
+      //перерасчет новых остатков товара
+      itemRemainsValArr[clickedItem - 1] = cartItemObjArr[clickedItem - 1].remains - inputValue;
+      //убрать полупрозрачный стиль с кнопки плюс
+      cartItemElArr[clickedItem - 1].classList.remove("maximum-number");
+    }
+    //если введеное количество превышает остатки
+    if (inputValue >= cartItemObjArr[clickedItem - 1].remains && inputValue > 1) {
+      itemQuantValArr[clickedItem - 1] = cartItemObjArr[clickedItem - 1].remains;
+      item.value = itemQuantValArr[clickedItem - 1];
+      //перерасчет новых остатков товара
+      itemRemainsValArr[clickedItem - 1] = 0;
+      //добавить полупрозрачный стиль на кнопку плюс
+      cartItemElArr[clickedItem - 1].classList.add("maximum-number");
+    }
+
+    //убрать полупрозрачный стиль с кнопки минус
+    cartItemElArr[clickedItem - 1].classList.remove("minimal-number");
+
+    //если ввели 1 менее - ставится 1 ед.
+    if (inputValue <= 1) {
+      itemQuantValArr[clickedItem - 1] = 1;
+      item.value = itemQuantValArr[clickedItem - 1];
+      itemRemainsValArr[clickedItem - 1] = cartItemObjArr[clickedItem - 1].remains - 1;
+      //добавить полупрозрачный стиль на кнопку минус
+      cartItemElArr[clickedItem - 1].classList.add("minimal-number");
+      //убрать полупрозрачный стиль с кнопки плюс
+      if (inputValue !== cartItemObjArr[clickedItem - 1].remains) { cartItemElArr[clickedItem - 1].classList.remove("maximum-number"); }
+    }
+
+    //вывод комментария по новым остаткам
+    itemRemainsElArr[clickedItem - 1].textContent = remainsComment(itemRemainsValArr[clickedItem - 1], 3);
+
+    //пересчет цен с учетом количества товаров
+    priceRecalc(clickedItem);
+
+    //пересчет суммарных значений наверху корзины
+    calcTopSum();
+
+    //пересчет результатов для выбранных товаров (clickedItem совпадает по индексу в selectCheckboxEl)
+    if (selectCheckboxEl[clickedItem].checked) {
+      calcResult();
+      renderDelivery();
+    }
+  })
+})
 
 ////Визуальные изменения
 
