@@ -394,19 +394,21 @@ const renderDelivery = function () {
         deliveryItem.appendChild(deliveryItemBadge)
 
         //Простановка стилей значкам с количеством товара
+        const badgeNumber = Number(deliveryItemBadge.textContent);
         deliveryItemBadge.classList.remove("badge-count--1digit");
         deliveryItemBadge.classList.remove("badge-count--2digit");
         deliveryItemBadge.classList.remove("badge-count--3digit");
 
-        if (itemQuantValArr[item.idNum - 1] > 1 && itemQuantValArr[item.idNum - 1] < 10) {
+        if (badgeNumber > 1 && badgeNumber < 10) {
           deliveryItemBadge.classList.add("badge-count--1digit");
         }
 
-        if (itemQuantValArr[item.idNum - 1] >= 10 && itemQuantValArr[item.idNum - 1] < 100) {
+        if (badgeNumber >= 10 && badgeNumber < 100) {
+
           deliveryItemBadge.classList.add("badge-count--2digit");
         }
 
-        if (itemQuantValArr[item.idNum - 1] >= 100) {
+        if (badgeNumber >= 100) {
           deliveryItemBadge.classList.add("badge-count--3digit");
         }
       })
