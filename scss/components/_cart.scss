@@ -966,11 +966,11 @@
   background-color: var(--system-white);
 
   @include responsive(tablet) {
-    padding: 1.6rem 0 1.1rem 0;
+    padding: 1.6rem 0 1rem 0;
   }
 
   @include responsive(desktop-md) {
-    padding: 1.6rem 14.3rem 1.1rem 0;
+    padding: 1.6rem 14.3rem 1rem 0;
   }
 
   &__pers-info {
@@ -989,7 +989,7 @@
     flex-direction: column;
 
     @include responsive(tablet) {
-      margin-top: -0.8rem;
+      margin-top: -0.9rem;
     }
   }
 
@@ -1001,10 +1001,6 @@
     }
   }
 
-  &__tax-number-label {
-    position: relative;
-  }
-
   &__tax-number-descr {
     display: block;
     position: absolute;
@@ -1013,7 +1009,7 @@
     height: 1rem;
 
     @include responsive(desktop-sm) {
-      bottom: -0.14rem;
+      bottom: -0.06rem;
       left: 0.02rem;
     }
   }
@@ -1021,9 +1017,13 @@
   &__form-field {
     width: 100%;
     margin-bottom: 1.92rem;
-    padding: 1.18rem 0rem 1.6rem 0rem;
+    padding: 1.18rem 0rem 1.5rem 0rem;
     position: relative;
     border: none;
+
+    @include responsive(tablet) {
+      padding: 1.18rem 0rem 1.6rem 0rem;
+    }
 
     input {
       border: none;
@@ -1036,37 +1036,39 @@
       opacity: 0;
     }
 
-    span {
-      position: absolute;
-      top: -0.25rem;
-      left: -0.08rem;
-      transform: translateY(1.55rem);
-      transition: all 0.4s;
-      z-index: 2;
+    label {
+      span {
+        position: absolute;
+        top: -0.25rem;
+        left: -0.08rem;
+        transform: translateY(1.55rem);
+        transition: all 0.4s;
+        z-index: 2;
 
-      @include responsive(tablet) {
+        @include responsive(tablet) {
+          left: 0;
+        }
+      }
+
+      &::after {
+        content: "";
+        display: block;
+        position: relative;
+        bottom: -0.3rem;
         left: 0;
+        height: 0.2rem;
+        width: 100%;
+        background-color: rgba(0, 0, 0, 0.1);
       }
     }
-
-    &::after {
-      content: "";
-      display: block;
-      position: relative;
-      bottom: -0.37rem;
-      left: 0;
-      height: 0.1rem;
-      width: 100%;
-      background-color: rgba(0, 0, 0, 0.2);
-    }
   }
-}
 
-label:focus-within > span,
-input:not(:placeholder-shown) + span {
-  transform: translateY(0);
-  font-size: 1.2rem;
-  line-height: 1.4rem; /* 116.667% */
+  input:focus + label > span,
+  input:not(:placeholder-shown) + label > span {
+    transform: translateY(0);
+    font-size: 1.2rem;
+    line-height: 1.4rem; /* 116.667% */
+  }
 }
 
 .result {

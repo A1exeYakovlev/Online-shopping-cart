@@ -1293,10 +1293,7 @@
                 <h2 class="receiver__title headline2">Получатель</h2>
                 <form action="">
                   <div class="receiver__pers-info">
-                    <label
-                      class="receiver__name-label body-text body-text--gray receiver__form-field"
-                      for="receiver-name"
-                      ><span>Имя</span>
+                    <div class="receiver__form-field">
                       <input
                         class="receiver__name-input body-text"
                         type="text"
@@ -1304,11 +1301,13 @@
                         id="receiver-name"
                         placeholder="Имя"
                       />
-                    </label>
-                    <label
-                      class="receiver__surname-label body-text body-text--gray receiver__form-field"
-                      for="receiver-surname"
-                      ><span>Фамилия</span>
+                      <label
+                        class="receiver__name-label body-text body-text--gray"
+                        for="receiver-name"
+                        ><span>Имя</span>
+                      </label>
+                    </div>
+                    <div class="receiver__form-field">
                       <input
                         class="receiver__surname-input body-text"
                         name="receiver-surname"
@@ -1316,13 +1315,15 @@
                         type="text"
                         placeholder="Фамилия"
                       />
-                    </label>
+                      <label
+                        class="receiver__surname-label body-text body-text--gray"
+                        for="receiver-surname"
+                        ><span>Фамилия</span>
+                      </label>
+                    </div>
                   </div>
                   <div class="receiver__other-info">
-                    <label
-                      class="receiver__email-label body-text body-text--gray receiver__form-field"
-                      for="email"
-                      ><span>Электронная почта</span>
+                    <div class="receiver__form-field">
                       <input
                         class="receiver__email-input body-text"
                         type="email"
@@ -1330,11 +1331,13 @@
                         name="email"
                         placeholder="Электронная почта"
                       />
-                    </label>
-                    <label
-                      class="receiver__phone-label body-text body-text--gray receiver__form-field"
-                      for="phone"
-                      ><span>Телефон</span>
+                      <label
+                        class="receiver__email-label body-text body-text--gray"
+                        for="email"
+                        ><span>Электронная почта</span>
+                      </label>
+                    </div>
+                    <div class="receiver__form-field">
                       <input
                         class="receiver__phone-input body-text"
                         type="tel"
@@ -1342,23 +1345,29 @@
                         name="phone"
                         placeholder="Телефон"
                       />
-                    </label>
-                    <label
-                      class="receiver__tax-number-label body-text body-text--gray receiver__form-field"
-                      for="tax-number"
-                      ><span>ИНН</span>
+                      <label
+                        class="receiver__phone-label body-text body-text--gray"
+                        for="phone"
+                        ><span>Телефон</span>
+                      </label>
+                    </div>
+                    <div class="receiver__form-field">
                       <input
                         class="receiver__tax-number-input body-text"
                         type="text"
                         id="tax-number"
                         name="tax-number"
                         placeholder="ИНН"
-                        жд
                       />
-                      <p class="receiver__tax-number-descr caption4">
-                        Для таможенного оформления
-                      </p>
-                    </label>
+                      <label
+                        class="receiver__tax-number-label body-text body-text--gray"
+                        for="tax-number"
+                        ><span>ИНН</span>
+                        <p class="receiver__tax-number-descr caption4">
+                          Для таможенного оформления
+                        </p>
+                      </label>
+                    </div>
                   </div>
                 </form>
               </div>

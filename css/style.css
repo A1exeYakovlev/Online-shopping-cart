@@ -1014,10 +1014,10 @@ body {
   background-color: var(--system-white); }
   @media (min-width: 41.875em) {
     .receiver {
-      padding: 1.6rem 0 1.1rem 0; } }
+      padding: 1.6rem 0 1rem 0; } }
   @media (min-width: 87.5em) {
     .receiver {
-      padding: 1.6rem 14.3rem 1.1rem 0; } }
+      padding: 1.6rem 14.3rem 1rem 0; } }
   .receiver__pers-info {
     display: flex;
     flex-direction: column;
@@ -1031,13 +1031,11 @@ body {
     flex-direction: column; }
     @media (min-width: 41.875em) {
       .receiver__other-info {
-        margin-top: -0.8rem; } }
+        margin-top: -0.9rem; } }
   @media (min-width: 41.875em) {
     .receiver__pers-info, .receiver__other-info {
       flex-direction: row;
       gap: 2.4rem; } }
-  .receiver__tax-number-label {
-    position: relative; }
   .receiver__tax-number-descr {
     display: block;
     position: absolute;
@@ -1046,14 +1044,17 @@ body {
     height: 1rem; }
     @media (min-width: 64em) {
       .receiver__tax-number-descr {
-        bottom: -0.14rem;
+        bottom: -0.06rem;
         left: 0.02rem; } }
   .receiver__form-field {
     width: 100%;
     margin-bottom: 1.92rem;
-    padding: 1.18rem 0rem 1.6rem 0rem;
+    padding: 1.18rem 0rem 1.5rem 0rem;
     position: relative;
     border: none; }
+    @media (min-width: 41.875em) {
+      .receiver__form-field {
+        padding: 1.18rem 0rem 1.6rem 0rem; } }
     .receiver__form-field input {
       border: none;
       outline: none;
@@ -1061,7 +1062,7 @@ body {
       height: 2.4rem; }
     .receiver__form-field input::placeholder {
       opacity: 0; }
-    .receiver__form-field span {
+    .receiver__form-field label span {
       position: absolute;
       top: -0.25rem;
       left: -0.08rem;
@@ -1069,24 +1070,23 @@ body {
       transition: all 0.4s;
       z-index: 2; }
       @media (min-width: 41.875em) {
-        .receiver__form-field span {
+        .receiver__form-field label span {
           left: 0; } }
-    .receiver__form-field::after {
+    .receiver__form-field label::after {
       content: "";
       display: block;
       position: relative;
-      bottom: -0.37rem;
+      bottom: -0.3rem;
       left: 0;
-      height: 0.1rem;
+      height: 0.2rem;
       width: 100%;
-      background-color: rgba(0, 0, 0, 0.2); }
-
-label:focus-within > span,
-input:not(:placeholder-shown) + span {
-  transform: translateY(0);
-  font-size: 1.2rem;
-  line-height: 1.4rem;
-  /* 116.667% */ }
+      background-color: rgba(0, 0, 0, 0.1); }
+  .receiver input:focus + label > span,
+  .receiver input:not(:placeholder-shown) + label > span {
+    transform: translateY(0);
+    font-size: 1.2rem;
+    line-height: 1.4rem;
+    /* 116.667% */ }
 
 .result__title-wrap, .result__goods, .result__discount, .result__delivery, .result__delivery-point {
   display: flex;
