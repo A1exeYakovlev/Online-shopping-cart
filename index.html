@@ -1121,7 +1121,9 @@
               <div class="container">
                 <div class="delivery__title-wrap">
                   <h2 class="delivery__title headline2">Способ доставки</h2>
-                  <button class="change-btn headline3 headline3--magenta">
+                  <button
+                    class="delivery-change-btn change-btn headline3 headline3--magenta"
+                  >
                     Изменить
                   </button>
                 </div>
@@ -1228,14 +1230,14 @@
             </section>
             <section class="payment cart__payment">
               <div class="container">
-                <payment class="payment__title-wrap">
+                <div class="payment__title-wrap">
                   <h2 class="payment__title headline2">Способ оплаты</h2>
                   <button
                     class="payment__change-btn change-btn headline3 headline3--magenta"
                   >
                     Изменить
                   </button>
-                </payment>
+                </div>
                 <div class="payment__card cart__payment-card">
                   <div class="payment__card-syst">
                     <svg
@@ -1286,6 +1288,238 @@
                 <p class="payment__descr caption caption--gray">
                   Спишем оплату с карты при получении
                 </p>
+              </div>
+              <div class="payment__change-payment change-payment hidden">
+                <div class="change-payment__inner">
+                  <div class="change-payment__title-wrap">
+                    <h3
+                      class="change-payment__title headline2 headline2--sbold-for-mobile headline2--sm-for-desktop"
+                    >
+                      Способ оплаты
+                    </h3>
+                    <button class="change-payment__close-btn">
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="24"
+                        height="24"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                      >
+                        <path
+                          fill-rule="evenodd"
+                          clip-rule="evenodd"
+                          d="M4.92888 17.6569C4.53836 18.0474 4.53836 18.6806 4.92888 19.0711C5.3194 19.4616 5.95257 19.4616 6.34309 19.0711L12 13.4143L17.6568 19.0711C18.0473 19.4616 18.6805 19.4616 19.071 19.0711C19.4615 18.6806 19.4615 18.0474 19.071 17.6569L13.4142 12L19.071 6.3432C19.4615 5.95268 19.4615 5.31951 19.071 4.92899C18.6805 4.53846 18.0473 4.53846 17.6568 4.92899L12 10.5858L6.3431 4.92899C5.95258 4.53846 5.31941 4.53846 4.92889 4.92899C4.53837 5.31951 4.53837 5.95268 4.92889 6.3432L10.5857 12L4.92888 17.6569Z"
+                          fill="#A0A0A4"
+                        />
+                      </svg>
+                    </button>
+                  </div>
+                  <form action="">
+                    <fieldset>
+                      <ul class="change-payment__options-list">
+                        <li class="change-payment__option custom-radio">
+                          <input
+                            class="change-payment__option-input custom-radio__input"
+                            name="payment-option"
+                            type="radio"
+                            value="1"
+                            id="change-payment__option1"
+                          />
+                          <label
+                            class="change-payment__option-label body-text custom-radio__label"
+                            for="change-payment__option1"
+                            ><span
+                              class="change-payment__option-radio custom-radio__radio-btn"
+                            ></span>
+                            <span class="change-payment__option-pic">
+                              <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                width="30"
+                                height="10"
+                                viewBox="0 0 30 10"
+                                fill="none"
+                              >
+                                <path
+                                  d="M16.682 1.84378L14.8652 5.75832H14.6814V1.00032H12.0859V9.0024H14.238C14.8219 9.0024 15.341 8.66718 15.5898 8.14813L17.4174 4.24441H17.6012V9.0024H20.1966V1.00032H18.0121C17.4498 1.00032 16.9199 1.33554 16.682 1.84378Z"
+                                  fill="#319B42"
+                                />
+                                <path
+                                  d="M6.97268 2.04924L5.90207 5.75832H5.71823L4.6368 2.04924C4.45296 1.42205 3.8798 1.00032 3.23095 1.00032H0.667969V9.0024H3.26339V4.24441H3.44723L4.9396 9.0024H6.66988L8.16225 4.24441H8.34609V9.0024H10.9415V1.00032H8.37853C7.72968 1.00032 7.14571 1.42205 6.97268 2.04924Z"
+                                  fill="#319B42"
+                                />
+                                <path
+                                  d="M21.3247 4.5674V9.0024H23.9209V6.40631H26.7119C27.9235 6.40631 28.9512 5.63829 29.3298 4.5674H21.3247Z"
+                                  fill="#319B42"
+                                />
+                                <path
+                                  d="M26.636 1.00032H20.8594C21.2164 2.90412 22.8823 4.24544 24.8836 4.24544H29.3729C29.4054 4.07237 29.427 3.87766 29.427 3.68295C29.427 2.13611 28.183 1.00032 26.636 1.00032Z"
+                                  fill="url(#paint0_linear_17_2032)"
+                                />
+                                <defs>
+                                  <lineargradient
+                                    id="paint0_linear_17_2032"
+                                    x1="20.8594"
+                                    y1="2.62288"
+                                    x2="29.427"
+                                    y2="2.62288"
+                                    gradientUnits="userSpaceOnUse"
+                                  >
+                                    <stop stop-color="#00A3E1" />
+                                    <stop
+                                      offset="0.3042"
+                                      stop-color="#009ADD"
+                                    />
+                                    <stop
+                                      offset="0.7987"
+                                      stop-color="#0082D4"
+                                    />
+                                    <stop offset="1" stop-color="#0076CF" />
+                                  </lineargradient>
+                                </defs>
+                              </svg>
+                            </span>
+                            <span>1234 56•• •••• 1234</span>
+                          </label>
+                        </li>
+                        <li class="change-payment__option custom-radio">
+                          <input
+                            class="change-payment__option-input custom-radio__input"
+                            name="payment-option"
+                            type="radio"
+                            value="2"
+                            id="change-payment__option2"
+                          />
+
+                          <label
+                            class="change-payment__option-label body-text custom-radio__label"
+                            for="change-payment__option2"
+                            ><span
+                              class="change-payment__option-radio custom-radio__radio-btn"
+                            ></span>
+                            <span class="change-payment__option-pic">
+                              <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                width="32"
+                                height="12"
+                                viewBox="0 0 32 12"
+                                fill="none"
+                              >
+                                <path
+                                  fill-rule="evenodd"
+                                  clip-rule="evenodd"
+                                  d="M16.4709 4.17815C16.453 5.58578 17.7254 6.37131 18.6838 6.83836C19.6686 7.31761 19.9994 7.62491 19.9956 8.05338C19.9881 8.70928 19.21 8.99867 18.4818 9.00993C17.2113 9.02965 16.4727 8.66696 15.8855 8.3926L15.4279 10.5341C16.017 10.8057 17.108 11.0425 18.2394 11.0528C20.8949 11.0528 22.6323 9.74195 22.6418 7.70948C22.6521 5.13008 19.0738 4.98723 19.0982 3.83424C19.1067 3.4847 19.4403 3.11161 20.1713 3.01671C20.5331 2.96884 21.532 2.93215 22.6643 3.45364L23.1087 1.38174C22.4998 1.15995 21.7171 0.947548 20.7427 0.947548C18.2431 0.947548 16.485 2.27625 16.4709 4.17815ZM27.3796 1.12607C26.8947 1.12607 26.4859 1.40896 26.3037 1.84307L22.5102 10.9006H25.1638L25.6919 9.44123H28.9347L29.241 10.9006H31.5799L29.5389 1.12607H27.3796ZM27.7507 3.76657L28.5165 7.43692H26.4192L27.7507 3.76657ZM13.2535 1.12607L11.1618 10.9006H13.6904L15.7812 1.12607H13.2535ZM9.51266 1.12607L6.88061 7.77895L5.81595 2.12213C5.69101 1.49072 5.19768 1.12607 4.64982 1.12607H0.347122L0.286962 1.4099C1.17028 1.60157 2.17385 1.91074 2.78179 2.24151C3.15386 2.44351 3.2601 2.62015 3.38222 3.10034L5.39874 10.9006H8.07123L12.1682 1.12607H9.51266Z"
+                                  fill="#1434CB"
+                                />
+                              </svg>
+                            </span>
+                            <span>5678 90•• •••• 9708</span>
+                          </label>
+                        </li>
+                        <li class="change-payment__option custom-radio">
+                          <input
+                            class="change-payment__option-input custom-radio__input"
+                            name="payment-option"
+                            type="radio"
+                            value="3"
+                            id="change-payment__option3"
+                          />
+                          <label
+                            class="change-payment__option-label body-text custom-radio__label"
+                            for="change-payment__option3"
+                            ><span
+                              class="change-payment__option-radio custom-radio__radio-btn"
+                            ></span>
+                            <span class="change-payment__option-pic">
+                              <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                width="24"
+                                height="14"
+                                viewBox="0 0 24 14"
+                                fill="none"
+                              >
+                                <path
+                                  fill-rule="evenodd"
+                                  clip-rule="evenodd"
+                                  d="M22.9337 11.3367V11.0649H22.8629L22.781 11.2514L22.6996 11.0649H22.6286V11.3367H22.6788V11.132L22.7554 11.3086H22.8075L22.884 11.1315V11.3367H22.9339H22.9337ZM22.4846 11.3367V11.1115H22.5752V11.0656H22.3438V11.1115H22.4343V11.3367H22.4846Z"
+                                  fill="#F79410"
+                                />
+                                <path
+                                  fill-rule="evenodd"
+                                  clip-rule="evenodd"
+                                  d="M14.8883 12.5014H8.76367V1.49463H14.8884L14.8883 12.5014Z"
+                                  fill="#FF5F00"
+                                />
+                                <path
+                                  fill-rule="evenodd"
+                                  clip-rule="evenodd"
+                                  d="M9.15147 6.99987C9.15147 4.76713 10.1969 2.77821 11.8248 1.49643C10.5928 0.524985 9.06814 -0.00258565 7.49923 -0.000236328C3.63356 -0.000236328 0.5 3.13376 0.5 6.99987C0.5 10.8659 3.63356 13.9999 7.49923 13.9999C9.06814 14.0023 10.5929 13.4747 11.8249 12.5032C10.1971 11.2217 9.15147 9.23269 9.15147 6.99987Z"
+                                  fill="#EB001B"
+                                />
+                                <path
+                                  fill-rule="evenodd"
+                                  clip-rule="evenodd"
+                                  d="M23.1497 6.99987C23.1497 10.8659 20.0161 13.9999 16.1505 13.9999C14.5814 14.0022 13.0565 13.4747 11.8242 12.5032C13.4526 11.2215 14.498 9.23269 14.498 6.99987C14.498 4.76699 13.4526 2.77821 11.8242 1.49643C13.0564 0.524984 14.5813 -0.00251272 16.1504 -0.000236807C20.016 -0.000236807 23.1496 3.13376 23.1496 6.99987"
+                                  fill="#F79410"
+                                />
+                              </svg>
+                            </span>
+                            <span>9876 54•• •••• 6136</span>
+                          </label>
+                        </li>
+                        <li class="change-payment__option custom-radio">
+                          <input
+                            class="change-payment__option-input custom-radio__input"
+                            name="payment-option"
+                            type="radio"
+                            value="4"
+                            id="change-payment__option4"
+                          />
+                          <label
+                            class="change-payment__option-label body-text custom-radio__label"
+                            for="change-payment__option4"
+                            ><span
+                              class="change-payment__option-radio custom-radio__radio-btn"
+                            ></span>
+                            <span class="change-payment__option-pic">
+                              <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                width="24"
+                                height="14"
+                                viewBox="0 0 24 14"
+                                fill="none"
+                              >
+                                <path
+                                  fill-rule="evenodd"
+                                  clip-rule="evenodd"
+                                  d="M14.8883 12.5017H8.76367V1.49487H14.8884L14.8883 12.5017Z"
+                                  fill="#6C6BBD"
+                                />
+                                <path
+                                  fill-rule="evenodd"
+                                  clip-rule="evenodd"
+                                  d="M9.15147 7.00012C9.15147 4.76738 10.1969 2.77845 11.8248 1.49668C10.5928 0.525229 9.06814 -0.00234151 7.49923 7.81249e-06C3.63356 7.81249e-06 0.5 3.13401 0.5 7.00012C0.5 10.8662 3.63356 14.0002 7.49923 14.0002C9.06814 14.0025 10.5929 13.4749 11.8249 12.5035C10.1971 11.2219 9.15147 9.23293 9.15147 7.00012Z"
+                                  fill="#EB001B"
+                                />
+                                <path
+                                  fill-rule="evenodd"
+                                  clip-rule="evenodd"
+                                  d="M23.1497 7.00012C23.1497 10.8662 20.0161 14.0002 16.1505 14.0002C14.5814 14.0024 13.0565 13.4749 11.8242 12.5035C13.4526 11.2217 14.498 9.23293 14.498 7.00012C14.498 4.76723 13.4526 2.77845 11.8242 1.49668C13.0564 0.525229 14.5813 -0.00226858 16.1504 7.33385e-06C20.016 7.33385e-06 23.1496 3.13401 23.1496 7.00012"
+                                  fill="#0099DF"
+                                />
+                              </svg>
+                            </span>
+                            <span>5734 56•• •••• 1044</span>
+                          </label>
+                        </li>
+                      </ul>
+                    </fieldset>
+                    <button
+                      class="change-payment__select-btn brand-button headline3 headline3--white"
+                    >
+                      Выбрать
+                    </button>
+                  </form>
+                </div>
               </div>
             </section>
             <section class="receiver cart__receiver">
@@ -1437,7 +1671,9 @@
                     Спишем оплату с карты при получении
                   </p>
                 </div>
-                <button class="result__order headline3 headline3--white">
+                <button
+                  class="result__order-btn brand-button headline3 headline3--white"
+                >
                   Заказать
                 </button>
                 <p class="result__terms caption">
@@ -1481,26 +1717,28 @@
             </div>
             <div class="result__delivery-point">
               <p class="headline3">Доставка в пункт выдачи</p>
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="20"
-                height="20"
-                viewBox="0 0 20 20"
-                fill="none"
-              >
-                <path
-                  fill-rule="evenodd"
-                  clip-rule="evenodd"
-                  d="M13.1585 3.05991L16.9401 6.84154L6.72705 17.0546L2.73544 17.8529C2.38557 17.9229 2.07711 17.6144 2.14709 17.2646L2.94541 13.273L13.1585 3.05991ZM4.17707 13.9321L13.1585 4.95072L15.0493 6.84154L6.06789 15.8229L3.70436 16.2956L4.17707 13.9321Z"
-                  fill="#CB11AB"
-                />
-                <path
-                  fill-rule="evenodd"
-                  clip-rule="evenodd"
-                  d="M15.9948 7.78715L12.2132 4.00552L13.6313 2.5874C14.4145 1.8042 15.6843 1.8042 16.4675 2.5874L17.4129 3.53281C18.1961 4.31601 18.1961 5.58584 17.4129 6.36904L15.9948 7.78715ZM16.4675 5.42363C16.7286 5.16256 16.7286 4.73929 16.4675 4.47822L15.5221 3.53281C15.261 3.27174 14.8378 3.27174 14.5767 3.53281L14.104 4.00552L15.9948 5.89634L16.4675 5.42363Z"
-                  fill="#CB11AB"
-                />
-              </svg>
+              <button class="delivery-change-btn change-btn">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="20"
+                  height="20"
+                  viewBox="0 0 20 20"
+                  fill="none"
+                >
+                  <path
+                    fill-rule="evenodd"
+                    clip-rule="evenodd"
+                    d="M13.1585 3.05991L16.9401 6.84154L6.72705 17.0546L2.73544 17.8529C2.38557 17.9229 2.07711 17.6144 2.14709 17.2646L2.94541 13.273L13.1585 3.05991ZM4.17707 13.9321L13.1585 4.95072L15.0493 6.84154L6.06789 15.8229L3.70436 16.2956L4.17707 13.9321Z"
+                    fill="#CB11AB"
+                  />
+                  <path
+                    fill-rule="evenodd"
+                    clip-rule="evenodd"
+                    d="M15.9948 7.78715L12.2132 4.00552L13.6313 2.5874C14.4145 1.8042 15.6843 1.8042 16.4675 2.5874L17.4129 3.53281C18.1961 4.31601 18.1961 5.58584 17.4129 6.36904L15.9948 7.78715ZM16.4675 5.42363C16.7286 5.16256 16.7286 4.73929 16.4675 4.47822L15.5221 3.53281C15.261 3.27174 14.8378 3.27174 14.5767 3.53281L14.104 4.00552L15.9948 5.89634L16.4675 5.42363Z"
+                    fill="#CB11AB"
+                  />
+                </svg>
+              </button>
             </div>
             <p class="result__delivery-address caption">
               Бишкек, улица Ахматбека Суюмбаева, 12/1
@@ -1514,31 +1752,33 @@
             </p>
             <div class="payment result__payment">
               <div class="container">
-                <payment class="payment__title-wrap">
+                <div class="payment__title-wrap">
                   <p class="payment__title result__payment-title headline3">
                     Оплата картой
                   </p>
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="20"
-                    height="20"
-                    viewBox="0 0 20 20"
-                    fill="none"
-                  >
-                    <path
-                      fill-rule="evenodd"
-                      clip-rule="evenodd"
-                      d="M13.1585 3.05991L16.9401 6.84154L6.72705 17.0546L2.73544 17.8529C2.38557 17.9229 2.07711 17.6144 2.14709 17.2646L2.94541 13.273L13.1585 3.05991ZM4.17707 13.9321L13.1585 4.95072L15.0493 6.84154L6.06789 15.8229L3.70436 16.2956L4.17707 13.9321Z"
-                      fill="#CB11AB"
-                    />
-                    <path
-                      fill-rule="evenodd"
-                      clip-rule="evenodd"
-                      d="M15.9948 7.78715L12.2132 4.00552L13.6313 2.5874C14.4145 1.8042 15.6843 1.8042 16.4675 2.5874L17.4129 3.53281C18.1961 4.31601 18.1961 5.58584 17.4129 6.36904L15.9948 7.78715ZM16.4675 5.42363C16.7286 5.16256 16.7286 4.73929 16.4675 4.47822L15.5221 3.53281C15.261 3.27174 14.8378 3.27174 14.5767 3.53281L14.104 4.00552L15.9948 5.89634L16.4675 5.42363Z"
-                      fill="#CB11AB"
-                    />
-                  </svg>
-                </payment>
+                  <button class="payment__change-btn change-btn">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="20"
+                      height="20"
+                      viewBox="0 0 20 20"
+                      fill="none"
+                    >
+                      <path
+                        fill-rule="evenodd"
+                        clip-rule="evenodd"
+                        d="M13.1585 3.05991L16.9401 6.84154L6.72705 17.0546L2.73544 17.8529C2.38557 17.9229 2.07711 17.6144 2.14709 17.2646L2.94541 13.273L13.1585 3.05991ZM4.17707 13.9321L13.1585 4.95072L15.0493 6.84154L6.06789 15.8229L3.70436 16.2956L4.17707 13.9321Z"
+                        fill="#CB11AB"
+                      />
+                      <path
+                        fill-rule="evenodd"
+                        clip-rule="evenodd"
+                        d="M15.9948 7.78715L12.2132 4.00552L13.6313 2.5874C14.4145 1.8042 15.6843 1.8042 16.4675 2.5874L17.4129 3.53281C18.1961 4.31601 18.1961 5.58584 17.4129 6.36904L15.9948 7.78715ZM16.4675 5.42363C16.7286 5.16256 16.7286 4.73929 16.4675 4.47822L15.5221 3.53281C15.261 3.27174 14.8378 3.27174 14.5767 3.53281L14.104 4.00552L15.9948 5.89634L16.4675 5.42363Z"
+                        fill="#CB11AB"
+                      />
+                    </svg>
+                  </button>
+                </div>
                 <div class="payment__card result__payment-card">
                   <div class="payment__card-syst">
                     <svg
@@ -1619,7 +1859,9 @@
                 Спишем оплату с карты при получении
               </p>
             </div>
-            <button class="result__order headline3 headline3--white">
+            <button
+              class="result__order-btn brand-button headline3 headline3--white"
+            >
               Заказать
             </button>
             <p class="result__terms caption">
@@ -1776,5 +2018,6 @@
         </div>
       </div>
     </nav>
+    <div class="overlay hidden"></div>
   </body>
 </html>

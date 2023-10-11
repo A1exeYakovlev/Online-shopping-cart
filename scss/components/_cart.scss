@@ -897,6 +897,13 @@
   border: transparent;
   background-color: transparent;
   cursor: pointer;
+
+  svg {
+    display: block;
+    pointer-events: none;
+    width: 2rem;
+    height: 2rem;
+  }
 }
 
 .payment {
@@ -913,6 +920,10 @@
 
     @include responsive(desktop-sm) {
       align-items: flex-end;
+    }
+
+    svg {
+      margin-right: -0.1rem;
     }
   }
 
@@ -936,6 +947,10 @@
       display: flex;
       align-items: center;
       justify-content: center;
+
+      svg {
+        display: block;
+      }
     }
 
     &-number {
@@ -957,6 +972,151 @@
 
   &__descr {
     margin-top: 0.8rem;
+  }
+}
+
+.change-payment {
+  padding: 1.6rem;
+  display: flex;
+  flex-direction: column;
+  width: 100vw;
+  min-height: 100vh;
+  position: fixed;
+  top: 0;
+  left: 0;
+  background-color: var(--background-smoky);
+  opacity: 1;
+  z-index: 5;
+  transition: opacity 0.5s ease-in-out;
+
+  @include responsive(tablet) {
+    padding: 1.6rem 2.2rem 2.4rem 2.2rem;
+    width: 40rem;
+    min-height: 40.8rem;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border-radius: 1.6rem;
+    background: var(--system-white);
+    box-shadow: 0px 4px 10px 0px rgba(0, 0, 0, 0.2);
+  }
+
+  &.hidden {
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+  }
+
+  &__inner {
+    display: flex;
+    flex-direction: column;
+    min-height: 100%;
+    flex-grow: 1;
+  }
+
+  &__title-wrap {
+    margin: 0.2rem -0.5rem 0 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    button {
+      border: transparent;
+      cursor: pointer;
+      background: none;
+
+      svg {
+        display: block;
+        width: 2.4rem;
+        height: 2.4rem;
+        pointer-events: none;
+      }
+    }
+  }
+
+  &__title {
+    flex: 1 0 auto;
+  }
+
+  form {
+    display: flex;
+    flex-direction: column;
+    min-height: 100%;
+    flex-grow: 1;
+  }
+
+  fieldset {
+    border: none;
+    flex: 1 0 auto;
+  }
+
+  &__select-btn {
+    width: 100%;
+
+    @include responsive(tablet) {
+      margin-left: 0.2rem;
+      width: 16.4rem;
+    }
+  }
+
+  &__options-list {
+    margin-top: 1.1rem;
+  }
+
+  &__option {
+    list-style: none;
+    display: flex;
+    padding-left: 2rem;
+
+    &:not(:last-child) {
+      margin-bottom: 1.6rem;
+    }
+
+    &-label {
+      display: flex;
+      align-items: center;
+    }
+
+    &-radio::before {
+      opacity: 0;
+    }
+
+    &-input:checked ~ &-label &-radio::before {
+      opacity: 1;
+    }
+
+    &-pic {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 3.2rem;
+      height: 2.4rem;
+      margin: 0 0.4rem 0 0.8rem;
+      border-radius: 0.4rem;
+      background: var(--background-smoky, #f6f6fa);
+
+      svg {
+        display: block;
+      }
+    }
+  }
+}
+
+.overlay {
+  background: rgba(5, 0, 10, 0.3);
+  width: 100vw;
+  min-height: 100vh;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 4;
+  opacity: 1;
+  transition: opacity 0.5s ease-in-out;
+
+  &.hidden {
+    opacity: 0;
+    pointer-events: none;
+    visibility: hidden;
   }
 }
 
@@ -1126,12 +1286,6 @@
 
   &__delivery-point {
     margin-top: 2.4rem;
-
-    svg {
-      display: block;
-      width: 2rem;
-      height: 2rem;
-    }
   }
 
   &__date {
@@ -1194,13 +1348,9 @@
     }
   }
 
-  &__order {
+  &__order-btn {
     margin-top: 2.42rem;
-    padding: 0.75rem 3.2rem 1.25rem 3.2rem;
     width: 100%;
-    border-radius: 0.8rem;
-    background: var(--system-magenta);
-    border: transparent;
 
     @include responsive(desktop-sm) {
       margin-top: 2.45rem;
@@ -1292,4 +1442,11 @@
   @include responsive(desktop-md) {
     width: 89.1rem;
   }
+}
+
+.brand-button {
+  padding: 0.75rem 3.2rem 1.25rem 3.2rem;
+  border-radius: 0.8rem;
+  border: transparent;
+  background: var(--system-magenta);
 }

@@ -26,4 +26,9 @@ body {
   font-style: normal;
   font-weight: 400;
   line-height: 2.4rem; /* 150% */
+  overflow: auto;
+}
+
+body.modal-open {
+  overflow: hidden;
 }

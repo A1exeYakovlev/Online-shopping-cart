@@ -29,6 +29,11 @@
     letter-spacing: -0.024rem;
   }
 
+  &--sbold-for-mobile {
+    font-size: 2rem;
+    font-weight: 600;
+  }
+
   &--lg-for-desktop {
     @include responsive(desktop-sm) {
       font-size: 2.8rem;
@@ -41,6 +46,7 @@
     @include responsive(desktop-sm) {
       font-size: 2rem;
       line-height: 2.8rem;
+      font-weight: 700;
       letter-spacing: -0.02rem;
     }
   }
