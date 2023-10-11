@@ -1030,7 +1030,7 @@ body.modal-open {
   display: flex;
   flex-direction: column;
   width: 100vw;
-  min-height: 100vh;
+  min-height: 100%;
   position: fixed;
   top: 0;
   left: 0;
@@ -1115,20 +1115,22 @@ body.modal-open {
       .change-payment__option-pic svg {
         display: block; }
 
-.overlay {
-  background: rgba(5, 0, 10, 0.3);
-  width: 100vw;
-  min-height: 100vh;
-  position: fixed;
-  top: 0;
-  left: 0;
-  z-index: 4;
-  opacity: 1;
-  transition: opacity 0.5s ease-in-out; }
-  .overlay.hidden {
-    opacity: 0;
-    pointer-events: none;
-    visibility: hidden; }
+@media (min-width: 41.875em) {
+  .overlay {
+    background: rgba(5, 0, 10, 0.3);
+    width: 100vw;
+    min-height: 100vh;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 4;
+    opacity: 1;
+    transition: opacity 0.5s ease-in-out; } }
+
+.overlay.hidden {
+  opacity: 0;
+  pointer-events: none;
+  visibility: hidden; }
 
 .receiver {
   padding: 1.6rem 0 0.8rem 0;
