@@ -182,7 +182,7 @@
 
 .caption4 {
   color: var(--text-black);
-  font-family: "Segoe UI";
+  font-family: "Segoe UI", sans-serif;
   font-size: 1.2rem;
   font-style: normal;
   font-weight: 400;
@@ -191,9 +191,18 @@
 
 .caption5 {
   color: var(--system-white);
-  font-family: "Segoe UI";
+  font-family: "Segoe UI", sans-serif;
   font-size: 1.8rem;
   font-style: normal;
   font-weight: 400;
   line-height: 2.4rem; /* 133.333% */
+}
+
+.caption6 {
+  color: var(--text-black);
+  font-family: "Segoe UI", sans-serif;
+  font-size: 1.3rem;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 1.6rem; /* 123.077% */
 }

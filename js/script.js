@@ -74,13 +74,45 @@ const userDataObj = {
       cardDate: "01/30"
     }
   ],
-  deliveryPoints: [],
-  deliveryAddresses: []
+  deliveryPickpoints: [11, 2, 154],
+  deliveryAddresses: [
+    {
+      address: "Бишкек, улица Табышалиева, 57"
+    },
+    {
+      address: "Бишкек, улица Жукеева-Пудовкина, 77/1"
+    },
+    {
+      address: "Бишкек, микрорайон Джал, улица Ахунбаева Исы, 67/1"
+    }
+  ]
 };
+
+const pickpointsInfo = [
+  {
+    idNum: 11,
+    address: "г. Бишкек, микрорайон Джал, улица Ахунбаева Исы, д. 67/1",
+    schedule: "Ежедневно с 10 до 21",
+    rating: undefined
+  },
+  {
+    idNum: 2,
+    address: "г. Бишкек, микрорайон Джал, улица Ахунбаева Исы, д. 67/1",
+    schedule: "Ежедневно с 9 до 22",
+    rating: 4.99
+  },
+  {
+    idNum: 154,
+    address: "г. Бишкек, улица Табышалиева, д. 57",
+    schedule: "Ежедневно с 11 до 23",
+    rating: 4.99
+  }
+]
 
 ////Условия расчетов
 const storeTerms = {
-  deliveryCost: 0,
+  pickpointDeliveryCost: 0,
+  courierDeliveryCost: 180,
   currency: "сом"
 }
 
@@ -104,10 +136,16 @@ const changePaymentCloseBtnEl = document.querySelector(".change-payment__close-b
 const overlayEl = document.querySelector(".overlay");
 const paymentCardEl = document.querySelectorAll(".payment__card");
 const paymentOptionSelectBtnEl = document.querySelector(".change-payment__select-btn");
-
+const changeDeliveryModalEl = document.querySelector(".change-delivery");
+const changeDeliveryBtnEl = document.querySelectorAll(".delivery-change-btn");
+const changeDeliveryCloseBtnEl = document.querySelector(".change-delivery__close-btn");
+const changeDeliveryTabsEl = document.querySelector(".change-delivery__tabs");
+const deliveryOptionSelectBtnEl = document.querySelectorAll(".change-delivery__select-btn");
+const deliverySection = document.querySelector(".delivery");
 
 const cartBadgeEl = document.querySelectorAll(".cart-badge");
 const collapseBtnEl = document.querySelectorAll(".collapse-btn");
+const cartWrap = document.querySelector(".cart__wrap");
 const cartItems = document.querySelector(".cart__items");
 const cartItemsWrap = document.querySelector(".cart__items-wrap");
 const missItemsWrap = document.querySelector(".cart__missing-wrap");
@@ -303,15 +341,29 @@ let selectedResultFullPriceVal;
 let selectedResultDiscPriceVal;
 let selectedResultDiscountVal;
 let selectedResultCostVal;
-let deliveryCostVal = storeTerms.deliveryCost;
 let selectedResultQuantVal;
 const selectedResultQuantValArr = [];
 const selectedResultDiscPriceValArr = [];
 const selectedResultFullPriceValArr = [];
+let deliveryCostVal;
 
-deliveryCostEl.forEach((el) => {
-  deliveryCostVal === 0 ? el.textContent = "Бесплатно" : el.textContent = deliveryCostVal;
-})
+//Отразить стоимость доставки
+const displayDeliveryCost = function () {
+  if (deliverySection.classList.contains("courier-selected")) {
+    deliveryCostVal = storeTerms.courierDeliveryCost;
+  }
+
+  //по умолчанию доставка в пункт выдачи
+  if (deliverySection.classList.contains("pickpoint-selected")) {
+    deliveryCostVal = storeTerms.pickpointDeliveryCost;
+  }
+
+  deliveryCostEl.forEach((el) => {
+    deliveryCostVal === 0 ? el.textContent = "Бесплатно" : el.textContent = `${deliveryCostVal} ${storeTerms.currency}`;
+  })
+}
+
+displayDeliveryCost();
 
 //Подсчет отсутствующих товаров
 const calcMissItems = function () {
@@ -529,6 +581,14 @@ const calcResult = function () {
   selectedResultDiscountVal = selectedResultFullPriceVal - selectedResultDiscPriceVal;
   selectedResultDiscountEl.forEach((el) => { el.textContent = "−" + priceFormatting(selectedResultDiscountVal) });
 
+  //обнулить стоимость доставки для пустого заказа
+  if (selectedResultDiscountVal === 0) {
+    deliveryCostVal = 0;
+    deliveryCostEl.forEach((el) => {
+      el.textContent = "Бесплатно"
+    })
+  }
+
   selectedResultCostVal = selectedResultFullPriceVal - selectedResultDiscountVal + deliveryCostVal;
   selectedResultCostEl.forEach((el) => {
     el.textContent = priceFormatting(selectedResultCostVal, "largeSpace")
@@ -724,7 +784,7 @@ itemQuantElArr.forEach((item) => {
 ////Визуальные изменения
 
 ////Сокрытие блока по collapse-btn
-//Расчет высоты скрываемых блоков по collapse-btn 
+//Расчет высоты скрываемых блоков
 const calcCollapsHeight = function (collapsEl, heightVal = collapsEl.scrollHeight + "px") {
   collapsEl.style.maxHeight = heightVal;
 }
@@ -776,35 +836,77 @@ const recalcCollapsHeight = function () {
 
 window.addEventListener("resize", recalcCollapsHeight);
 
-//////Модальные окна
+////Функция управления открытием и закрытием модального окна
+const toggleModal = function (modalWindow, openBtn, closeBtn) {
+  const openModal = () => {
+    modalWindow.classList.remove("hidden");
+    document.body.classList.add("modal-open");
+    overlayEl.classList.remove("hidden");
+  }
 
-////Окно смены способа оплаты
-//Функция открытия-закрытия
-const togglePaymentModal = function () {
-  changePaymentModalEl.classList.toggle("hidden");
-  document.body.classList.toggle("modal-open");
-  overlayEl.classList.toggle("hidden");
+  const closeModal = () => {
+    modalWindow.classList.add("hidden");
+    document.body.classList.remove("modal-open");
+    overlayEl.classList.add("hidden");
+  }
+
+  //открыть 
+  cartWrap.addEventListener("click", function (e) {
+    const clickedBtn = e.target.closest(".change-btn");
+    const openBtnArr = Array.from(openBtn);
+
+    if (openBtnArr.includes(clickedBtn)) { openModal(); }
+  })
+
+  //закрыть 
+  closeBtn.addEventListener("click", closeModal);
+  overlayEl.addEventListener("click", closeModal);
+  document.addEventListener("keydown", function (e) {
+    if (e.key === "Escape" && !modalWindow.classList.contains("hidden")) {
+      closeModal();
+    }
+  })
+
+  modalWindow.addEventListener('click', function (e) {
+    const clickedBtn = e.target.closest(".modal-select-btn")
+    if (!clickedBtn) { return };
+    closeModal()
+  })
 }
 
-//открыть окно
-changePaymentBtnEl.forEach((btn) => {
-  btn.addEventListener("click", togglePaymentModal)
-});
+//Окно смены способа доставки
+toggleModal(changeDeliveryModalEl, changeDeliveryBtnEl, changeDeliveryCloseBtnEl);
+//Окно смены способа оплаты
+toggleModal(changePaymentModalEl, changePaymentBtnEl, changePaymentCloseBtnEl);
 
-//закрыть окно
-changePaymentCloseBtnEl.addEventListener("click", togglePaymentModal)
-overlayEl.addEventListener("click", togglePaymentModal)
-document.addEventListener("keydown", function (e) {
+//Выбор вида доставки
+changeDeliveryTabsEl.addEventListener("click", function (e) {
+  const clickedTab = e.target.closest(".change-delivery__tab");
 
-  if (e.key === "Escape" && document.body.classList.contains("modal-open")) {
-    togglePaymentModal();
+  if (!clickedTab) { return }
+
+  if (clickedTab.dataset.tab === "pickpoint") {
+    changeDeliveryModalEl.classList.add("pickpoint-tab")
+    changeDeliveryModalEl.classList.remove("courier-tab")
   }
+
+  if (clickedTab.dataset.tab === "courier") {
+    changeDeliveryModalEl.classList.remove("pickpoint-tab")
+    changeDeliveryModalEl.classList.add("courier-tab")
+  }
+
+  //Сброс выбранного варианта после смены вкладки (для корректной работы рендера)
+  const selectedRadioBtnEl = document.querySelector(".change-delivery__option-input:checked");
+  selectedRadioBtnEl && (selectedRadioBtnEl.checked = false);
 })
 
 //рендер способа оплаты после нажатия на кнопку Выбрать
 paymentOptionSelectBtnEl.addEventListener('click', function (e) {
   e.preventDefault();
   const selectedRadioBtnEl = document.querySelector(".change-payment__option-input:checked");
+
+  if (!selectedRadioBtnEl) { return }
+
   const optionNumber = selectedRadioBtnEl.value;
 
   //функция рендера выбранного способа оплаты
@@ -812,15 +914,83 @@ paymentOptionSelectBtnEl.addEventListener('click', function (e) {
     document.querySelectorAll(`.${el}`).forEach((item) => {
       item.innerHTML = userDataObj.paymentOption[optionNumber - 1][property]
     })
-
   }
 
   //рендерим картинку платежной системы, номер карты, дату экспирации
   renderPaymentCard("payment__card-syst", "systemPic");
   renderPaymentCard("payment__card-number", "cardNumber");
   renderPaymentCard("payment__card-date", "cardDate");
-
-  //закрываем модальное окно
-  togglePaymentModal();
-
 })
+
+//рендер способа доставки после нажатия на кнопку Выбрать
+changeDeliveryModalEl.addEventListener("click", function (e) {
+  const clickedBtn = e.target.closest(".change-delivery__select-btn");
+
+  if (!clickedBtn) { return }
+
+  e.preventDefault();
+  const selectedRadioBtnEl = document.querySelector(".change-delivery__option-input:checked");
+  let optionNumber;
+  let pickpointIdNum;
+
+  if (selectedRadioBtnEl) {
+    optionNumber = Number(selectedRadioBtnEl.value);
+    pickpointIdNum = Number(selectedRadioBtnEl.dataset.id);
+  }
+
+  //вкладка курьером
+  if (clickedBtn.dataset.tab === "courier" && optionNumber) {
+    //Для расчета стоимости доставки
+    deliverySection.classList.add("courier-selected")
+    deliverySection.classList.remove("pickpoint-selected")
+
+    //Адрес
+    document.querySelectorAll(".delivery-address").forEach((item) => {
+      item.textContent = userDataObj.deliveryAddresses[optionNumber - 1]["address"];
+    })
+
+    //Заголовки
+    document.querySelector(".delivery__delivery-type").textContent = "Курьером";
+    document.querySelector(".result__delivery-type").textContent = "Доставка курьером"
+  }
+
+  //вкладка в пункт выдачи
+  if (clickedBtn.dataset.tab === "pickpoint" && pickpointIdNum) {
+    //Для расчета стоимости доставки
+    deliverySection.classList.remove("courier-selected")
+    deliverySection.classList.add("pickpoint-selected")
+
+    //Адрес
+    document.querySelectorAll(".delivery-address").forEach((item) => {
+      pickpointsInfo.forEach((obj) => {
+        if (obj.idNum === pickpointIdNum) {
+          item.textContent = obj["address"];
+        }
+      })
+    })
+
+    //Заголовки
+    document.querySelector(".delivery__delivery-type").textContent = "Пункт выдачи";
+    document.querySelector(".result__delivery-type").textContent = "Доставка в пункт выдачи"
+
+    //График работы и рейтинг пункта выдачи
+    pickpointsInfo.forEach((obj) => {
+      if (obj.idNum === pickpointIdNum) {
+        document.querySelector(".delivery__schedule").textContent = obj["schedule"];
+        document.querySelector(".delivery__pickpoint-rating").textContent = obj["rating"];
+      }
+    })
+  }
+  displayDeliveryCost();
+  calcResult();
+})
+
+
+
+
+
+
+
+
+
+

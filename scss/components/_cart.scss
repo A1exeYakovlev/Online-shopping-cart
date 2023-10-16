@@ -734,7 +734,7 @@
     }
   }
 
-  &__schedule {
+  &__schedule-wrap {
     margin-top: 0.33rem;
     position: relative;
 
@@ -758,7 +758,7 @@
     }
   }
 
-  &__charge {
+  &__cost-wrap {
     margin-top: 1.63rem;
     padding-bottom: 0.42rem;
 
@@ -841,7 +841,7 @@
   }
 
   &__delivery-point,
-  &__charge,
+  &__cost-wrap,
   &__date {
     @include responsive(tablet) {
       display: flex;
@@ -849,6 +849,142 @@
       > p {
         width: 15.3rem;
       }
+    }
+  }
+}
+
+//выбор доставки курьером скрывает информацию о пункте выдачи
+.courier-selected .delivery__schedule-wrap {
+  display: none;
+}
+
+.change-delivery {
+  padding: 1.6rem 1.4rem;
+
+  @include responsive(tablet) {
+    padding: 1.6rem 2.2rem 2.4rem 2.2rem;
+  }
+
+  &__tabs {
+    margin-top: 1.3rem;
+    display: flex;
+    gap: 0.8rem;
+
+    button {
+      background-color: transparent;
+      display: flex;
+      flex: 1 0 50%;
+      height: 4rem;
+      padding-bottom: 0px;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      gap: 1.6rem;
+      border-radius: 2.4rem;
+      border: 2px solid rgba(203, 17, 171, 0.15);
+    }
+  }
+
+  &__tab {
+    cursor: pointer;
+    padding: 0 1rem;
+  }
+
+  &.pickpoint-tab &__tab-pickpoint,
+  &.courier-tab &__tab-courier {
+    border: 2px solid var(--system-magenta);
+  }
+
+  &__descr {
+    margin-top: 2.4rem;
+  }
+
+  &__pickpoint-wrap,
+  &__courier-wrap {
+    display: none;
+  }
+
+  &.pickpoint-tab &__pickpoint-wrap,
+  &.courier-tab &__courier-wrap {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+  }
+
+  &__option-wrap {
+    display: flex;
+    justify-content: space-between;
+
+    button {
+      border: transparent;
+      background-color: transparent;
+      width: 2rem;
+      height: 2rem;
+
+      svg {
+        display: block;
+        pointer-events: none;
+      }
+    }
+  }
+
+  form {
+    display: flex;
+    flex-direction: column;
+    min-height: 100%;
+    flex-grow: 1;
+  }
+
+  fieldset {
+    border: none;
+    flex-grow: 1;
+  }
+
+  &__options-list {
+    margin: 1.2rem 0 2.4rem 0;
+  }
+
+  &__option {
+    list-style: none;
+    padding-left: 2.8rem;
+
+    &:not(:last-child) {
+      margin-bottom: 2rem;
+    }
+
+    &-label {
+      display: flex;
+    }
+
+    &-radio {
+      margin-top: 0.5rem;
+
+      &::before {
+        opacity: 0;
+      }
+    }
+
+    &-input:checked ~ &-label &-radio::before {
+      opacity: 1;
+    }
+  }
+
+  &__option-rating {
+    position: relative;
+
+    &::before {
+      content: "";
+      display: inline-block;
+      margin-right: 0.03rem;
+      height: 1.2rem;
+      width: 1.2rem;
+      position: relative;
+      top: 0.05rem;
+      background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 12 12" fill="none"><path fill-rule="evenodd" clip-rule="evenodd" d="M6.69769 1.14922C6.43817 0.528396 5.56198 0.528387 5.30244 1.14919L6.69769 1.14922ZM5.30244 1.14919L4.14719 3.90977L1.19202 4.16613C0.519264 4.22467 0.262282 5.05966 0.759713 5.49464L3.00514 7.45915L2.33207 10.3824C2.18436 11.0238 2.87792 11.5567 3.46133 11.2023L6.00032 9.65611L8.53797 11.2015C9.12269 11.5588 9.81568 11.0227 9.66861 10.3826L8.99549 7.45915L11.2402 5.49537C11.7385 5.05961 11.4793 4.22519 10.8083 4.16667L7.85294 3.91029L6.69769 1.14922" fill="%23FF970D"/></svg>');
+    }
+
+    span {
+      margin-right: 0.85rem;
     }
   }
 }
@@ -921,16 +1057,13 @@
     @include responsive(desktop-sm) {
       align-items: flex-end;
     }
-
-    svg {
-      margin-right: -0.1rem;
-    }
   }
 
   &__change-btn {
     @include responsive(desktop-sm) {
       position: relative;
       top: -0.07rem;
+      margin-right: -0.1rem;
     }
   }
 
@@ -977,65 +1110,9 @@
 
 .change-payment {
   padding: 1.6rem;
-  display: flex;
-  flex-direction: column;
-  width: 100vw;
-  min-height: 100%;
-  position: fixed;
-  top: 0;
-  left: 0;
-  background-color: var(--background-smoky);
-  opacity: 1;
-  z-index: 5;
-  transition: opacity 0.5s ease-in-out;
 
   @include responsive(tablet) {
     padding: 1.6rem 2.2rem 2.4rem 2.2rem;
-    width: 40rem;
-    min-height: 40.8rem;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    border-radius: 1.6rem;
-    background: var(--system-white);
-    box-shadow: 0px 4px 10px 0px rgba(0, 0, 0, 0.2);
-  }
-
-  &.hidden {
-    opacity: 0;
-    visibility: hidden;
-    pointer-events: none;
-  }
-
-  &__inner {
-    display: flex;
-    flex-direction: column;
-    min-height: 100%;
-    flex-grow: 1;
-  }
-
-  &__title-wrap {
-    margin: 0.2rem -0.5rem 0 0;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-
-    button {
-      border: transparent;
-      cursor: pointer;
-      background: none;
-
-      svg {
-        display: block;
-        width: 2.4rem;
-        height: 2.4rem;
-        pointer-events: none;
-      }
-    }
-  }
-
-  &__title {
-    flex: 1 0 auto;
   }
 
   form {
