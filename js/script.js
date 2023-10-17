@@ -985,9 +985,21 @@ changeDeliveryModalEl.addEventListener("click", function (e) {
   calcResult();
 })
 
+//Удаление опции из модального окна доставки по нажатию кнопки
+changeDeliveryModalEl.addEventListener("click", function (e) {
+  const clickedBtn = e.target.closest(".change-delivery__option-delete-btn");
 
+  if (!clickedBtn) { return }
 
-
+  e.preventDefault();
+  const clickedOption = clickedBtn.dataset.option;
+  const clickedOptionEl = clickedBtn.closest(`li[data-option="${clickedOption}"]`)
+  clickedOptionEl.style.opacity = "0";
+  clickedOptionEl.addEventListener("transitionend", function () {
+    clickedOptionEl.style.height = "0";
+    clickedOptionEl.remove();
+  })
+})
 
 
 

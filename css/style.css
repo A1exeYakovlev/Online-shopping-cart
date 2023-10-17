@@ -1010,7 +1010,8 @@ body.modal-open {
     margin: 1.2rem 0 2.4rem 0; }
   .change-delivery__option {
     list-style: none;
-    padding-left: 2.8rem; }
+    padding-left: 2.8rem;
+    transition: opacity 0.3s ease-out; }
     .change-delivery__option:not(:last-child) {
       margin-bottom: 2rem; }
     .change-delivery__option-label {
