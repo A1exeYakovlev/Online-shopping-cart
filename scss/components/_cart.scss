@@ -436,12 +436,35 @@
       cursor: pointer;
       background: none;
 
+      @include responsive(desktop-sm) {
+        opacity: 0;
+        transition: opacity 0.3s ease-in;
+      }
+
       svg {
         display: block;
         width: 2rem;
         height: 2rem;
         pointer-events: none;
       }
+    }
+  }
+
+  &:hover &__buttons button {
+    @include responsive(desktop-sm) {
+      opacity: 1;
+    }
+  }
+
+  &__buttons-favourite:hover svg path {
+    @include responsive(desktop-sm) {
+      fill: var(--system-magenta);
+    }
+  }
+
+  &__buttons-delete:hover svg path {
+    @include responsive(desktop-sm) {
+      fill: var(--system-red);
     }
   }
 
@@ -920,6 +943,12 @@
       background-color: transparent;
       width: 2rem;
       height: 2rem;
+
+      &:hover svg path {
+        @include responsive(desktop-sm) {
+          fill: var(--system-red);
+        }
+      }
 
       svg {
         display: block;

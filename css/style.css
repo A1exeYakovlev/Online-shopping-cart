@@ -671,11 +671,24 @@ body.modal-open {
       border: transparent;
       cursor: pointer;
       background: none; }
+      @media (min-width: 64em) {
+        .cart-item__buttons button {
+          opacity: 0;
+          transition: opacity 0.3s ease-in; } }
       .cart-item__buttons button svg {
         display: block;
         width: 2rem;
         height: 2rem;
         pointer-events: none; }
+  @media (min-width: 64em) {
+    .cart-item:hover .cart-item__buttons button {
+      opacity: 1; } }
+  @media (min-width: 64em) {
+    .cart-item__buttons-favourite:hover svg path {
+      fill: var(--system-magenta); } }
+  @media (min-width: 64em) {
+    .cart-item__buttons-delete:hover svg path {
+      fill: var(--system-red); } }
   @media (min-width: 64em) {
     .cart-item__remains {
       align-self: flex-start; } }
@@ -995,6 +1008,9 @@ body.modal-open {
       background-color: transparent;
       width: 2rem;
       height: 2rem; }
+      @media (min-width: 64em) {
+        .change-delivery__option-wrap button:hover svg path {
+          fill: var(--system-red); } }
       .change-delivery__option-wrap button svg {
         display: block;
         pointer-events: none; }
