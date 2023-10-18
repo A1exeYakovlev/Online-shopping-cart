@@ -456,6 +456,14 @@
     }
   }
 
+  &__buttons-favourite.selected {
+    opacity: 1;
+
+    & svg path {
+      fill: var(--system-magenta);
+    }
+  }
+
   &__buttons-favourite:hover svg path {
     @include responsive(desktop-sm) {
       fill: var(--system-magenta);

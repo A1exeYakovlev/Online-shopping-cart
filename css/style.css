@@ -683,6 +683,10 @@ body.modal-open {
   @media (min-width: 64em) {
     .cart-item:hover .cart-item__buttons button {
       opacity: 1; } }
+  .cart-item__buttons-favourite.selected {
+    opacity: 1; }
+    .cart-item__buttons-favourite.selected svg path {
+      fill: var(--system-magenta); }
   @media (min-width: 64em) {
     .cart-item__buttons-favourite:hover svg path {
       fill: var(--system-magenta); } }

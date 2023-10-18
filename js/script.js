@@ -85,7 +85,8 @@ const userDataObj = {
     {
       address: "Бишкек, микрорайон Джал, улица Ахунбаева Исы, 67/1"
     }
-  ]
+  ],
+  favourites: []
 };
 
 const pickpointsInfo = [
@@ -144,6 +145,7 @@ const deliveryOptionSelectBtnEl = document.querySelectorAll(".change-delivery__s
 const deliverySection = document.querySelector(".delivery");
 
 const cartBadgeEl = document.querySelectorAll(".cart-badge");
+const favBadgeEl = document.querySelector(".navbar__favourites-badge")
 const collapseBtnEl = document.querySelectorAll(".collapse-btn");
 const cartWrap = document.querySelector(".cart__wrap");
 const cartItems = document.querySelector(".cart__items");
@@ -487,27 +489,31 @@ const renderDelivery = function () {
         }
 
         deliveryItem.appendChild(deliveryItemBadge)
-
         //Простановка стилей значкам с количеством товара
-        const badgeNumber = Number(deliveryItemBadge.textContent);
-        deliveryItemBadge.classList.remove("badge-count--1digit");
-        deliveryItemBadge.classList.remove("badge-count--2digit");
-        deliveryItemBadge.classList.remove("badge-count--3digit");
-
-        if (badgeNumber > 1 && badgeNumber < 10) {
-          deliveryItemBadge.classList.add("badge-count--1digit");
-        }
-
-        if (badgeNumber >= 10 && badgeNumber < 100) {
-
-          deliveryItemBadge.classList.add("badge-count--2digit");
-        }
-
-        if (badgeNumber >= 100) {
-          deliveryItemBadge.classList.add("badge-count--3digit");
-        }
+        renderBadgeNum(deliveryItemBadge, 2);
       })
     }
+  }
+}
+
+//Функция простановки стилей значкам с количеством товара
+const renderBadgeNum = function (badgeEl, minNumtoShow) {
+  const badgeNumberVal = Number(badgeEl.textContent);
+  badgeEl.classList.remove("badge-count--1digit");
+  badgeEl.classList.remove("badge-count--2digit");
+  badgeEl.classList.remove("badge-count--3digit");
+
+  //minNumtoShow - меньше этого числа значек не отображается
+  if (badgeNumberVal >= minNumtoShow && badgeNumberVal < 10) {
+    badgeEl.classList.add("badge-count--1digit");
+  }
+
+  if (badgeNumberVal >= 10 && badgeNumberVal < 100) {
+    badgeEl.classList.add("badge-count--2digit");
+  }
+
+  if (badgeNumberVal >= 100) {
+    badgeEl.classList.add("badge-count--3digit");
   }
 }
 
@@ -524,30 +530,7 @@ const calcTopSum = function () {
   //показываем общее количество товаров над значком корзины
   cartBadgeEl.forEach((el) => {
     el.textContent = itemsTopQuantVal;
-
-    if (itemsTopQuantVal === 0) {
-      el.classList.remove("badge-count--1digit");
-      el.classList.remove("badge-count--2digit");
-      el.classList.remove("badge-count--3digit");
-    }
-
-    if (itemsTopQuantVal > 0 && itemsTopQuantVal < 10) {
-      el.classList.remove("badge-count--2digit");
-      el.classList.remove("badge-count--3digit");
-      el.classList.add("badge-count--1digit");
-    }
-
-    if (itemsTopQuantVal >= 10 && itemsTopQuantVal < 100) {
-      el.classList.remove("badge-count--1digit");
-      el.classList.remove("badge-count--3digit");
-      el.classList.add("badge-count--2digit");
-    }
-
-    if (itemsTopQuantVal >= 100) {
-      el.classList.remove("badge-count--1digit");
-      el.classList.remove("badge-count--2digit");
-      el.classList.add("badge-count--3digit");
-    }
+    renderBadgeNum(el, 1);
   });
 
   itemsTopSumVal = itemDiscPriceValArr.reduce((sum, item) => sum += item);
@@ -620,12 +603,12 @@ itemRemainsValArr.forEach((item, index) => {
 cartItems.addEventListener("click", function (e) {
   if (!e.target) { return }
 
-  else if (e.target.classList.contains('cart-item__buttons-delete')) {
+  else if (e.target.classList.contains("cart-item__buttons-delete")) {
     const wasMissItem = e.target.closest(".cart__missing");
-    const clickedItem = e.target.dataset.item;
+    const clickedItem = e.target.dataset.id;
     cartItemElArr[clickedItem - 1].style.opacity = "0";
 
-    cartItemElArr[clickedItem - 1].addEventListener('transitionend', function () {
+    cartItemElArr[clickedItem - 1].addEventListener("transitionend", function () {
       cartItemElArr[clickedItem - 1].remove();
 
       //Пересчет количества отсутствующих товаров
@@ -1001,8 +984,28 @@ changeDeliveryModalEl.addEventListener("click", function (e) {
   })
 })
 
+//Добавление товара в избранное
+cartWrap.addEventListener("click", function (e) {
+  const clickedBtn = e.target.closest(".cart-item__buttons-favourite");
+  if (!clickedBtn) { return };
 
+  clickedBtn.classList.toggle("selected");
+  const clickedItemId = Number(clickedBtn.dataset.id);
 
+  //добавление id товара в массив избранных товаров пользователя
+  if (!userDataObj.favourites.includes(clickedItemId)) {
+    userDataObj.favourites.push(clickedItemId);
+  }
+
+  else if (userDataObj.favourites.includes(clickedItemId)) {
+    const indexToDelete = userDataObj.favourites.indexOf(clickedItemId);
+    userDataObj.favourites.splice(indexToDelete, 1);
+  }
+
+  favBadgeEl.textContent = userDataObj.favourites.length;
+  //простановка стилей значку избранного (моб версия корзины) 
+  renderBadgeNum(favBadgeEl, 1);
+})
 
 
 
