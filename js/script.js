@@ -194,6 +194,7 @@ const selectedResultCostEl = document.querySelectorAll(".items-result-cost");
 const selectedResultFullPriceEl = document.querySelectorAll(".items-result-full");
 const selectedResultDiscountEl = document.querySelectorAll(".items-result-discount");
 const deliveryCostEl = document.querySelectorAll(".delivery-cost");
+const resultCostWrapEl = document.querySelectorAll(".result__total-price");
 
 ////Начальные функции
 
@@ -350,7 +351,7 @@ const selectedResultFullPriceValArr = [];
 let deliveryCostVal;
 
 //Отразить стоимость доставки
-const displayDeliveryCost = function () {
+const calcDeliveryCost = function () {
   if (deliverySection.classList.contains("courier-selected")) {
     deliveryCostVal = storeTerms.courierDeliveryCost;
   }
@@ -365,7 +366,7 @@ const displayDeliveryCost = function () {
   })
 }
 
-displayDeliveryCost();
+calcDeliveryCost();
 
 //Подсчет отсутствующих товаров
 const calcMissItems = function () {
@@ -564,18 +565,21 @@ const calcResult = function () {
   selectedResultDiscountVal = selectedResultFullPriceVal - selectedResultDiscPriceVal;
   selectedResultDiscountEl.forEach((el) => { el.textContent = "−" + priceFormatting(selectedResultDiscountVal) });
 
-  //обнулить стоимость доставки для пустого заказа
-  if (selectedResultDiscountVal === 0) {
-    deliveryCostVal = 0;
-    deliveryCostEl.forEach((el) => {
-      el.textContent = "Бесплатно"
-    })
-  }
-
   selectedResultCostVal = selectedResultFullPriceVal - selectedResultDiscountVal + deliveryCostVal;
   selectedResultCostEl.forEach((el) => {
     el.textContent = priceFormatting(selectedResultCostVal, "largeSpace")
   });
+
+  //скрыть итоговую стоимость, когда выбрано 0 товаров 
+  resultCostWrapEl.forEach((el) => {
+    if (selectedResultDiscountVal === 0) {
+      el.classList.add("hidden");
+    }
+
+    else {
+      el.classList.remove("hidden");
+    }
+  })
 
   //очистка массивов с данными по выбранным товарам
   selectedResultQuantValArr.length = 0;
@@ -964,7 +968,7 @@ changeDeliveryModalEl.addEventListener("click", function (e) {
       }
     })
   }
-  displayDeliveryCost();
+  calcDeliveryCost();
   calcResult();
 })
 

@@ -1355,6 +1355,9 @@ body.modal-open {
     .result__title-wrap, .result__goods, .result__discount, .result__delivery, .result__delivery-point {
       width: auto; } }
 
+.result__total-price.hidden {
+  display: none; }
+
 .result__goods, .result__discount {
   margin-right: 0.05rem; }
   @media (min-width: 41.875em) {
