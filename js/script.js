@@ -1007,5 +1007,20 @@ cartWrap.addEventListener("click", function (e) {
   renderBadgeNum(favBadgeEl, 1);
 })
 
+//тултип о бесплатном возврате
+cartWrap.addEventListener("click", function (e) {
+  const tooltipTriggerEl = e.target.closest(".refuse-descr__tooltip-trigger");
 
+  if (!tooltipTriggerEl) { return }
 
+  const tooltipWrapEl = tooltipTriggerEl.closest(".refuse-descr");
+  e.stopPropagation();
+  tooltipWrapEl.style.setProperty("--after-opacity", "1");
+
+  const closeTooltip = function () {
+    tooltipWrapEl.style.setProperty("--after-opacity", "0");
+    document.body.removeEventListener("click", closeTooltip);
+  }
+
+  document.body.addEventListener("click", closeTooltip);
+})
