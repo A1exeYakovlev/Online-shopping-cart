@@ -855,7 +855,7 @@ const toggleModal = function (modalWindow, openBtn, closeBtn) {
   })
 
   modalWindow.addEventListener('click', function (e) {
-    const clickedBtn = e.target.closest(".modal-select-btn")
+    const clickedBtn = e.target.closest(".modal-window__select-btn")
     if (!clickedBtn) { return };
     closeModal()
   })
