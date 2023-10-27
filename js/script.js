@@ -195,6 +195,7 @@ const selectedResultFullPriceEl = document.querySelectorAll(".items-result-full"
 const selectedResultDiscountEl = document.querySelectorAll(".items-result-discount");
 const deliveryCostEl = document.querySelectorAll(".delivery-cost");
 const resultCostWrapEl = document.querySelectorAll(".result__total-price");
+const resultDeliveryInterval = document.querySelector(".result__date");
 
 ////Начальные функции
 
@@ -397,6 +398,34 @@ selectCheckboxEl.forEach((el) => {
     })
 })
 
+//вывод интервала доставок в результаты
+const renderDeliveryInterval = function () {
+  const deliveryDateEl = document.querySelectorAll(".delivery__date")
+  let deliveryDate;
+  let deliveryMonth;
+
+  const extractDeliveryInterval = function (dateEl) {
+    const deliveryInterval = dateEl.querySelector("p").textContent;
+    const formattedInterval = deliveryInterval.replace("—", "–");
+    const grouppedInterval = formattedInterval.match(/(\d{1,2}|\d{1,2}–\d{1,2})\s([а-я]+)$/i);
+    deliveryDate = grouppedInterval[1];
+    deliveryMonth = grouppedInterval[2].slice(0, 3);
+  }
+
+  if (deliveryDateEl.length === 1) {
+    extractDeliveryInterval(deliveryDateEl[0])
+    resultDeliveryInterval.textContent = `${deliveryDate} ${deliveryMonth}`;
+  }
+
+  if (deliveryDateEl.length > 1) {
+    extractDeliveryInterval(deliveryDateEl[0])
+    const intervalStart = deliveryDate.match(/^\d{1,2}/);
+    extractDeliveryInterval(deliveryDateEl[deliveryDateEl.length - 1])
+    const intervalEnd = deliveryDate.match(/\d{1,2}$/);
+    resultDeliveryInterval.textContent = `${intervalStart}–${intervalEnd} ${deliveryMonth}`;
+  }
+}
+
 ////Расчет количества товаров для доставки по датам
 const renderDelivery = function () {
   const deliveryDateWrap = document.querySelector(".delivery__date-wrap");
@@ -495,6 +524,7 @@ const renderDelivery = function () {
       })
     }
   }
+  renderDeliveryInterval();
 }
 
 //Функция простановки стилей значкам с количеством товара
@@ -570,16 +600,20 @@ const calcResult = function () {
     el.textContent = priceFormatting(selectedResultCostVal, "largeSpace")
   });
 
-  //скрыть итоговую стоимость, когда выбрано 0 товаров 
-  resultCostWrapEl.forEach((el) => {
-    if (selectedResultDiscountVal === 0) {
-      el.classList.add("hidden");
-    }
+  //скрыть итоговую стоимость и интервал доставки, когда выбрано 0 товаров 
+  const emptyOrderHiddenFields = function (action) {
+    resultCostWrapEl.forEach((el) => {
+      el.classList[action]("hidden");
+    })
+    resultDeliveryInterval.classList[action]("hidden");
+  }
 
-    else {
-      el.classList.remove("hidden");
-    }
-  })
+  if (selectedResultDiscountVal === 0) {
+    emptyOrderHiddenFields("add");
+  }
+  else {
+    emptyOrderHiddenFields("remove");
+  }
 
   //очистка массивов с данными по выбранным товарам
   selectedResultQuantValArr.length = 0;

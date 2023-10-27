@@ -1573,6 +1573,10 @@
       background-repeat: repeat-x;
       height: 0.2rem;
     }
+
+    &.hidden {
+      display: none;
+    }
   }
 
   &__delivery-address {
