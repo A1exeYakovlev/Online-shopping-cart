@@ -837,6 +837,11 @@ const toggleModal = function (modalWindow, openBtn, closeBtn) {
     overlayEl.classList.add("hidden");
   }
 
+  const closeModalAndReset = () => {
+    closeModal();
+    resetRadio();
+  }
+
   //открыть 
   cartWrap.addEventListener("click", function (e) {
     const clickedBtn = e.target.closest(".change-btn");
@@ -846,11 +851,11 @@ const toggleModal = function (modalWindow, openBtn, closeBtn) {
   })
 
   //закрыть 
-  closeBtn.addEventListener("click", closeModal);
-  overlayEl.addEventListener("click", closeModal);
+  closeBtn.addEventListener("click", closeModalAndReset);
+  overlayEl.addEventListener("click", closeModalAndReset);
   document.addEventListener("keydown", function (e) {
     if (e.key === "Escape" && !modalWindow.classList.contains("hidden")) {
-      closeModal();
+      closeModalAndReset();
     }
   })
 
@@ -859,6 +864,22 @@ const toggleModal = function (modalWindow, openBtn, closeBtn) {
     if (!clickedBtn) { return };
     closeModal()
   })
+}
+
+const resetRadio = () => {
+  const selectedDeliveryOptionEl = document.querySelector(".change-delivery__option-input:checked");
+  const selectedPaymentOptionEl = document.querySelector(".change-payment__option-input:checked");
+  selectedDeliveryOptionEl && (selectedDeliveryOptionEl.checked = false);
+  selectedPaymentOptionEl && (selectedPaymentOptionEl.checked = false);
+  document.querySelector(".change-payment__option-input").checked = true;
+
+  if (changeDeliveryModalEl.classList.contains("pickpoint-tab")) {
+    document.querySelector(".change-delivery__option-input[name='delivery-pickpoint-option']").checked = true;
+  }
+
+  if (changeDeliveryModalEl.classList.contains("courier-tab")) {
+    document.querySelector(".change-delivery__option-input[name='delivery-address-option']").checked = true;
+  }
 }
 
 //Окно смены способа доставки
@@ -883,8 +904,7 @@ changeDeliveryTabsEl.addEventListener("click", function (e) {
   }
 
   //Сброс выбранного варианта после смены вкладки (для корректной работы рендера)
-  const selectedRadioBtnEl = document.querySelector(".change-delivery__option-input:checked");
-  selectedRadioBtnEl && (selectedRadioBtnEl.checked = false);
+  resetRadio();
 })
 
 //рендер способа оплаты после нажатия на кнопку Выбрать
