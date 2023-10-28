@@ -1424,6 +1424,8 @@ body.modal-open {
           margin-left: 1.2rem; } }
   .payment__descr {
     margin-top: 0.8rem; }
+    .payment__descr.hidden {
+      display: none; }
 
 .change-payment {
   padding: 1.6rem; }
@@ -1759,6 +1761,8 @@ body.modal-open {
       opacity: 1; }
   .pay-option__descr {
     margin-top: 0.8rem; }
+    .pay-option__descr.hidden {
+      display: none; }
 
 @media (min-width: 64em) {
   .delivery,

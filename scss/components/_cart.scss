@@ -1262,6 +1262,10 @@
 
   &__descr {
     margin-top: 0.8rem;
+
+    &.hidden {
+      display: none;
+    }
   }
 }
 
@@ -1732,6 +1736,10 @@
 
   &__descr {
     margin-top: 0.8rem;
+
+    &.hidden {
+      display: none;
+    }
   }
 }
 

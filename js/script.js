@@ -195,7 +195,10 @@ const selectedResultFullPriceEl = document.querySelectorAll(".items-result-full"
 const selectedResultDiscountEl = document.querySelectorAll(".items-result-discount");
 const deliveryCostEl = document.querySelectorAll(".delivery-cost");
 const resultCostWrapEl = document.querySelectorAll(".result__total-price");
+
 const resultDeliveryInterval = document.querySelector(".result__date");
+const instantPayCheckbox = document.querySelectorAll(".pay-option__instant-pay-input")
+
 
 ////Начальные функции
 
@@ -619,6 +622,29 @@ const calcResult = function () {
   selectedResultQuantValArr.length = 0;
   selectedResultDiscPriceValArr.length = 0;
   selectedResultFullPriceValArr.length = 0;
+
+  refreshOrderBtnPrice();
+}
+
+//Обновление надписи на кнопке Заказать
+const refreshOrderBtnPrice = function () {
+  const changeOrderBtnText = function (text) {
+    document.querySelectorAll(".result__order-btn").forEach((item) => { item.textContent = text })
+  }
+
+  if (instantPayCheckbox[0].checked === true) {
+    if (selectedResultDiscountVal === 0) {
+      changeOrderBtnText("Товары не выбраны")
+    }
+
+    else {
+      changeOrderBtnText(`Оплатить ${selectedResultCostEl[0].textContent} ${currentCurrencyVal}`)
+    }
+  }
+
+  if (instantPayCheckbox[0].checked === false) {
+    changeOrderBtnText("Заказать")
+  }
 }
 
 calcResult();
@@ -1089,3 +1115,23 @@ resultDeliveryInterval.addEventListener("click", function (e) {
   const id = e.target.getAttribute("href");
   document.querySelector(id).scrollIntoView({ behavior: "smooth" });
 })
+
+//Чекбокс Списать оплату сразу
+cartWrap.addEventListener("click", function (e) {
+  const clicked = e.target.closest(".pay-option__instant-pay-input")
+
+  if (!clicked) { return }
+
+  document.querySelectorAll(".pay-option__descr").forEach((item) => { item.classList.toggle("hidden") })
+  document.querySelectorAll(".payment__descr").forEach((item) => { item.classList.toggle("hidden") })
+
+  if (clicked.checked === true) {
+    instantPayCheckbox.forEach((item) => item.checked = true);
+  }
+
+  if (clicked.checked === false) {
+    instantPayCheckbox.forEach((item) => item.checked = false);
+  }
+  refreshOrderBtnPrice();
+}
+)
