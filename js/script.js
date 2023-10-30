@@ -110,6 +110,21 @@ const pickpointsInfo = [
   }
 ]
 
+const sellersData = [
+  {
+    id: 1,
+    name: "OOO «Вайлдберриз»",
+    orgn: "ОГРН: 1067746062449",
+    address: "142181, Московская область, г. Подольск, деревня Коледино, Территория Индустриальный парк Коледино, д. 6, стр. 1"
+  },
+  {
+    id: 345,
+    name: "OOO «МЕГАПРОФСТИЛЬ»",
+    orgn: "ОГРН: 5167746237148",
+    address: "129337, Москва, улица Красная Сосна, 2, корпус 1, стр. 1, помещение 2, офис 34"
+  }
+]
+
 ////Условия расчетов
 const storeTerms = {
   pickpointDeliveryCost: 0,
@@ -841,9 +856,16 @@ calcCollapsHeight(missItemsWrap);
 
 //Функция сокрытия блока по collapse-btn
 const collapseBlock = function (blockToCollapse) {
+  blockToCollapse.style.overflow = "hidden";
+
+  const makeOverflowVisible = function () {
+    blockToCollapse.style.overflow = "visible";
+    blockToCollapse.removeEventListener("transitionend", makeOverflowVisible)
+  }
 
   if (blockToCollapse.classList.contains("hide")) {
     calcCollapsHeight(blockToCollapse)
+    blockToCollapse.addEventListener("transitionend", makeOverflowVisible)
   }
 
   else {
@@ -866,7 +888,6 @@ collapseBtnEl.forEach((btn) => {
     if (e.target.closest(".collapse-btn--missing-items")) {
       collapseBlock.call(this, missItemsWrap)
     }
-
   })
 });
 
@@ -1096,9 +1117,8 @@ cartWrap.addEventListener("click", function (e) {
   const tooltipTriggerEl = e.target.closest(".refuse-descr__tooltip-trigger");
 
   if (!tooltipTriggerEl) { return }
-
-  const tooltipWrapEl = tooltipTriggerEl.closest(".refuse-descr");
   e.stopPropagation();
+  const tooltipWrapEl = tooltipTriggerEl.closest(".refuse-descr");
   tooltipWrapEl.style.setProperty("--after-opacity", "1");
 
   const closeTooltip = function () {
@@ -1135,3 +1155,40 @@ cartWrap.addEventListener("click", function (e) {
   refreshOrderBtnPrice();
 }
 )
+
+//тултип о продавце
+cartItemsWrap.addEventListener("click", function (e) {
+  const clicked = e.target.closest(".cart-item__seller-tooltip-btn")
+
+  if (!clicked) { return }
+  e.stopPropagation();
+
+  const sellerId = clicked.dataset.seller;
+  const tooltip = clicked.nextElementSibling;
+
+  tooltip.classList.add("active");
+
+  const sellerName = tooltip.querySelector(".cart-item__seller-name");
+  const sellerOrgtn = tooltip.querySelector(".cart-item__seller-ogrn");
+  const sellerAddress = tooltip.querySelector(".cart-item__seller-address");
+
+  sellersData.forEach((seller) => {
+    if (seller.id == sellerId) {
+      sellerName.textContent = seller.name;
+      sellerOrgtn.textContent = seller.orgn;
+      sellerAddress.textContent = seller.address;
+    }
+  })
+
+  const closeTooltip = function () {
+    tooltip.classList.remove("active");
+    tooltip.addEventListener("transitionend", function () {
+      document.body.removeEventListener("click", closeTooltip);
+    })
+  }
+
+  document.body.addEventListener("click", function (e) {
+    e.stopPropagation();
+    closeTooltip();
+  });
+})
