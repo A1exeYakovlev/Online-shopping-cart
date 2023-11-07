@@ -1294,11 +1294,6 @@ cartWrap.addEventListener("click", function (e) {
   document.body.addEventListener("click", createCloseTooltipFunction(tooltip));
 })
 
-const callCreateCloseTooltipFunction = function (tooltipEl) {
-  document.body.addEventListener("click", createCloseTooltipFunction(tooltipEl));
-  createCloseTooltipFunction
-}
-
 const createCloseTooltipFunction = function (tooltipEl) {
   function closeTooltipHandler(e) {
     tooltipEl.classList.remove("active");
