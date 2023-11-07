@@ -10,6 +10,20 @@ const cartItem1Obj = {
   remains: 3,
   discPrice: { value: 522, currency: "сом" },
   fullPrice: { value: 1051, currency: "сом" },
+  discount: 0.45,
+  updateDiscPrice() {
+    let calcDiscPrice = this.fullPrice.value;
+    if (this.discount) {
+      calcDiscPrice *= (1 - this.discount);
+    }
+
+    if (userDataObj.discount) {
+      calcDiscPrice *= (1 - userDataObj.discount);
+    }
+
+    this.discPrice.value = calcDiscPrice;
+    this.discPrice.currency = this.fullPrice.currency;
+  },
   delivery: [{ date: "5—6 февраля", quantity: 3 }, { date: "7—8 февраля", quantity: 0 }],
   imgAlt: "Футболка мужская",
   idNum: 1
@@ -23,6 +37,20 @@ const cartItem2Obj = {
   remains: 300,
   discPrice: { value: 10500.235, currency: "сом" },
   fullPrice: { value: 11500.235, currency: "сом" },
+  discount: 0,
+  updateDiscPrice() {
+    let calcDiscPrice = this.fullPrice.value;
+    if (this.discount) {
+      calcDiscPrice *= (1 - this.discount);
+    }
+
+    if (userDataObj.discount) {
+      calcDiscPrice *= (1 - userDataObj.discount);
+    }
+
+    this.discPrice.value = calcDiscPrice;
+    this.discPrice.currency = this.fullPrice.currency;
+  },
   delivery: [{ date: "5—6 февраля", quantity: 184 }, { date: "7—8 февраля", quantity: 116 }],
   imgAlt: "Силиконовый чехол для iPhone",
   idNum: 2
@@ -36,6 +64,20 @@ const cartItem3Obj = {
   remains: 4,
   discPrice: { value: 247, currency: "сом" },
   fullPrice: { value: 475, currency: "сом" },
+  discount: 0.43,
+  updateDiscPrice() {
+    let calcDiscPrice = this.fullPrice.value;
+    if (this.discount) {
+      calcDiscPrice *= (1 - this.discount);
+    }
+
+    if (userDataObj.discount) {
+      calcDiscPrice *= (1 - userDataObj.discount);
+    }
+
+    this.discPrice.value = calcDiscPrice;
+    this.discPrice.currency = this.fullPrice.currency;
+  },
   delivery: [{ date: "5—6 февраля", quantity: 4 }, { date: "7—8 февраля", quantity: 0 }],
   imgAlt: "Набор цветных карандашей",
   idNum: 3
@@ -86,7 +128,8 @@ const userDataObj = {
       address: "Бишкек, микрорайон Джал, улица Ахунбаева Исы, 67/1"
     }
   ],
-  favourites: []
+  favourites: [],
+  discount: 0.09
 };
 
 const pickpointsInfo = [
@@ -114,13 +157,13 @@ const sellersData = [
   {
     id: 1,
     name: "OOO «Вайлдберриз»",
-    orgn: "ОГРН: 1067746062449",
+    ogrn: "ОГРН: 1067746062449",
     address: "142181, Московская область, г. Подольск, деревня Коледино, Территория Индустриальный парк Коледино, д. 6, стр. 1"
   },
   {
     id: 345,
     name: "OOO «МЕГАПРОФСТИЛЬ»",
-    orgn: "ОГРН: 5167746237148",
+    ogrn: "ОГРН: 5167746237148",
     address: "129337, Москва, улица Красная Сосна, 2, корпус 1, стр. 1, помещение 2, офис 34"
   }
 ]
@@ -216,6 +259,9 @@ const instantPayCheckbox = document.querySelectorAll(".pay-option__instant-pay-i
 
 
 ////Начальные функции
+
+//Применение скидки покупателя и скидок на товары
+cartItemObjArr.forEach((item) => item.updateDiscPrice());
 
 //Форматирование цены товара
 const priceFormatting = function (priceValue, spaceSize = "smallSpace", stepSize = 3) {
@@ -323,7 +369,6 @@ let item2DiscPriceVal = cartItem2Obj.discPrice.value * item2QuantVal;
 let item3DiscPriceVal = cartItem3Obj.discPrice.value * item3QuantVal;
 const itemDiscPriceValArr = [item1DiscPriceVal, item2DiscPriceVal, item3DiscPriceVal];
 
-
 let item1DiscCurVal = cartItem1Obj.discPrice.currency;
 let item2DiscCurVal = cartItem2Obj.discPrice.currency;
 let item3DiscCurVal = cartItem3Obj.discPrice.currency;
@@ -343,8 +388,8 @@ item3DiscPriceEl.textContent = priceFormatting(item3DiscPriceVal);
 const itemDiscPriceElArr = [item1DiscPriceEl, item2DiscPriceEl, item3DiscPriceEl];
 
 item1DiscCurEl.textContent = "\u00A0" + item1DiscCurVal;
-item2DiscCurEl.textContent = "\u00A0" + item1DiscCurVal;
-item3DiscCurEl.textContent = "\u00A0" + item1DiscCurVal;
+item2DiscCurEl.textContent = "\u00A0" + item2DiscCurVal;
+item3DiscCurEl.textContent = "\u00A0" + item3DiscCurVal;
 
 item1FullPriceEl.textContent = priceFormatting(item1FullPriceVal, "smallSpace", 6);
 item2FullPriceEl.textContent = priceFormatting(item2FullPriceVal, "smallSpace", 6);
@@ -721,7 +766,6 @@ function quantBtns(buttonType) {
     if (!e.target) { return }
 
     else if (e.target.classList.contains(`cart-item__${buttonType}-btn`)) {
-
       // определяем номер cart-item, в котором произошел клик
       const clickedItem = e.target.dataset.item;
 
@@ -1092,6 +1136,7 @@ changeDeliveryModalEl.addEventListener("click", function (e) {
 //Добавление товара в избранное
 cartWrap.addEventListener("click", function (e) {
   const clickedBtn = e.target.closest(".cart-item__buttons-favourite");
+
   if (!clickedBtn) { return };
 
   clickedBtn.classList.toggle("selected");
@@ -1116,16 +1161,26 @@ cartWrap.addEventListener("click", function (e) {
 cartWrap.addEventListener("click", function (e) {
   const tooltipTriggerEl = e.target.closest(".refuse-descr__tooltip-trigger");
 
+  //блок клика по открытому тултипу
+  if (e.target.closest(".active-tooltip")) {
+    e.stopPropagation()
+    return
+  }
+
   if (!tooltipTriggerEl) { return }
+  //блок срабатывания обработчика закрытия тултипа при открывающем клике
   e.stopPropagation();
+
   const tooltipWrapEl = tooltipTriggerEl.closest(".refuse-descr");
   tooltipWrapEl.style.setProperty("--after-opacity", "1");
 
   const closeTooltip = function () {
     tooltipWrapEl.style.setProperty("--after-opacity", "0");
     document.body.removeEventListener("click", closeTooltip);
+    cartWrap.classList.remove("active-tooltip");
   }
 
+  cartWrap.classList.add("active-tooltip");
   document.body.addEventListener("click", closeTooltip);
 })
 
@@ -1157,38 +1212,99 @@ cartWrap.addEventListener("click", function (e) {
 )
 
 //тултип о продавце
-cartItemsWrap.addEventListener("click", function (e) {
+cartWrap.addEventListener("click", function (e) {
   const clicked = e.target.closest(".cart-item__seller-tooltip-btn")
 
+  //блок клика по открытому тултипу
+  if (e.target.closest(".tooltip")) {
+    e.stopPropagation()
+    return
+  }
+
   if (!clicked) { return }
-  e.stopPropagation();
+  //блок срабатывания обработчика закрытия тултипа при открывающем клике
+  e.stopPropagation()
 
-  const sellerId = clicked.dataset.seller;
   const tooltip = clicked.nextElementSibling;
-
+  const sellerId = clicked.dataset.seller;
   tooltip.classList.add("active");
 
   const sellerName = tooltip.querySelector(".cart-item__seller-name");
-  const sellerOrgtn = tooltip.querySelector(".cart-item__seller-ogrn");
+  const sellerOgrn = tooltip.querySelector(".cart-item__seller-ogrn");
   const sellerAddress = tooltip.querySelector(".cart-item__seller-address");
 
-  sellersData.forEach((seller) => {
-    if (seller.id == sellerId) {
-      sellerName.textContent = seller.name;
-      sellerOrgtn.textContent = seller.orgn;
-      sellerAddress.textContent = seller.address;
-    }
-  })
-
-  const closeTooltip = function () {
-    tooltip.classList.remove("active");
-    tooltip.addEventListener("transitionend", function () {
-      document.body.removeEventListener("click", closeTooltip);
-    })
+  const seller = sellersData.find((seller) => seller.id == sellerId);
+  if (seller) {
+    sellerName.textContent = seller.name;
+    sellerOgrn.textContent = seller.ogrn;
+    sellerAddress.textContent = seller.address;
   }
 
-  document.body.addEventListener("click", function (e) {
-    e.stopPropagation();
-    closeTooltip();
-  });
+  if (sellerAddress.textContent.length > 80) {
+    tooltip.classList.add("long-address");
+  }
+
+  cartWrap.classList.add("active-tooltip");
+  document.body.addEventListener("click", createCloseTooltipFunction(tooltip));
 })
+
+//тултип о примененных скидках
+cartWrap.addEventListener("click", function (e) {
+  const clicked = e.target.closest(".cart-item__price-full-wrap")
+
+  //блок клика по открытому тултипу
+  if (e.target.closest(".tooltip")) {
+    e.stopPropagation()
+    return
+  }
+
+  if (!clicked) { return }
+  //блок срабатывания обработчика закрытия тултипа при открывающем клике
+  e.stopPropagation();
+
+  const itemId = clicked.dataset.id;
+  const itemObj = cartItemObjArr[itemId - 1];
+  const tooltip = clicked.querySelector(".cart-item__price-tooltip");
+  tooltip.classList.add("active");
+
+  const itemDiscPercEl = tooltip.querySelector(".cart-item__price-itemDisc-perc");
+  const itemDiscValEl = tooltip.querySelector(".cart-item__price-itemDisc-val");
+  const itemDiscCurEl = tooltip.querySelector(".cart-item__price-itemDisc-cur");
+  const itemDiscEl = tooltip.querySelector(".cart-item__price-itemDisc");
+
+  itemDiscPercEl.textContent = `\u00A0${itemObj.discount * 100}%`;
+  const itemDiscVal = itemObj.discount * itemObj.fullPrice.value * itemQuantValArr[itemId - 1];
+  itemDiscValEl.textContent = "−" + priceFormatting(itemDiscVal, "smallSpace", 6);
+  itemDiscCurEl.textContent = "\u00A0" + itemObj.fullPrice.currency;
+
+  const userDiscPercEl = tooltip.querySelector(".cart-item__price-userDisc-perc");
+  const userDiscValEl = tooltip.querySelector(".cart-item__price-userDisc-val");
+  const userDiscCurEl = tooltip.querySelector(".cart-item__price-userDisc-cur");
+  const userDiscEl = tooltip.querySelector(".cart-item__price-userDisc");
+
+  userDiscPercEl.textContent = `\u00A0${userDataObj.discount * 100}%`;
+  const userDiscVal = userDataObj.discount * ((itemObj.fullPrice.value * itemQuantValArr[itemId - 1]) - itemDiscVal);
+  userDiscValEl.textContent = "−" + priceFormatting(userDiscVal, "smallSpace", 6);
+  userDiscCurEl.textContent = "\u00A0" + itemObj.fullPrice.currency;
+
+  itemDiscVal == 0 ? itemDiscEl.classList.add("hidden") : itemDiscEl.classList.remove("hidden");
+  userDiscVal == 0 ? userDiscEl.classList.add("hidden") : userDiscEl.classList.remove("hidden");
+
+  cartWrap.classList.add("active-tooltip");
+  document.body.addEventListener("click", createCloseTooltipFunction(tooltip));
+})
+
+const callCreateCloseTooltipFunction = function (tooltipEl) {
+  document.body.addEventListener("click", createCloseTooltipFunction(tooltipEl));
+  createCloseTooltipFunction
+}
+
+const createCloseTooltipFunction = function (tooltipEl) {
+  function closeTooltipHandler(e) {
+    tooltipEl.classList.remove("active");
+    document.body.removeEventListener("click", closeTooltipHandler)
+    cartWrap.classList.remove("active-tooltip");
+  }
+
+  return closeTooltipHandler;
+}

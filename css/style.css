@@ -566,6 +566,25 @@ body.modal-open {
         --modal-select-btn: 16.4rem;
         width: var(--modal-select-btn); } }
 
+.tooltip {
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+  justify-content: center;
+  padding: 1rem 1.6rem 1.3rem 1.6rem;
+  background-color: var(--system-white);
+  filter: drop-shadow(0px 0px 1px rgba(0, 0, 0, 0.3)) drop-shadow(0px 2px 10px rgba(0, 0, 0, 0.15));
+  position: absolute;
+  z-index: 4;
+  border-radius: 0.8rem;
+  opacity: 0;
+  transition: opacity 0.5s ease;
+  pointer-events: none; }
+  .tooltip.active {
+    opacity: 1;
+    pointer-events: all;
+    cursor: auto; }
+
 .cart {
   border-radius: 2.4rem 2.4rem 2.4rem 2.4rem;
   background-color: var(--background-smoky); }
@@ -578,6 +597,8 @@ body.modal-open {
         justify-content: space-between;
         gap: 3.2rem;
         padding: 1.5rem 0 5rem 0; } }
+    .cart__wrap.active-tooltip {
+      pointer-events: none; }
   .cart__inner {
     flex: 1 1 auto;
     width: 100%; }
@@ -907,7 +928,8 @@ body.modal-open {
     .cart-item__price-full-wrap {
       display: block;
       margin-left: 0.5rem;
-      position: relative; }
+      position: relative;
+      cursor: pointer; }
       @media (min-width: 64em) {
         .cart-item__price-full-wrap {
           margin: -0.25rem 0.15rem 0 0; } }
@@ -927,6 +949,33 @@ body.modal-open {
         background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='57' height='2' viewBox='0 0 57 2' fill='none'%3E%3Cpath d='M1 1H56' stroke='black' stroke-opacity='0.2' stroke-linecap='square' stroke-dasharray='4 2'/%3E%3C/svg%3E");
         background-repeat: repeat-x;
         height: 0.2rem; }
+    .cart-item__price-tooltip {
+      top: 2.53rem;
+      right: -1rem; }
+      @media (min-width: 41.875em) {
+        .cart-item__price-tooltip {
+          right: 50%;
+          transform: translateX(50%); } }
+      @media (min-width: 64em) {
+        .cart-item__price-tooltip {
+          right: -1rem;
+          transform: translateX(0%); } }
+    .cart-item__price-itemDisc {
+      display: flex;
+      gap: 1.5rem;
+      justify-content: space-between; }
+      .cart-item__price-itemDisc-info, .cart-item__price-itemDisc-amount {
+        display: flex; }
+    .cart-item__price-userDisc {
+      display: flex;
+      gap: 1.5rem;
+      justify-content: space-between; }
+      .cart-item__price-userDisc-info, .cart-item__price-userDisc-amount {
+        display: flex; }
+    .cart-item__price-itemDisc, .cart-item__price-userDisc {
+      text-wrap: nowrap; }
+    .cart-item__price-itemDisc.hidden, .cart-item__price-userDisc.hidden {
+      display: none; }
   .cart-item__name {
     grid-area: name;
     margin-top: 0.2rem;
@@ -985,27 +1034,14 @@ body.modal-open {
         height: 2rem;
         pointer-events: none; }
     .cart-item__seller-tooltip {
-      display: flex;
-      flex-direction: column;
-      gap: 0.8rem;
-      justify-content: center;
-      width: 28rem;
+      max-width: 28rem;
+      width: max-content;
       min-height: 10.4rem;
-      padding: 1.1rem 1.6rem 1.3rem 1.6rem;
-      background-color: var(--system-white);
-      background-size: cover;
-      background-repeat: no-repeat;
-      filter: drop-shadow(0px 0px 1px rgba(0, 0, 0, 0.3)) drop-shadow(0px 2px 10px rgba(0, 0, 0, 0.15));
-      position: absolute;
       top: 2.53rem;
       left: 50%;
-      transform: translateX(-50%);
-      z-index: 2;
-      border-radius: 0.8rem;
-      opacity: 0;
-      transition: opacity 0.5s ease; }
-      .cart-item__seller-tooltip.active {
-        opacity: 1; }
+      transform: translateX(-50%); }
+      .cart-item__seller-tooltip.long-address {
+        max-width: 24rem; }
 
 .multiline-name .cart-item__properties,
 .multiline-name .cart-item__storage {
@@ -1119,8 +1155,8 @@ body.modal-open {
     box-shadow: 0px 0px 1px 0px rgba(0, 0, 0, 0.3), 0px 2px 10px 0px rgba(0, 0, 0, 0.15);
     opacity: var(--after-opacity);
     transition: opacity 0.5s ease;
-    z-index: 2;
-    pointer-events: none;
+    z-index: 4;
+    pointer-events: all;
     cursor: auto; }
     @media (min-width: 41.875em) {
       .refuse-descr::after {
@@ -1163,8 +1199,8 @@ body.modal-open {
         box-shadow: 0px 0px 1px 0px rgba(0, 0, 0, 0.3), 0px 2px 10px 0px rgba(0, 0, 0, 0.15);
         opacity: var(--after-opacity);
         transition: opacity 0.5s ease;
-        z-index: 2;
-        pointer-events: none;
+        z-index: 4;
+        pointer-events: all;
         cursor: auto; } }
 
 .delivery {
@@ -1532,7 +1568,9 @@ body.modal-open {
     left: 0;
     z-index: 4;
     opacity: 1;
-    transition: opacity 0.5s ease-in-out; } }
+    transition: opacity 0.5s ease-in-out; }
+    .overlay--transparent {
+      opacity: 0; } }
 
 .overlay.hidden {
   opacity: 0;

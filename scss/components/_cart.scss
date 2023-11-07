@@ -12,6 +12,11 @@
       gap: 3.2rem;
       padding: 1.5rem 0 5rem 0;
     }
+
+    //пропускает клик закрытия тултипа, позволяя обработчику получить его на body
+    &.active-tooltip {
+      pointer-events: none;
+    }
   }
 
   &__inner {
@@ -512,6 +517,7 @@
       display: block;
       margin-left: 0.5rem;
       position: relative;
+      cursor: pointer;
 
       @include responsive(desktop-sm) {
         margin: -0.25rem 0.15rem 0 0;
@@ -536,6 +542,53 @@
         background-repeat: repeat-x;
         height: 0.2rem;
       }
+    }
+
+    &-tooltip {
+      top: 2.53rem;
+      right: -1rem;
+
+      @include responsive(tablet) {
+        right: 50%;
+        transform: translateX(50%);
+      }
+
+      @include responsive(desktop-sm) {
+        right: -1rem;
+        transform: translateX(0%);
+      }
+    }
+
+    &-itemDisc {
+      display: flex;
+      gap: 1.5rem;
+      justify-content: space-between;
+
+      &-info,
+      &-amount {
+        display: flex;
+      }
+    }
+
+    &-userDisc {
+      display: flex;
+      gap: 1.5rem;
+      justify-content: space-between;
+
+      &-info,
+      &-amount {
+        display: flex;
+      }
+    }
+
+    &-itemDisc,
+    &-userDisc {
+      text-wrap: nowrap;
+    }
+
+    &-itemDisc.hidden,
+    &-userDisc.hidden {
+      display: none;
     }
   }
 
@@ -617,29 +670,15 @@
     }
 
     &-tooltip {
-      display: flex;
-      flex-direction: column;
-      gap: 0.8rem;
-      justify-content: center;
-      width: 28rem;
+      max-width: 28rem;
+      width: max-content;
       min-height: 10.4rem;
-      padding: 1.1rem 1.6rem 1.3rem 1.6rem;
-      background-color: var(--system-white);
-      background-size: cover;
-      background-repeat: no-repeat;
-      filter: drop-shadow(0px 0px 1px rgba(0, 0, 0, 0.3))
-        drop-shadow(0px 2px 10px rgba(0, 0, 0, 0.15));
-      position: absolute;
       top: 2.53rem;
       left: 50%;
       transform: translateX(-50%);
-      z-index: 2;
-      border-radius: 0.8rem;
-      opacity: 0;
-      transition: opacity 0.5s ease;
 
-      &.active {
-        opacity: 1;
+      &.long-address {
+        max-width: 24rem;
       }
     }
   }
@@ -814,8 +853,8 @@
       0px 2px 10px 0px rgba(0, 0, 0, 0.15);
     opacity: var(--after-opacity);
     transition: opacity 0.5s ease;
-    z-index: 2;
-    pointer-events: none;
+    z-index: 4;
+    pointer-events: all;
     cursor: auto;
 
     @include responsive(tablet) {
@@ -870,8 +909,8 @@
           0px 2px 10px 0px rgba(0, 0, 0, 0.15);
         opacity: var(--after-opacity);
         transition: opacity 0.5s ease;
-        z-index: 2;
-        pointer-events: none;
+        z-index: 4;
+        pointer-events: all;
         cursor: auto;
       }
     }
@@ -1419,6 +1458,10 @@
     z-index: 4;
     opacity: 1;
     transition: opacity 0.5s ease-in-out;
+
+    &--transparent {
+      opacity: 0;
+    }
   }
 
   &.hidden {
