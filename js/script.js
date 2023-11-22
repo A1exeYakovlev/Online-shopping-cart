@@ -211,6 +211,9 @@ const cartItemsWrap = document.querySelector(".cart__items-wrap");
 const missItemsWrap = document.querySelector(".cart__missing-wrap");
 const cartItemsTopEl = document.querySelector(".cart__items-top");
 
+const receiverFormEl = document.getElementById("receiver-form");
+const taxNumberDescr = document.querySelector(".receiver__tax-number-descr");
+
 //Quantity
 const item1QuantEl = document.getElementById("cart-item1-quantity");
 const item2QuantEl = document.getElementById("cart-item2-quantity");
@@ -1295,11 +1298,168 @@ cartWrap.addEventListener("click", function (e) {
 })
 
 const createCloseTooltipFunction = function (tooltipEl) {
-  function closeTooltipHandler(e) {
+  function closeTooltipHandler() {
     tooltipEl.classList.remove("active");
     document.body.removeEventListener("click", closeTooltipHandler)
     cartWrap.classList.remove("active-tooltip");
   }
 
   return closeTooltipHandler;
+}
+
+////валидация формы получателя товара
+
+const inputValidation = function (inputEl, submitStatus) {
+  let inputIsInvalid;
+
+  if (!submitStatus) {
+    inputIsInvalid = !inputEl.checkValidity() && !inputEl.validity.valueMissing;
+  }
+
+  if (submitStatus) {
+    inputIsInvalid = !inputEl.checkValidity();
+  }
+
+  inputEl.classList.toggle("is-invalid", inputIsInvalid);
+  inputEl.setAttribute("aria-invalid", inputIsInvalid.toString())
+
+  const errorMessageEl = inputEl.nextElementSibling;
+  errorMessageEl.textContent = createCustomErrorMessage(inputEl);
+  errorMessageEl.hidden = !inputIsInvalid;
+
+  if (inputEl.name === "receiver-tax-number" && !inputIsInvalid) {
+    taxNumberDescr.classList.remove("hidden");
+  }
+
+  if (inputIsInvalid && !inputEl.classList.contains("live-validation")) {
+    inputEl.addEventListener("input", inputValidationHandler(inputEl, submitStatus));
+  }
+}
+
+const inputValidationHandler = function (inputEl, submitStatus) {
+  inputEl.classList.add("live-validation");
+  return inputValidation.bind(null, inputEl, submitStatus);
+}
+
+const initValidation = function () {
+  document.body.dataset.jsEnabled = "true";
+  receiverFormEl.setAttribute("novalidate", "");
+  document.querySelectorAll(".js-validate").forEach((inputEl) => {
+    inputEl.addEventListener("blur", (e) => { inputValidation(e.target, submitStatus) });
+
+    if (inputEl.classList.contains("receiver__phone-input")) {
+      inputEl.addEventListener("input", formatPhoneNumber)
+    }
+
+    if (inputEl.classList.contains("receiver__tax-number-input")) {
+      inputEl.addEventListener("input", formatTaxNumber)
+    }
+
+    inputEl.setAttribute("aria-invalid", "false");
+  })
+}
+
+const formatPhoneNumber = function (e) {
+  const inputEl = e.target;
+
+  const renderPhoneNum = function () {
+    const phoneNumFormatted = phoneNumArr.join("");
+    phoneNumFormatted ? (inputEl.value = "+" + phoneNumFormatted) : (inputEl.value = "");
+  }
+
+  const phoneNumInput = inputEl.value.replace(/\D/g, "");
+  const phoneNumArr = phoneNumInput.split("");
+
+  if (phoneNumArr.length > 1) {
+    phoneNumArr.splice(1, 0, " ");
+  }
+
+  if (phoneNumArr.length > 5) {
+    phoneNumArr.splice(5, 0, " ");
+  }
+
+  if (phoneNumArr.length > 9) {
+    phoneNumArr.splice(9, 0, " ");
+  }
+
+  if (phoneNumArr.length > 12) {
+    phoneNumArr.splice(12, 0, " ");
+  }
+
+  if (phoneNumArr.length > 15) {
+    let k = phoneNumArr.length - 15;
+    let lastSpace = 12;
+    const spaceStep = 3;
+
+    while (k > 0) {
+      lastSpace += spaceStep;
+      phoneNumArr.splice(lastSpace, 0, " ");
+      k -= 2;
+    }
+  }
+
+  renderPhoneNum();
+}
+
+const formatTaxNumber = function (e) {
+  const inputEl = e.target;
+  const taxNumber = inputEl.value.replace(/\D/g, "");
+  taxNumber ? (inputEl.value = taxNumber) : (inputEl.value = "");
+}
+
+let submitStatus = false;
+initValidation();
+
+const submitFormHandler = function (e) {
+  document.querySelectorAll(".js-validate").forEach((inputEl) => {
+    submitStatus = true;
+    inputValidation(inputEl, submitStatus);
+  })
+
+  const formEl = e.target;
+  const formIsValid = formEl.checkValidity();
+
+  if (!formIsValid) { e.preventDefault() };
+
+  const firstInvalidInput = formEl.querySelector("input:invalid");
+  firstInvalidInput?.scrollIntoView({ behavior: "smooth", block: "center" });
+  firstInvalidInput?.focus({ preventScroll: "true" })
+}
+
+receiverFormEl.addEventListener("submit", submitFormHandler)
+
+const createCustomErrorMessage = function (inputEl) {
+  if (inputEl.validity.valid) { return "" }
+
+  if (inputEl.name === "receiver-name") {
+    return "Укажите имя"
+  }
+
+  if (inputEl.name === "receiver-surname") {
+    return "Введите фамилию"
+  }
+
+  if (inputEl.name === "receiver-email") {
+
+    if (inputEl.validity.valueMissing) {
+      inputEl.nextElementSibling.classList.remove("receiver__form-error--long-message");
+      return "Укажите электронную почту"
+    }
+
+    else {
+      inputEl.nextElementSibling.classList.add("receiver__form-error--long-message");
+      return "Проверьте адрес электронной почты"
+    }
+  }
+
+  if (inputEl.name === "receiver-phone") {
+    if (inputEl.validity.valueMissing) { return "Укажите номер телефона" }
+    else { return "Формат: +9 999 999 99 99" }
+  }
+
+  if (inputEl.name === "receiver-tax-number") {
+    taxNumberDescr.classList.add("hidden");
+    if (inputEl.validity.valueMissing) { return "Укажите ИНН" }
+    else { return "Проверьте ИНН" }
+  }
 }

@@ -225,6 +225,8 @@ body.modal-open {
   font-weight: 400;
   line-height: 1.4rem;
   /* 116.667% */ }
+  .caption4--orange {
+    color: var(--system-red); }
 
 .caption5 {
   color: var(--system-white);
@@ -1291,7 +1293,7 @@ body.modal-open {
     padding: 0.75rem 0.8rem 0.8rem 3.8rem; }
     @media (min-width: 64em) {
       .delivery__refuse-descr {
-        margin: 1.75rem 0 0 0;
+        margin: 1.88rem 0 0 0;
         padding: 0.75rem 0.8rem 0.8rem 2.98rem; } }
     .delivery__refuse-descr::before {
       left: 0.8rem;
@@ -1615,6 +1617,8 @@ body.modal-open {
       .receiver__tax-number-descr {
         bottom: -0.06rem;
         left: 0.02rem; } }
+    .receiver__tax-number-descr.hidden {
+      display: none; }
   .receiver__form-field {
     width: 100%;
     margin-bottom: 1.92rem;
@@ -1650,8 +1654,22 @@ body.modal-open {
       height: 0.2rem;
       width: 100%;
       background-color: rgba(0, 0, 0, 0.1); }
-  .receiver input:focus + label > span,
-  .receiver input:not(:placeholder-shown) + label > span {
+    .receiver__form-field input.is-invalid {
+      color: var(--system-red); }
+    .receiver__form-field input.is-invalid + p + label::after {
+      background-color: var(--system-red); }
+    .receiver__form-field [data-js-enabled="false"] input:invalid {
+      color: var(--system-red); }
+    .receiver__form-field [data-js-enabled="false"] input:invalid + p + label::after {
+      background-color: var(--system-red); }
+  .receiver__form-error {
+    position: absolute;
+    left: 0;
+    bottom: -0.45rem; }
+    .receiver__form-error--long-message {
+      bottom: -1.82rem; }
+  .receiver input:focus + p + label > span,
+  .receiver input:not(:placeholder-shown) + p + label > span {
     transform: translateY(0);
     font-size: 1.2rem;
     line-height: 1.4rem;

@@ -1048,7 +1048,7 @@
     padding: 0.75rem 0.8rem 0.8rem 3.8rem;
 
     @include responsive(desktop-sm) {
-      margin: 1.75rem 0 0 0;
+      margin: 1.88rem 0 0 0;
       padding: 0.75rem 0.8rem 0.8rem 2.98rem;
     }
 
@@ -1523,6 +1523,10 @@
       bottom: -0.06rem;
       left: 0.02rem;
     }
+
+    &.hidden {
+      display: none;
+    }
   }
 
   &__form-field {
@@ -1572,10 +1576,36 @@
         background-color: rgba(0, 0, 0, 0.1);
       }
     }
+
+    input.is-invalid {
+      color: var(--system-red);
+    }
+
+    input.is-invalid + p + label::after {
+      background-color: var(--system-red);
+    }
+
+    [data-js-enabled="false"] input:invalid {
+      color: var(--system-red);
+    }
+
+    [data-js-enabled="false"] input:invalid + p + label::after {
+      background-color: var(--system-red);
+    }
   }
 
-  input:focus + label > span,
-  input:not(:placeholder-shown) + label > span {
+  &__form-error {
+    position: absolute;
+    left: 0;
+    bottom: -0.45rem;
+
+    &--long-message {
+      bottom: -1.82rem;
+    }
+  }
+
+  input:focus + p + label > span,
+  input:not(:placeholder-shown) + p + label > span {
     transform: translateY(0);
     font-size: 1.2rem;
     line-height: 1.4rem; /* 116.667% */

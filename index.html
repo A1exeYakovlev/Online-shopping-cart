@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="css/style.css" />
     <script defer src="js/script.js"></script>
   </head>
-  <body class="page">
+  <body class="page" data-js-enabled="false">
     <header class="header">
       <div class="container container--wide">
         <div class="header__inner">
@@ -2147,16 +2147,24 @@
             <section class="receiver cart__receiver">
               <div class="container">
                 <h2 class="receiver__title headline2">Получатель</h2>
-                <form action="">
+                <form id="receiver-form" action="#" method="post">
                   <div class="receiver__pers-info">
                     <div class="receiver__form-field">
                       <input
-                        class="receiver__name-input body-text"
+                        class="receiver__name-input body-text js-validate"
                         type="text"
                         name="receiver-name"
                         id="receiver-name"
                         placeholder="Имя"
+                        pattern="^[A-Za-zА-Яа-яЁё]+(?:[\s&#39;\-][A-Za-zА-Яа-яЁё]+)*$"
+                        required
+                        aria-describedby="receiver__name-input-error"
                       />
+                      <p
+                        class="receiver__form-error caption4 caption4--orange"
+                        id="receiver__name-input-error"
+                        hidden
+                      ></p>
                       <label
                         class="receiver__name-label body-text body-text--gray"
                         for="receiver-name"
@@ -2165,12 +2173,20 @@
                     </div>
                     <div class="receiver__form-field">
                       <input
-                        class="receiver__surname-input body-text"
+                        class="receiver__surname-input body-text js-validate"
                         name="receiver-surname"
                         id="receiver-surname"
                         type="text"
                         placeholder="Фамилия"
+                        pattern="^[A-Za-zА-Яа-яЁё]+(?:[\s&#39;\-][A-Za-zА-Яа-яЁё]+)*$"
+                        required
+                        aria-describedby="receiver__surname-input-error"
                       />
+                      <p
+                        class="receiver__form-error caption4 caption4--orange"
+                        id="receiver__surname-input-error"
+                        hidden
+                      ></p>
                       <label
                         class="receiver__surname-label body-text body-text--gray"
                         for="receiver-surname"
@@ -2181,43 +2197,68 @@
                   <div class="receiver__other-info">
                     <div class="receiver__form-field">
                       <input
-                        class="receiver__email-input body-text"
+                        class="receiver__email-input body-text js-validate"
                         type="email"
-                        id="email"
-                        name="email"
+                        id="receiver-email"
+                        name="receiver-email"
                         placeholder="Электронная почта"
+                        required
+                        aria-describedby="receiver__email-input-error"
                       />
+                      <p
+                        class="receiver__form-error receiver__form-error--long-message caption4 caption4--orange"
+                        id="receiver__email-input-error"
+                        hidden
+                      ></p>
                       <label
                         class="receiver__email-label body-text body-text--gray"
-                        for="email"
+                        for="receiver-email"
                         ><span>Электронная почта</span>
                       </label>
                     </div>
                     <div class="receiver__form-field">
                       <input
-                        class="receiver__phone-input body-text"
+                        class="receiver__phone-input body-text js-validate"
                         type="tel"
-                        id="phone"
-                        name="phone"
+                        id="receiver-phone"
+                        name="receiver-phone"
                         placeholder="Телефон"
+                        required
+                        pattern="^[\+][0-9]{1}\s[0-9]{3}\s[0-9]{3}\s[0-9]{2}\s[0-9]{2}$"
+                        maxlength="30"
+                        aria-describedby="receiver__phone-input-error"
                       />
+                      <p
+                        class="receiver__form-error caption4 caption4--orange"
+                        id="receiver__phone-input-error"
+                        hidden
+                      ></p>
                       <label
                         class="receiver__phone-label body-text body-text--gray"
-                        for="phone"
+                        for="receiver-phone"
                         ><span>Телефон</span>
                       </label>
                     </div>
                     <div class="receiver__form-field">
                       <input
-                        class="receiver__tax-number-input body-text"
+                        class="receiver__tax-number-input body-text js-validate"
                         type="text"
-                        id="tax-number"
-                        name="tax-number"
+                        id="receiver-tax-number"
+                        name="receiver-tax-number"
                         placeholder="ИНН"
+                        required
+                        pattern="(?!0{14})[0-9]{14}"
+                        maxlength="14"
+                        aria-describedby="receiver__tax-number-input-error"
                       />
+                      <p
+                        class="receiver__form-error caption4 caption4--orange"
+                        id="receiver__tax-number-input-error"
+                        hidden
+                      ></p>
                       <label
                         class="receiver__tax-number-label body-text body-text--gray"
-                        for="tax-number"
+                        for="receiver-tax-number"
                         ><span>ИНН</span>
                         <p class="receiver__tax-number-descr caption4">
                           Для таможенного оформления
@@ -2296,6 +2337,8 @@
                 </div>
                 <button
                   class="result__order-btn brand-button headline3 headline3--white"
+                  type="submit"
+                  form="receiver-form"
                 >
                   Заказать
                 </button>
@@ -2493,6 +2536,8 @@
             </div>
             <button
               class="result__order-btn brand-button headline3 headline3--white"
+              type="submit"
+              form="receiver-form"
             >
               Заказать
             </button>
