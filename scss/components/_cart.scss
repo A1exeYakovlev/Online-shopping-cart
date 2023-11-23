@@ -98,7 +98,7 @@
   }
 
   &__items-wrap {
-    margin-bottom: 4.59rem;
+    margin-bottom: 4.61rem;
 
     @include responsive(desktop-sm) {
       margin-bottom: 3.8rem;
@@ -186,7 +186,7 @@
   }
 
   &__result {
-    margin-top: 2.39rem;
+    margin-top: 2.5rem;
 
     @include responsive(desktop-sm) {
       display: none;
@@ -918,7 +918,7 @@
 }
 
 .delivery {
-  padding: 1.72rem 0 1.55rem 0;
+  padding: 1.69rem 0 1.55rem 0;
   border-radius: 1.6rem;
   background: var(--system-white);
 
@@ -1477,7 +1477,7 @@
   background-color: var(--system-white);
 
   @include responsive(tablet) {
-    padding: 1.6rem 0 1rem 0;
+    padding: 1.6rem 0 1.3rem 0;
   }
 
   @include responsive(desktop-md) {
@@ -1487,11 +1487,11 @@
   &__pers-info {
     display: flex;
     flex-direction: column;
-    margin-top: 0.8rem;
+    margin-top: 0.7rem;
     position: relative;
 
     @include responsive(tablet) {
-      margin-top: 2.1rem;
+      margin-top: 1.8rem;
     }
   }
 
@@ -1509,6 +1509,7 @@
     @include responsive(tablet) {
       flex-direction: row;
       gap: 2.4rem;
+      align-items: flex-start;
     }
   }
 
@@ -1520,7 +1521,7 @@
     height: 1rem;
 
     @include responsive(desktop-sm) {
-      bottom: -0.06rem;
+      bottom: -0.36rem;
       left: 0.02rem;
     }
 
@@ -1545,6 +1546,14 @@
       outline: none;
       width: 100%;
       height: 2.4rem;
+      position: relative;
+      top: 0.25rem;
+      left: -0.1rem;
+
+      @include responsive(tablet) {
+        top: 0.4rem;
+        left: 0;
+      }
     }
 
     input::placeholder {
@@ -1555,13 +1564,14 @@
       span {
         position: absolute;
         top: -0.25rem;
-        left: -0.08rem;
-        transform: translateY(1.55rem);
+        left: -0.1rem;
+        transform: translateY(1.67rem);
         transition: all 0.4s;
         z-index: 2;
 
         @include responsive(tablet) {
           left: 0;
+          transform: translateY(1.85rem);
         }
       }
 
@@ -1569,11 +1579,15 @@
         content: "";
         display: block;
         position: relative;
-        bottom: -0.3rem;
+        bottom: -0.4rem;
         left: 0;
         height: 0.2rem;
         width: 100%;
         background-color: rgba(0, 0, 0, 0.1);
+
+        @include responsive(tablet) {
+          bottom: -0.6rem;
+        }
       }
     }
 
@@ -1581,7 +1595,7 @@
       color: var(--system-red);
     }
 
-    input.is-invalid + p + label::after {
+    input.is-invalid + label::after {
       background-color: var(--system-red);
     }
 
@@ -1589,26 +1603,26 @@
       color: var(--system-red);
     }
 
-    [data-js-enabled="false"] input:invalid + p + label::after {
+    [data-js-enabled="false"] input:invalid + label::after {
       background-color: var(--system-red);
     }
   }
 
   &__form-error {
-    position: absolute;
-    left: 0;
-    bottom: -0.45rem;
-
-    &--long-message {
-      bottom: -1.82rem;
-    }
+    margin-top: 0.95rem;
+    margin: 0.95rem 0 -0.75rem 0;
   }
 
-  input:focus + p + label > span,
-  input:not(:placeholder-shown) + p + label > span {
+  input:focus + label > span,
+  input:not(:placeholder-shown) + label > span {
     transform: translateY(0);
     font-size: 1.2rem;
     line-height: 1.4rem; /* 116.667% */
+
+    @include responsive(tablet) {
+      font-size: 1.3rem;
+      line-height: 1.6rem; /* 123.077% */
+    }
   }
 }
 

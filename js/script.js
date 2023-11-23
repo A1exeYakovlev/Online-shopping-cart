@@ -1323,7 +1323,7 @@ const inputValidation = function (inputEl, submitStatus) {
   inputEl.classList.toggle("is-invalid", inputIsInvalid);
   inputEl.setAttribute("aria-invalid", inputIsInvalid.toString())
 
-  const errorMessageEl = inputEl.nextElementSibling;
+  const errorMessageEl = inputEl.nextElementSibling.nextElementSibling;
   errorMessageEl.textContent = createCustomErrorMessage(inputEl);
   errorMessageEl.hidden = !inputIsInvalid;
 
@@ -1442,12 +1442,10 @@ const createCustomErrorMessage = function (inputEl) {
   if (inputEl.name === "receiver-email") {
 
     if (inputEl.validity.valueMissing) {
-      inputEl.nextElementSibling.classList.remove("receiver__form-error--long-message");
       return "Укажите электронную почту"
     }
 
     else {
-      inputEl.nextElementSibling.classList.add("receiver__form-error--long-message");
       return "Проверьте адрес электронной почты"
     }
   }

@@ -650,7 +650,7 @@ body.modal-open {
       .cart__collapse-btn {
         margin: 0; } }
   .cart__items-wrap {
-    margin-bottom: 4.59rem; }
+    margin-bottom: 4.61rem; }
     @media (min-width: 64em) {
       .cart__items-wrap {
         margin-bottom: 3.8rem; } }
@@ -701,7 +701,7 @@ body.modal-open {
       .cart__receiver {
         margin-top: 1.6rem; } }
   .cart__result {
-    margin-top: 2.39rem; }
+    margin-top: 2.5rem; }
     @media (min-width: 64em) {
       .cart__result {
         display: none; } }
@@ -1206,7 +1206,7 @@ body.modal-open {
         cursor: auto; } }
 
 .delivery {
-  padding: 1.72rem 0 1.55rem 0;
+  padding: 1.69rem 0 1.55rem 0;
   border-radius: 1.6rem;
   background: var(--system-white); }
   @media (min-width: 41.875em) {
@@ -1585,18 +1585,18 @@ body.modal-open {
   background-color: var(--system-white); }
   @media (min-width: 41.875em) {
     .receiver {
-      padding: 1.6rem 0 1rem 0; } }
+      padding: 1.6rem 0 1.3rem 0; } }
   @media (min-width: 87.5em) {
     .receiver {
       padding: 1.6rem 14.3rem 1rem 0; } }
   .receiver__pers-info {
     display: flex;
     flex-direction: column;
-    margin-top: 0.8rem;
+    margin-top: 0.7rem;
     position: relative; }
     @media (min-width: 41.875em) {
       .receiver__pers-info {
-        margin-top: 2.1rem; } }
+        margin-top: 1.8rem; } }
   .receiver__other-info {
     display: flex;
     flex-direction: column; }
@@ -1606,7 +1606,8 @@ body.modal-open {
   @media (min-width: 41.875em) {
     .receiver__pers-info, .receiver__other-info {
       flex-direction: row;
-      gap: 2.4rem; } }
+      gap: 2.4rem;
+      align-items: flex-start; } }
   .receiver__tax-number-descr {
     display: block;
     position: absolute;
@@ -1615,7 +1616,7 @@ body.modal-open {
     height: 1rem; }
     @media (min-width: 64em) {
       .receiver__tax-number-descr {
-        bottom: -0.06rem;
+        bottom: -0.36rem;
         left: 0.02rem; } }
     .receiver__tax-number-descr.hidden {
       display: none; }
@@ -1632,48 +1633,62 @@ body.modal-open {
       border: none;
       outline: none;
       width: 100%;
-      height: 2.4rem; }
+      height: 2.4rem;
+      position: relative;
+      top: 0.25rem;
+      left: -0.1rem; }
+      @media (min-width: 41.875em) {
+        .receiver__form-field input {
+          top: 0.4rem;
+          left: 0; } }
     .receiver__form-field input::placeholder {
       opacity: 0; }
     .receiver__form-field label span {
       position: absolute;
       top: -0.25rem;
-      left: -0.08rem;
-      transform: translateY(1.55rem);
+      left: -0.1rem;
+      transform: translateY(1.67rem);
       transition: all 0.4s;
       z-index: 2; }
       @media (min-width: 41.875em) {
         .receiver__form-field label span {
-          left: 0; } }
+          left: 0;
+          transform: translateY(1.85rem); } }
     .receiver__form-field label::after {
       content: "";
       display: block;
       position: relative;
-      bottom: -0.3rem;
+      bottom: -0.4rem;
       left: 0;
       height: 0.2rem;
       width: 100%;
       background-color: rgba(0, 0, 0, 0.1); }
+      @media (min-width: 41.875em) {
+        .receiver__form-field label::after {
+          bottom: -0.6rem; } }
     .receiver__form-field input.is-invalid {
       color: var(--system-red); }
-    .receiver__form-field input.is-invalid + p + label::after {
+    .receiver__form-field input.is-invalid + label::after {
       background-color: var(--system-red); }
     .receiver__form-field [data-js-enabled="false"] input:invalid {
       color: var(--system-red); }
-    .receiver__form-field [data-js-enabled="false"] input:invalid + p + label::after {
+    .receiver__form-field [data-js-enabled="false"] input:invalid + label::after {
       background-color: var(--system-red); }
   .receiver__form-error {
-    position: absolute;
-    left: 0;
-    bottom: -0.45rem; }
-    .receiver__form-error--long-message {
-      bottom: -1.82rem; }
-  .receiver input:focus + p + label > span,
-  .receiver input:not(:placeholder-shown) + p + label > span {
+    margin-top: 0.95rem;
+    margin: 0.95rem 0 -0.75rem 0; }
+  .receiver input:focus + label > span,
+  .receiver input:not(:placeholder-shown) + label > span {
     transform: translateY(0);
     font-size: 1.2rem;
     line-height: 1.4rem;
     /* 116.667% */ }
+    @media (min-width: 41.875em) {
+      .receiver input:focus + label > span,
+      .receiver input:not(:placeholder-shown) + label > span {
+        font-size: 1.3rem;
+        line-height: 1.6rem;
+        /* 123.077% */ } }
 
 .result__title-wrap, .result__goods, .result__discount, .result__delivery, .result__delivery-point {
   display: flex;
