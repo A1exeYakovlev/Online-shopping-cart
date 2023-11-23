@@ -1158,7 +1158,7 @@ body.modal-open {
     opacity: var(--after-opacity);
     transition: opacity 0.5s ease;
     z-index: 4;
-    pointer-events: all;
+    pointer-events: none;
     cursor: auto; }
     @media (min-width: 41.875em) {
       .refuse-descr::after {
@@ -1202,8 +1202,13 @@ body.modal-open {
         opacity: var(--after-opacity);
         transition: opacity 0.5s ease;
         z-index: 4;
-        pointer-events: all;
+        pointer-events: none;
         cursor: auto; } }
+  .refuse-descr.active {
+    --after-opacity: 1; }
+    .refuse-descr.active::after,
+    .refuse-descr.active span::after {
+      pointer-events: all; }
 
 .delivery {
   padding: 1.69rem 0 1.55rem 0;

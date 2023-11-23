@@ -854,7 +854,7 @@
     opacity: var(--after-opacity);
     transition: opacity 0.5s ease;
     z-index: 4;
-    pointer-events: all;
+    pointer-events: none;
     cursor: auto;
 
     @include responsive(tablet) {
@@ -910,9 +910,18 @@
         opacity: var(--after-opacity);
         transition: opacity 0.5s ease;
         z-index: 4;
-        pointer-events: all;
+        pointer-events: none;
         cursor: auto;
       }
+    }
+  }
+
+  &.active {
+    --after-opacity: 1;
+
+    &::after,
+    & span::after {
+      pointer-events: all;
     }
   }
 }

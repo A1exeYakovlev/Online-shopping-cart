@@ -1175,10 +1175,10 @@ cartWrap.addEventListener("click", function (e) {
   e.stopPropagation();
 
   const tooltipWrapEl = tooltipTriggerEl.closest(".refuse-descr");
-  tooltipWrapEl.style.setProperty("--after-opacity", "1");
+  tooltipWrapEl.classList.add("active");
 
   const closeTooltip = function () {
-    tooltipWrapEl.style.setProperty("--after-opacity", "0");
+    tooltipWrapEl.classList.remove("active");
     document.body.removeEventListener("click", closeTooltip);
     cartWrap.classList.remove("active-tooltip");
   }
