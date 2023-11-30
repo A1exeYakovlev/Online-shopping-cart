@@ -60,7 +60,8 @@ body {
   font-weight: 400;
   line-height: 2.4rem;
   /* 150% */
-  overflow: auto; }
+  overflow-y: auto;
+  overflow-x: hidden; }
 
 body.modal-open {
   overflow: hidden; }
@@ -1127,7 +1128,12 @@ body.modal-open {
 .brand-button {
   border-radius: 0.8rem;
   border: transparent;
-  background: var(--system-magenta); }
+  background: var(--system-magenta);
+  transform: filter 0.3s; }
+  .brand-button:hover {
+    filter: saturate(115%); }
+  .brand-button:active {
+    filter: brightness(95%); }
 
 .refuse-descr {
   position: relative;
