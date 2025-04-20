@@ -1,4 +1,4 @@
-import CartResultDesktopDelivery from "../CartResultDesktopDelivery";
+import CartResultDesktopDelivery from "./CartResultDesktopDelivery";
 import CartResultDesktopPayment from "./CartResultDesktopPayment";
 import CartResultDesktopSum from "./CartResultDesktopSum";
 
