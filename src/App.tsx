@@ -1,3 +1,4 @@
+import Footer from "./ui/Footer";
 import Header from "./ui/Header";
 
 function App() {
@@ -2278,13 +2279,7 @@ function App() {
           </div>
         </div>
       </main>
-      <footer className="footer page__footer">
-        <div className="container">
-          <p className="caption caption--white">
-            &copy;&nbsp;2022 &nbsp;ООО &laquo;Товары и&nbsp;точка&raquo;
-          </p>
-        </div>
-      </footer>
+      <Footer />
       <nav className="navbar">
         <div className="container container--wide">
           <div className="navbar__wrap">
