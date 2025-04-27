@@ -13,7 +13,7 @@ export interface CartItemData {
   imgUrl: { url: string; density: string }[];
 }
 
-interface ItemProperties {
+export interface ItemProperties {
   name: string;
   value?: string | number;
 }
