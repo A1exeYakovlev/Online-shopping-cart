@@ -1,11 +1,34 @@
+import { useEffect, useState } from "react";
 import CartDelivery from "./CartDelivery";
 import CartItem from "./CartItem";
 import CartPayment from "./CartPayment";
 import CartReceiver from "./CartReceiver";
 import CartResult from "./CartResult";
 import MissingItems from "./missingItems";
+import { CartItemData } from "../../shared.types";
 
 export default function CartItems() {
+  const [cartItems, setCartItems] = useState<CartItemData[] | null>(null);
+  const [isLoading, setIsLoading] = useState(false);
+
+  useEffect(() => {
+    async function getCartItemsData() {
+      try {
+        setIsLoading(true);
+        const response = await fetch("/cartItems.json");
+        if (!response.ok)
+          throw new Error("Ошибка загрузки данных о товарах в корзине");
+        const data = (await response.json()) as CartItemData[];
+        setCartItems(data);
+      } catch (err) {
+        console.error(err.message);
+      } finally {
+        setIsLoading(false);
+      }
+    }
+    getCartItemsData();
+  }, []);
+
   return (
     <section className="cart__inner">
       <section className="cart__items">
@@ -56,7 +79,13 @@ export default function CartItems() {
             </button>
           </div>
           <div className="cart__items-wrap">
-            <CartItem />
+            {isLoading && <p>Товары загружаются...</p>}
+            {!isLoading &&
+              cartItems &&
+              cartItems.length > 0 &&
+              cartItems.map((item) => (
+                <CartItem itemData={item} key={item.idNum} />
+              ))}
           </div>
           <MissingItems />
         </div>
