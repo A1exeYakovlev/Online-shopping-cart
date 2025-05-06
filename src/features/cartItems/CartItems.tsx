@@ -1,4 +1,3 @@
-import { useEffect, useState } from "react";
 import CartDelivery from "./CartDelivery";
 import CartItem from "./CartItem";
 import CartPayment from "./CartPayment";
@@ -6,28 +5,19 @@ import CartReceiver from "./CartReceiver";
 import CartResult from "./CartResult";
 import MissingItems from "./missingItems";
 import { CartItemData } from "../../shared.types";
+import { getCartItemsData } from "../../services/apiCartItems";
+import { useLoaderData, useNavigation } from "react-router";
+
+export async function loader() {
+  const cartItems = await getCartItemsData();
+  return cartItems;
+}
 
 export default function CartItems() {
-  const [cartItems, setCartItems] = useState<CartItemData[] | null>(null);
-  const [isLoading, setIsLoading] = useState(false);
+  const navigation = useNavigation();
+  const isLoading = navigation.state === "loading";
 
-  useEffect(() => {
-    async function getCartItemsData() {
-      try {
-        setIsLoading(true);
-        const response = await fetch("/cartItems.json");
-        if (!response.ok)
-          throw new Error("Ошибка загрузки данных о товарах в корзине");
-        const data = (await response.json()) as CartItemData[];
-        setCartItems(data);
-      } catch (err) {
-        console.error(err.message);
-      } finally {
-        setIsLoading(false);
-      }
-    }
-    getCartItemsData();
-  }, []);
+  const cartItems: CartItemData[] = useLoaderData();
 
   return (
     <section className="cart__inner">

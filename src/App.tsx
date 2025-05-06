@@ -1,24 +1,24 @@
-import CartItems from "./features/cartItems/CartItems";
-import Navbar from "./features/navbar/Navbar";
-import CartResultDesktop from "./features/resultsDesktop/CartResultDesktop";
-import Footer from "./ui/Footer";
-import Header from "./ui/Header";
+import { createBrowserRouter, RouterProvider } from "react-router";
+import CartPage from "./pages/CartPage";
+import HomePage from "./pages/HomePage";
+import { loader as cartItemsLoader } from "./features/cartItems/CartItems";
+
+const router = createBrowserRouter([
+  {
+    path: "/",
+    element: <HomePage />,
+  },
+  {
+    path: "/cart",
+    element: <CartPage />,
+    loader: cartItemsLoader,
+  },
+]);
 
 function App() {
   return (
     <>
-      <Header />
-      <main className="cart">
-        <div className="container container--desktop-only">
-          <div className="cart__wrap">
-            <CartItems />
-            <CartResultDesktop />
-          </div>
-        </div>
-      </main>
-      <Footer />
-      <Navbar />
-      <div className="overlay hidden"></div>
+      <RouterProvider router={router} />
     </>
   );
 }
