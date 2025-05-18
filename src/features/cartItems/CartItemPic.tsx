@@ -26,11 +26,7 @@ export default function CartItemPic({ itemData }: CartItemPicProps) {
           <span className="custom-checkbox__checkbox cart-item__select-checkbox"></span>
         </label>
       </div>
-      <img
-        src={itemData.imgUrl[0].url}
-        alt="Футболка мужская"
-        srcSet={srcSet}
-      />
+      <img src={itemData.imgUrl[0].url} alt={itemData.imgAlt} srcSet={srcSet} />
       <div className="cart-item__pic-property body-text2">
         {itemData.properties[1]?.value}
       </div>
