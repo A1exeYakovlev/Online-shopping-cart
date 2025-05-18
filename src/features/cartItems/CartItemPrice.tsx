@@ -1,10 +1,14 @@
 import { CartItemData } from "../../shared.types";
+import { formatPrice } from "../../utils/formatting";
 
 interface CartItemPriceProps {
   itemData: CartItemData;
 }
 
 export default function CartItemPrice({ itemData }: CartItemPriceProps) {
+  const discPriceVal = formatPrice(itemData.discPrice.value, "smallSpace", 3);
+  const fullPriceVal = formatPrice(itemData.fullPrice.value, "smallSpace", 6);
+
   return (
     <div className="cart-item__price">
       <div className="cart-item__price-discount-wrap headline3 headline3--lg">
@@ -12,7 +16,7 @@ export default function CartItemPrice({ itemData }: CartItemPriceProps) {
           className="cart-item__price-discount-value"
           id={`cart-item${itemData.idNum.toString()}-disc-price`}
         >
-          {itemData.discPrice.value}
+          {discPriceVal}
         </span>
         <span
           className="headline3"
@@ -29,7 +33,7 @@ export default function CartItemPrice({ itemData }: CartItemPriceProps) {
           className="cart-item__price-full-value"
           id={`cart-item${itemData.idNum.toString()}-full-price`}
         >
-          {itemData.fullPrice.value}
+          {fullPriceVal}
         </span>
         <span id={`cart-item${itemData.idNum.toString()}-full-cur`}>
           &nbsp;{itemData.fullPrice.currency}
