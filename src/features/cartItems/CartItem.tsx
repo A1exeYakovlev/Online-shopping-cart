@@ -10,12 +10,26 @@ interface CartItemProps {
 }
 
 export default function CartItem({ itemData }: CartItemProps) {
+  const picPropertyStyle = itemData.properties.find(
+    (prop) => prop.showOnPic === true
+  )
+    ? ""
+    : "empty-pic-property ";
+  const multilineNameStyle = itemData.name.length > 31 ? "multiline-name " : "";
+  const emptyPropertiesStyle =
+    itemData.properties.length === 0 ? "empty-properties " : "";
+  const emptyRemainsStyle = itemData.remains > 3 ? "empty-remains " : "";
+
+  const itemStyles =
+    "cart-item cart__cart-item " +
+    picPropertyStyle +
+    multilineNameStyle +
+    emptyPropertiesStyle +
+    emptyRemainsStyle;
+
   return (
     <>
-      <div
-        className="cart-item cart__cart-item"
-        id={`cart-item${itemData.idNum.toString()}`}
-      >
+      <div className={itemStyles} id={`cart-item${itemData.idNum.toString()}`}>
         <CartItemPic itemData={itemData} />
         <CartItemPrice itemData={itemData} />
         <p className="cart-item__name body-text2">{itemData.name}</p>

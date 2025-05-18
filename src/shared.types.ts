@@ -16,6 +16,7 @@ export interface CartItemData {
 export interface ItemProperties {
   name: string;
   value?: string | number;
+  showOnPic?: boolean;
 }
 
 interface PriceInfo {

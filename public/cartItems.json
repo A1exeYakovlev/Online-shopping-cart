@@ -2,9 +2,10 @@
   {
     "idNum": 1,
     "name": "Футболка UZcotton мужская",
+
     "properties": [
-      { "name": "Цвет", "value": "белый" },
-      { "name": "Размер", "value": "56" }
+      { "name": "Цвет", "value": "белый", "showOnPic": false },
+      { "name": "Размер", "value": "56", "showOnPic": true }
     ],
     "storage": "Коледино WB",
     "seller": "OOO Вайлдберриз",
@@ -27,7 +28,9 @@
   {
     "idNum": 2,
     "name": "Силиконовый чехол картхолдер (отверстия) для карт, прозрачный кейс бампер на Apple iPhone XR, MobiSafe",
-    "properties": [{ "name": "Цвет", "value": "прозрачный" }],
+    "properties": [
+      { "name": "Цвет", "value": "прозрачный", "showOnPic": false }
+    ],
     "storage": "Коледино WB",
     "seller": "OOO Мегапрофстиль",
     "remains": 300,
