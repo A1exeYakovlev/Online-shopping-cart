@@ -9,11 +9,7 @@ export default function CartItemProperty({ property }: CartItemPropertyProps) {
     <>
       {property.name && (
         <p
-          className={
-            property.name.toLowerCase() === "размер"
-              ? "cart-item__properties-size"
-              : ""
-          }
+          className={property.showOnPic ? "cart-item__properties--on-pic" : ""}
         >
           {property.name}
           <span>{property.value && ": " + property.value.toString()}</span>

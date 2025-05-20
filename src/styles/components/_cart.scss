@@ -621,7 +621,7 @@
       margin-top: 0.23rem;
     }
 
-    &-size {
+    &--on-pic {
       display: none;
 
       @include responsive(desktop-sm) {
