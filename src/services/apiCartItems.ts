@@ -1,4 +1,4 @@
-import { CartItemData } from "../shared.types";
+import { ShopItemsData } from "../shared.types";
 
 const CART_ITEMS_URL = "http://localhost:5173";
 
@@ -10,7 +10,7 @@ export async function getCartItemsData() {
       throw new Error("Ошибка загрузки данных о товарах в корзине");
     }
 
-    const data = (await response.json()) as CartItemData[];
+    const data = (await response.json()) as ShopItemsData[];
     return data;
   } catch (err) {
     console.error(err.message);

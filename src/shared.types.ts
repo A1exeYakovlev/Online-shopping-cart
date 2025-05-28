@@ -1,4 +1,6 @@
-export interface CartItemData {
+export type UserCart = Array<{ idNum: number; quant: number }>;
+
+export interface ShopItemsData {
   idNum: number;
   name: string;
   properties: ItemProperties[] | [];

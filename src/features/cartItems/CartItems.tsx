@@ -1,19 +1,24 @@
 import CartItem from "./CartItem";
 import MissingItems from "./missingItems";
-import { CartItemData } from "../../shared.types";
+import { ShopItemsData } from "../../shared.types";
 import { getCartItemsData } from "../../services/apiCartItems";
 import { useLoaderData, useNavigation } from "react-router";
+import { getUserCartItems } from "../../services/localStorageServices";
 
 export async function loader() {
-  const cartItems = await getCartItemsData();
+  const shopItemsData = (await getCartItemsData()) as ShopItemsData[];
+  const userCart = getUserCartItems();
+  const cartItems = userCart.map((userItem) =>
+    shopItemsData.find((item) => item.idNum === userItem.idNum)
+  );
+
   return cartItems;
 }
 
 export default function CartItems() {
   const navigation = useNavigation();
   const isLoading = navigation.state === "loading";
-
-  const cartItems: CartItemData[] = useLoaderData();
+  const cartItems: ShopItemsData[] = useLoaderData();
 
   return (
     <section className="cart__items">
@@ -66,7 +71,6 @@ export default function CartItems() {
         <div className="cart__items-wrap">
           {isLoading && <p>Товары загружаются...</p>}
           {!isLoading &&
-            cartItems &&
             cartItems.length > 0 &&
             cartItems.map((item) => (
               <CartItem itemData={item} key={item.idNum} />
