@@ -70,5 +70,77 @@
       { "url": "img/cart__item3_3x.jpg", "density": "3x" },
       { "url": "img/cart__item3_4x.jpg", "density": "4x" }
     ]
+  },
+  {
+    "idNum": 4,
+    "name": "Футболка UZcotton мужская",
+
+    "properties": [
+      { "name": "Цвет", "value": "белый", "showOnPic": false },
+      { "name": "Размер", "value": "54", "showOnPic": true }
+    ],
+    "storage": "Коледино WB",
+    "seller": "OOO Вайлдберриз",
+    "remains": 0,
+    "discPrice": { "value": 522, "currency": "сом" },
+    "fullPrice": { "value": 1051, "currency": "сом" },
+    "discount": 0.45,
+    "delivery": [
+      { "date": "5—6 февраля", "quantity": 0 },
+      { "date": "7—8 февраля", "quantity": 0 }
+    ],
+    "imgAlt": "Футболка мужская",
+    "imgUrl": [
+      { "url": "img/cart__item1_1x.jpg", "density": "1x" },
+      { "url": "img/cart__item1_2x.jpg", "density": "2x" },
+      { "url": "img/cart__item1_3x.jpg", "density": "3x" },
+      { "url": "img/cart__item1_4x.jpg", "density": "4x" }
+    ]
+  },
+  {
+    "idNum": 5,
+    "name": "Силиконовый чехол на Apple iPhone XR, MobiSafe",
+    "properties": [
+      { "name": "Цвет", "value": "прозрачный", "showOnPic": false }
+    ],
+    "storage": "Коледино WB",
+    "seller": "OOO Мегапрофстиль",
+    "remains": 0,
+    "discPrice": { "value": 9800.405, "currency": "сом" },
+    "fullPrice": { "value": 10100.405, "currency": "сом" },
+    "discount": 0,
+    "delivery": [
+      { "date": "5—6 февраля", "quantity": 0 },
+      { "date": "7—8 февраля", "quantity": 0 }
+    ],
+    "imgAlt": "Силиконовый чехол для iPhone",
+    "imgUrl": [
+      { "url": "img/cart__item2_1x.jpg", "density": "1x" },
+      { "url": "img/cart__item2_2x.jpg", "density": "2x" },
+      { "url": "img/cart__item2_3x.jpg", "density": "3x" },
+      { "url": "img/cart__item2_4x.jpg", "density": "4x" }
+    ]
+  },
+  {
+    "idNum": 6,
+    "name": "Карандаши цветные Faber-Castell \"Замок\", набор 32 цвета, заточенные, шестигранные, Faber-Castell",
+    "properties": [],
+    "storage": "Коледино WB",
+    "seller": "OOO Вайлдберриз",
+    "remains": 0,
+    "discPrice": { "value": 403, "currency": "сом" },
+    "fullPrice": { "value": 775, "currency": "сом" },
+    "discount": 0.52,
+    "delivery": [
+      { "date": "5—6 февраля", "quantity": 0 },
+      { "date": "7—8 февраля", "quantity": 0 }
+    ],
+    "imgAlt": "Набор цветных карандашей",
+    "imgUrl": [
+      { "url": "img/cart__item3_1x.jpg", "density": "1x" },
+      { "url": "img/cart__item3_2x.jpg", "density": "2x" },
+      { "url": "img/cart__item3_3x.jpg", "density": "3x" },
+      { "url": "img/cart__item3_4x.jpg", "density": "4x" }
+    ]
   }
 ]

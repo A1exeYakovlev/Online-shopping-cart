@@ -1,4 +1,4 @@
-import { CartItemData } from "../../shared.types";
+import { ShopItemsData } from "../../shared.types";
 import CartItemPrice from "./CartItemPrice";
 import CartItemProperty from "./CartItemProperty";
 import CartItemControls from "./CartItemControls";
@@ -6,7 +6,7 @@ import CartItemSeller from "./CartItemSeller";
 import CartItemPic from "./CartItemPic";
 
 interface CartItemProps {
-  itemData: CartItemData;
+  itemData: ShopItemsData;
 }
 
 export default function CartItem({ itemData }: CartItemProps) {

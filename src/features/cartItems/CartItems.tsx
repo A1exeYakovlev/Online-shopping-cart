@@ -8,9 +8,11 @@ import { getUserCartItems } from "../../services/localStorageServices";
 export async function loader() {
   const shopItemsData = (await getCartItemsData()) as ShopItemsData[];
   const userCart = getUserCartItems();
-  const cartItems = userCart.map((userItem) =>
-    shopItemsData.find((item) => item.idNum === userItem.idNum)
-  );
+  const cartItems = userCart
+    .map((userItem) =>
+      shopItemsData.find((item) => item.idNum === userItem.idNum)
+    )
+    .filter(Boolean);
 
   return cartItems;
 }
@@ -18,7 +20,9 @@ export async function loader() {
 export default function CartItems() {
   const navigation = useNavigation();
   const isLoading = navigation.state === "loading";
-  const cartItems: ShopItemsData[] = useLoaderData();
+  const cartItems: ShopItemsData[] | [] = useLoaderData();
+  const hasMissingItems = cartItems.some((item) => item.remains === 0);
+  const cartItemsInStock = cartItems.filter((item) => item.remains > 0);
 
   return (
     <section className="cart__items">
@@ -70,13 +74,16 @@ export default function CartItems() {
         </div>
         <div className="cart__items-wrap">
           {isLoading && <p>Товары загружаются...</p>}
+          {!isLoading && cartItemsInStock.length === 0 && (
+            <p>В корзине нет товаров</p>
+          )}
           {!isLoading &&
-            cartItems.length > 0 &&
-            cartItems.map((item) => (
+            cartItemsInStock.length > 0 &&
+            cartItemsInStock.map((item) => (
               <CartItem itemData={item} key={item.idNum} />
             ))}
         </div>
-        <MissingItems />
+        {hasMissingItems && <MissingItems />}
       </div>
     </section>
   );
