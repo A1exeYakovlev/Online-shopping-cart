@@ -1,8 +1,19 @@
+import { useLoaderData } from "react-router";
+import { ShopItemsData } from "../../shared.types";
+import { missingFormatting } from "../../utils/formatting";
+
 export default function MissingItems() {
+  const cartItems: ShopItemsData[] | [] = useLoaderData();
+  const missingItemsQuantity = cartItems.filter(
+    (item) => item.remains === 0
+  ).length;
+
   return (
     <section className="cart__missing">
       <div className="cart__missing-title-wrap">
-        <p className="cart__missing-title headline4">Отсутствуют · 3 товара</p>
+        <p className="cart__missing-title headline4">
+          {missingFormatting(missingItemsQuantity)}
+        </p>
         <button
           className="cart__missing-btn collapse-btn collapse-btn--missing-items"
           type="button"

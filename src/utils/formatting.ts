@@ -24,3 +24,33 @@ export const formatPrice = function (
 
   return priceArr.join("");
 };
+
+//Форматирование комментария по числу товаров
+const quantityFormatting = function (quantity: number): string {
+  let quantityComment;
+  if (quantity % 10 === 1 && quantity % 100 !== 11) {
+    quantityComment = quantity.toString() + " товар";
+  } else if (
+    quantity % 10 >= 2 &&
+    quantity % 10 <= 4 &&
+    (quantity % 100 < 10 || quantity % 100 >= 20)
+  ) {
+    quantityComment = quantity.toString() + " товара";
+  } else {
+    quantityComment = quantity.toString() + " товаров";
+  }
+  return quantityComment;
+};
+
+//Форматирование комментария по отсутствию товаров
+export const missingFormatting = function (quantity: number): string {
+  let missingComment;
+
+  if (quantity % 10 === 1 && quantity % 100 !== 11) {
+    missingComment = "Отсутствует · ";
+  } else {
+    missingComment = "Отсутствуют · ";
+  }
+
+  return missingComment + quantityFormatting(quantity);
+};
