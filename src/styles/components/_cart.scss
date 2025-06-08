@@ -599,6 +599,7 @@
     display: -webkit-box;
     -webkit-box-orient: vertical;
     -webkit-line-clamp: var(--max-name-lines);
+    line-clamp: var(--max-name-lines);
     max-height: calc(var(--max-name-lines) * var(--body-text2-lh));
     overflow: hidden;
 
