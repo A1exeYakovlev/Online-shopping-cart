@@ -1,4 +1,8 @@
-export type UserCart = Array<{ idNum: number; quant: number }>;
+export type UserCart = Array<{
+  idNum: number;
+  quant: number;
+  favourite: boolean;
+}>;
 
 export interface ShopItemsData {
   idNum: number;

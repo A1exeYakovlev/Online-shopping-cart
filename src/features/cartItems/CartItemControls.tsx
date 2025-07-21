@@ -1,10 +1,51 @@
-import { CartItemData } from "../../shared.types";
+import { ShopItemsData } from "../../shared.types";
+import { updateLocalStorage } from "../../services/localStorageServices";
+import { useDispatch, useSelector } from "react-redux";
+import { changeItemQuantity } from "./cartSlice";
+import { RootState } from "../../store";
+import { useEffect, useState } from "react";
 
 interface CartItemControlsProps {
-  itemData: CartItemData;
+  itemData: ShopItemsData;
 }
 
 export default function CartItemControls({ itemData }: CartItemControlsProps) {
+  const dispatch = useDispatch();
+  const idNumStr = itemData.idNum.toString();
+
+  const userCart = useSelector((state: RootState) => state.cart);
+  const itemQuantity =
+    userCart.find((item) => item.idNum === itemData.idNum)?.quant || 1;
+  const [quantVal, setQuantVal] = useState<string>(itemQuantity.toString());
+
+  function onManageQuantity(type: "increase" | "decrease") {
+    let newQuantity = 1;
+    if (type === "increase") {
+      newQuantity = Math.min(itemData.remains, itemQuantity + 1);
+    } else if (type === "decrease") newQuantity = Math.max(1, itemQuantity - 1);
+
+    updateLocalStorage(itemData, newQuantity);
+    dispatch(changeItemQuantity(itemData.idNum, newQuantity));
+  }
+
+  function onChangeQuantity(e: React.ChangeEvent<HTMLInputElement>) {
+    setQuantVal(e.target.value);
+  }
+
+  function onBlurQuantity() {
+    let newQuantity = Number(quantVal);
+    if (!newQuantity || newQuantity < 1) newQuantity = 1;
+    if (newQuantity > itemData.remains) newQuantity = itemData.remains;
+
+    setQuantVal(newQuantity.toString());
+    updateLocalStorage(itemData, newQuantity);
+    dispatch(changeItemQuantity(itemData.idNum, newQuantity));
+  }
+
+  useEffect(() => {
+    setQuantVal(itemQuantity.toString());
+  }, [itemQuantity]);
+
   return (
     <div className="cart-item__management">
       <div className="cart-item__quantity">
@@ -12,6 +53,8 @@ export default function CartItemControls({ itemData }: CartItemControlsProps) {
           className="cart-item__minus-btn body-text3"
           type="button"
           data-item={itemData.idNum.toString()}
+          onClick={onManageQuantity.bind(null, "decrease")}
+          disabled={itemQuantity <= 1}
         >
           −
         </button>
@@ -20,20 +63,24 @@ export default function CartItemControls({ itemData }: CartItemControlsProps) {
           type="number"
           data-item={itemData.idNum.toString()}
           id={`cart-item${itemData.idNum.toString()}-quantity`}
-          value="1"
+          value={quantVal}
+          onChange={onChangeQuantity}
+          onBlur={onBlurQuantity}
         />
         <button
           className="cart-item__plus-btn body-text3"
           type="button"
           data-item={itemData.idNum.toString()}
+          onClick={onManageQuantity.bind(null, "increase")}
+          disabled={itemQuantity >= itemData.remains}
         >
           +
         </button>
       </div>
       <p
         className="cart-item__remains caption caption--coral"
-        data-item={itemData.idNum.toString()}
-        id={`cart-item${itemData.idNum.toString()}-remains`}
+        data-item={idNumStr}
+        id={`cart-item${idNumStr}-remains`}
       >
         {`Осталось ${(itemData.remains - 1).toString()} шт.`}
       </p>
@@ -41,7 +88,7 @@ export default function CartItemControls({ itemData }: CartItemControlsProps) {
         <button
           className="cart-item__buttons-favourite"
           type="button"
-          data-id={itemData.idNum.toString()}
+          data-id={idNumStr}
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -61,7 +108,7 @@ export default function CartItemControls({ itemData }: CartItemControlsProps) {
         <button
           className="cart-item__buttons-delete"
           type="button"
-          data-id={itemData.idNum.toString()}
+          data-id={idNumStr}
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"

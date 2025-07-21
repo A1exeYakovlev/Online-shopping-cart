@@ -1,28 +1,31 @@
 import CartItem from "./CartItem";
-import MissingItems from "./missingItems";
+import MissingItems from "./MissingItems";
 import { ShopItemsData } from "../../shared.types";
 import { getCartItemsData } from "../../services/apiCartItems";
 import { useLoaderData, useNavigation } from "react-router";
-import { getUserCartItems } from "../../services/localStorageServices";
+import { useSelector } from "react-redux";
+import { RootState } from "../../store";
 
 export async function loader() {
   const shopItemsData = (await getCartItemsData()) as ShopItemsData[];
-  const userCart = getUserCartItems();
-  const cartItems = userCart
-    .map((userItem) =>
-      shopItemsData.find((item) => item.idNum === userItem.idNum)
-    )
-    .filter(Boolean);
 
-  return cartItems;
+  return shopItemsData;
 }
 
 export default function CartItems() {
   const navigation = useNavigation();
   const isLoading = navigation.state === "loading";
-  const cartItems: ShopItemsData[] | [] = useLoaderData();
-  const hasMissingItems = cartItems.some((item) => item.remains === 0);
-  const cartItemsInStock = cartItems.filter((item) => item.remains > 0);
+  const shopItemsData: ShopItemsData[] = useLoaderData();
+  const userCart = useSelector((state: RootState) => state.cart);
+  const cartItems = userCart
+    .map((userItem) =>
+      shopItemsData.find((item) => item.idNum === userItem.idNum)
+    )
+    .filter(Boolean);
+  const hasMissingItems = cartItems.some((item) => item?.remains === 0);
+  const cartItemsInStock = cartItems.filter(
+    (item) => item?.remains && item.remains > 0
+  );
 
   return (
     <section className="cart__items">
@@ -79,9 +82,9 @@ export default function CartItems() {
           )}
           {!isLoading &&
             cartItemsInStock.length > 0 &&
-            cartItemsInStock.map((item) => (
-              <CartItem itemData={item} key={item.idNum} />
-            ))}
+            cartItemsInStock.map(
+              (item) => item && <CartItem itemData={item} key={item.idNum} />
+            )}
         </div>
         {hasMissingItems && <MissingItems />}
       </div>
