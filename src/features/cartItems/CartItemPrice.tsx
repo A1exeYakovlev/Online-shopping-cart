@@ -1,13 +1,27 @@
-import { CartItemData } from "../../shared.types";
+import { useSelector } from "react-redux";
+import { ShopItemsData } from "../../shared.types";
 import { formatPrice } from "../../utils/formatting";
+import { RootState } from "../../store";
 
 interface CartItemPriceProps {
-  itemData: CartItemData;
+  itemData: ShopItemsData;
 }
 
 export default function CartItemPrice({ itemData }: CartItemPriceProps) {
-  const discPriceVal = formatPrice(itemData.discPrice.value, "smallSpace", 3);
-  const fullPriceVal = formatPrice(itemData.fullPrice.value, "smallSpace", 6);
+  const userCart = useSelector((state: RootState) => state.cart);
+  const quantity =
+    userCart.find((item) => item.idNum === itemData.idNum)?.quant || 1;
+
+  const discPriceVal = formatPrice(
+    itemData.discPrice.value * quantity,
+    "smallSpace",
+    3
+  );
+  const fullPriceVal = formatPrice(
+    itemData.fullPrice.value * quantity,
+    "smallSpace",
+    6
+  );
 
   return (
     <div className="cart-item__price">
