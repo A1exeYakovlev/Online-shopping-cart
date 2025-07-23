@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { changeItemQuantity } from "./cartSlice";
 import { RootState } from "../../store";
 import { useEffect, useState } from "react";
+import { formatRemainsComment } from "../../utils/formatting";
 
 interface CartItemControlsProps {
   itemData: ShopItemsData;
@@ -17,6 +18,11 @@ export default function CartItemControls({ itemData }: CartItemControlsProps) {
   const itemQuantity =
     userCart.find((item) => item.idNum === itemData.idNum)?.quant || 1;
   const [quantVal, setQuantVal] = useState<string>(itemQuantity.toString());
+
+  const remainsComment = formatRemainsComment(
+    itemData.remains - itemQuantity,
+    3
+  );
 
   function onManageQuantity(type: "increase" | "decrease") {
     let newQuantity = 1;
@@ -82,7 +88,7 @@ export default function CartItemControls({ itemData }: CartItemControlsProps) {
         data-item={idNumStr}
         id={`cart-item${idNumStr}-remains`}
       >
-        {`Осталось ${(itemData.remains - 1).toString()} шт.`}
+        {remainsComment}
       </p>
       <div className="cart-item__buttons">
         <button

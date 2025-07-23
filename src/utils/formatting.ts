@@ -54,3 +54,23 @@ export const missingFormatting = function (quantity: number): string {
 
   return missingComment + quantityFormatting(quantity);
 };
+
+//Формулировка комментария по остаткам товара
+export function formatRemainsComment(remainsValue: number, maxLimit: number) {
+  //при превышении указанного лимита комментарий про остатки не показывается
+  if (remainsValue > maxLimit) {
+    return;
+  }
+
+  if (!remainsValue && remainsValue !== 0) {
+    return;
+  } else if (remainsValue === 0) {
+    return `Осталось ${remainsValue.toString()} шт.`;
+  } else if (remainsValue.toString().match(/\d*11$/)) {
+    return `Осталось ${remainsValue.toString()} шт.`;
+  } else if (remainsValue.toString().match(/\d*1$/)) {
+    return `Осталась ${remainsValue.toString()} шт.`;
+  } else {
+    return `Осталось ${remainsValue.toString()} шт.`;
+  }
+}
