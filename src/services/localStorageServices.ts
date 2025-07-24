@@ -12,7 +12,7 @@ const INITIAL_CART_ITEMS: UserCart = [
 export function getUserCartItems() {
   let storedUserCart = localStorage.getItem("userCartItems");
 
-  if (!storedUserCart || storedUserCart.length === 0) {
+  if (!storedUserCart || storedUserCart === "[]") {
     localStorage.setItem("userCartItems", JSON.stringify(INITIAL_CART_ITEMS));
     storedUserCart = JSON.stringify(INITIAL_CART_ITEMS);
   }
@@ -28,6 +28,14 @@ export function updateLocalStorage(
 ) {
   const updatedCartItems = getUserCartItems().map((item) =>
     item.idNum === itemData.idNum ? { ...item, quant: newQuantity } : item
+  );
+
+  localStorage.setItem("userCartItems", JSON.stringify(updatedCartItems));
+}
+
+export function deleteFromLocalStorage(idNum: number) {
+  const updatedCartItems = getUserCartItems().filter(
+    (item) => item.idNum !== idNum
   );
 
   localStorage.setItem("userCartItems", JSON.stringify(updatedCartItems));

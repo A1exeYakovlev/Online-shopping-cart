@@ -1,7 +1,10 @@
 import { ShopItemsData } from "../../shared.types";
-import { updateLocalStorage } from "../../services/localStorageServices";
+import {
+  deleteFromLocalStorage,
+  updateLocalStorage,
+} from "../../services/localStorageServices";
 import { useDispatch, useSelector } from "react-redux";
-import { changeItemQuantity } from "./cartSlice";
+import { changeItemQuantity, deleteItem } from "./cartSlice";
 import { RootState } from "../../store";
 import { useEffect, useState } from "react";
 import { formatRemainsComment } from "../../utils/formatting";
@@ -51,6 +54,11 @@ export default function CartItemControls({ itemData }: CartItemControlsProps) {
   useEffect(() => {
     setQuantVal(itemQuantity.toString());
   }, [itemQuantity]);
+
+  function onDeleteItem() {
+    deleteFromLocalStorage(itemData.idNum);
+    dispatch(deleteItem(itemData.idNum));
+  }
 
   return (
     <div className="cart-item__management">
@@ -115,6 +123,7 @@ export default function CartItemControls({ itemData }: CartItemControlsProps) {
           className="cart-item__buttons-delete"
           type="button"
           data-id={idNumStr}
+          onClick={onDeleteItem}
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
