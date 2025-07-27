@@ -31,7 +31,7 @@ export default function CartItemControls({ itemData }: CartItemControlsProps) {
     let newQuantity = 1;
     if (type === "increase") {
       newQuantity = Math.min(itemData.remains, itemQuantity + 1);
-    } else if (type === "decrease") newQuantity = Math.max(1, itemQuantity - 1);
+    } else newQuantity = Math.max(1, itemQuantity - 1);
 
     updateLocalStorage(itemData, newQuantity);
     dispatch(changeItemQuantity(itemData.idNum, newQuantity));

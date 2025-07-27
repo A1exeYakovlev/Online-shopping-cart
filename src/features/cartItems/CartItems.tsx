@@ -17,15 +17,24 @@ export default function CartItems() {
   const isLoading = navigation.state === "loading";
   const shopItemsData: ShopItemsData[] = useLoaderData();
   const userCart = useSelector((state: RootState) => state.cart);
+
+  function isShopItemsData(
+    item: ShopItemsData | undefined
+  ): item is ShopItemsData {
+    return item !== undefined;
+  }
+
   const cartItems = userCart
     .map((userItem) =>
       shopItemsData.find((item) => item.idNum === userItem.idNum)
     )
-    .filter(Boolean);
-  const hasMissingItems = cartItems.some((item) => item?.remains === 0);
+    .filter(isShopItemsData);
   const cartItemsInStock = cartItems.filter(
-    (item) => item?.remains && item.remains > 0
+    (item) => item.remains && item.remains > 0
   );
+
+  const missingItems = cartItems.filter((item) => item.remains === 0);
+  const missingItemsQuantity = missingItems.length || 0;
 
   return (
     <section className="cart__items">
@@ -78,15 +87,23 @@ export default function CartItems() {
         <div className="cart__items-wrap">
           {isLoading && <p>Товары загружаются...</p>}
           {!isLoading && cartItemsInStock.length === 0 && (
-            <p>В корзине нет товаров</p>
+            <p>
+              В корзине нет товаров
+              {missingItemsQuantity !== 0 && " в наличии"}
+            </p>
           )}
           {!isLoading &&
             cartItemsInStock.length > 0 &&
-            cartItemsInStock.map(
-              (item) => item && <CartItem itemData={item} key={item.idNum} />
-            )}
+            cartItemsInStock.map((item) => (
+              <CartItem itemData={item} key={item.idNum} />
+            ))}
         </div>
-        {hasMissingItems && <MissingItems />}
+        {missingItemsQuantity > 0 && (
+          <MissingItems
+            missingItems={missingItems}
+            missingItemsQuantity={missingItemsQuantity}
+          />
+        )}
       </div>
     </section>
   );

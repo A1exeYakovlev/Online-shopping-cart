@@ -1,13 +1,16 @@
-import { useLoaderData } from "react-router";
 import { ShopItemsData } from "../../shared.types";
 import { missingFormatting } from "../../utils/formatting";
 import CartItem from "./CartItem";
 
-export default function MissingItems() {
-  const cartItems: ShopItemsData[] | [] = useLoaderData();
-  const missingItems = cartItems.filter((item) => item.remains === 0);
-  const missingItemsQuantity = missingItems.length;
+interface MissingItemsProps {
+  missingItems: ShopItemsData[];
+  missingItemsQuantity: number;
+}
 
+export default function MissingItems({
+  missingItems,
+  missingItemsQuantity,
+}: MissingItemsProps) {
   return (
     <section className="cart__missing">
       <div className="cart__missing-title-wrap">
