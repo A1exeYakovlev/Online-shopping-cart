@@ -31,10 +31,21 @@ const cartSlice = createSlice({
     deleteItem(state, action: PayloadAction<number>) {
       return state.filter((item) => item.idNum !== action.payload);
     },
+    toggleFavouriteItem(state, action: PayloadAction<number>) {
+      return state.map((item) =>
+        item.idNum !== action.payload
+          ? item
+          : { ...item, favourite: !item.favourite }
+      );
+    },
   },
 });
 
-export const { setCartItems, changeItemQuantity, deleteItem } =
-  cartSlice.actions;
+export const {
+  setCartItems,
+  changeItemQuantity,
+  deleteItem,
+  toggleFavouriteItem,
+} = cartSlice.actions;
 
 export default cartSlice.reducer;

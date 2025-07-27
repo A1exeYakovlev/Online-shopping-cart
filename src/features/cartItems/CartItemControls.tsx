@@ -1,10 +1,15 @@
 import { ShopItemsData } from "../../shared.types";
 import {
   deleteFromLocalStorage,
-  updateLocalStorage,
+  updateLocalStorageFav,
+  updateLocalStorageQuant,
 } from "../../services/localStorageServices";
 import { useDispatch, useSelector } from "react-redux";
-import { changeItemQuantity, deleteItem } from "./cartSlice";
+import {
+  changeItemQuantity,
+  deleteItem,
+  toggleFavouriteItem,
+} from "./cartSlice";
 import { RootState } from "../../store";
 import { useEffect, useState } from "react";
 import { formatRemainsComment } from "../../utils/formatting";
@@ -18,8 +23,9 @@ export default function CartItemControls({ itemData }: CartItemControlsProps) {
   const idNumStr = itemData.idNum.toString();
 
   const userCart = useSelector((state: RootState) => state.cart);
-  const itemQuantity =
-    userCart.find((item) => item.idNum === itemData.idNum)?.quant || 1;
+
+  const { quant: itemQuantity = 1, favourite: selectedAsFavourite = false } =
+    userCart.find((item) => item.idNum === itemData.idNum) || {};
   const [quantVal, setQuantVal] = useState<string>(itemQuantity.toString());
 
   const remainsComment = formatRemainsComment(
@@ -33,7 +39,7 @@ export default function CartItemControls({ itemData }: CartItemControlsProps) {
       newQuantity = Math.min(itemData.remains, itemQuantity + 1);
     } else newQuantity = Math.max(1, itemQuantity - 1);
 
-    updateLocalStorage(itemData, newQuantity);
+    updateLocalStorageQuant(itemData, newQuantity);
     dispatch(changeItemQuantity(itemData.idNum, newQuantity));
   }
 
@@ -47,7 +53,7 @@ export default function CartItemControls({ itemData }: CartItemControlsProps) {
     if (newQuantity > itemData.remains) newQuantity = itemData.remains;
 
     setQuantVal(newQuantity.toString());
-    updateLocalStorage(itemData, newQuantity);
+    updateLocalStorageQuant(itemData, newQuantity);
     dispatch(changeItemQuantity(itemData.idNum, newQuantity));
   }
 
@@ -58,6 +64,11 @@ export default function CartItemControls({ itemData }: CartItemControlsProps) {
   function onDeleteItem() {
     deleteFromLocalStorage(itemData.idNum);
     dispatch(deleteItem(itemData.idNum));
+  }
+
+  function onFavouriteBtn() {
+    updateLocalStorageFav(itemData.idNum);
+    dispatch(toggleFavouriteItem(itemData.idNum));
   }
 
   return (
@@ -100,9 +111,12 @@ export default function CartItemControls({ itemData }: CartItemControlsProps) {
       </p>
       <div className="cart-item__buttons">
         <button
-          className="cart-item__buttons-favourite"
+          className={`cart-item__buttons-favourite ${
+            selectedAsFavourite ? "selected" : ""
+          }`}
           type="button"
           data-id={idNumStr}
+          onClick={onFavouriteBtn}
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"

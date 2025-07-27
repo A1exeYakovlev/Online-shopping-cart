@@ -22,7 +22,7 @@ export function getUserCartItems() {
   return userCart;
 }
 
-export function updateLocalStorage(
+export function updateLocalStorageQuant(
   itemData: ShopItemsData,
   newQuantity: number
 ) {
@@ -38,5 +38,12 @@ export function deleteFromLocalStorage(idNum: number) {
     (item) => item.idNum !== idNum
   );
 
+  localStorage.setItem("userCartItems", JSON.stringify(updatedCartItems));
+}
+
+export function updateLocalStorageFav(idNum: number) {
+  const updatedCartItems = getUserCartItems().map((item) =>
+    item.idNum !== idNum ? item : { ...item, favourite: !item.favourite }
+  );
   localStorage.setItem("userCartItems", JSON.stringify(updatedCartItems));
 }
