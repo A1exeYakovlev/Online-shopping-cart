@@ -63,7 +63,7 @@ export default function CartItemsTopSummary({
         </label>
       </div>
       <button
-        className={`cart__collapse-btn collapse-btn collapse-btn--cart-items ${
+        className={`cart__collapse-btn collapse-btn ${
           collapsedInStock ? "collapse-btn--closed" : ""
         }`}
         type="button"

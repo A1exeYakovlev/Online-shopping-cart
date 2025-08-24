@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { ShopItemsData } from "../../shared.types";
 import { missingFormatting } from "../../utils/formatting";
 import CartItem from "./CartItem";
@@ -11,6 +12,8 @@ export default function MissingItems({
   missingItems,
   missingItemsQuantity,
 }: MissingItemsProps) {
+  const [collapsedMissing, setCollapsedMissing] = useState(false);
+
   return (
     <section className="cart__missing">
       <div className="cart__missing-title-wrap">
@@ -18,8 +21,13 @@ export default function MissingItems({
           {missingFormatting(missingItemsQuantity)}
         </p>
         <button
-          className="cart__missing-btn collapse-btn collapse-btn--missing-items"
+          className={`cart__missing-btn collapse-btn ${
+            collapsedMissing ? "collapse-btn--closed" : ""
+          }`}
           type="button"
+          onClick={() => {
+            setCollapsedMissing((prev) => !prev);
+          }}
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -35,10 +43,16 @@ export default function MissingItems({
           </svg>
         </button>
       </div>
-      <div className="cart__missing-wrap">
-        {missingItems.map((item) => (
-          <CartItem itemData={item} key={item.idNum} type={"missing"} />
-        ))}
+      <div
+        className={`cart__missing-collapse-wrap ${
+          collapsedMissing ? "hide" : ""
+        }`}
+      >
+        <div className="cart__missing-wrap">
+          {missingItems.map((item) => (
+            <CartItem itemData={item} key={item.idNum} type={"missing"} />
+          ))}
+        </div>
       </div>
     </section>
   );

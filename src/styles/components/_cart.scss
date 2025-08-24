@@ -99,16 +99,12 @@
 
   &__items-wrap {
     margin-bottom: 4.61rem;
+    transition: max-height 0.5s ease-out;
+    overflow: hidden;
 
     @include responsive(desktop-sm) {
       margin-bottom: 3.8rem;
     }
-  }
-
-  &__missing-wrap,
-  &__items-wrap {
-    overflow: hidden;
-    transition: max-height 0.5s ease-out;
   }
 
   //При сворачивании блока по collapse-btn
@@ -149,8 +145,15 @@
     }
   }
 
+  &__missing-collapse-wrap {
+    display: grid;
+    grid-template-rows: 1fr;
+    transition: grid-template-rows 0.5s ease-out;
+  }
+
   &__missing-wrap {
     margin-bottom: 3.13rem;
+    overflow: hidden;
 
     @include responsive(desktop-sm) {
       margin-bottom: 4.09rem;
@@ -158,7 +161,11 @@
   }
 
   //при сворачивании блока по collapse-btn
-  &__missing-wrap.hide {
+  &__missing-collapse-wrap.hide {
+    grid-template-rows: 0fr;
+  }
+
+  .hide &__missing-wrap {
     margin-bottom: 2.45rem;
   }
 
