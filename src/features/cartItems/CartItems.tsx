@@ -68,7 +68,7 @@ export default function CartItems() {
           Корзина
         </h1>
         <CartItemsTopSummary
-          cartItems={cartItemsInStock}
+          cartItemsInStock={cartItemsInStock}
           userCart={userCart}
           collapsedInStock={collapsedInStock}
           setCollapsibleStockHeight={setCollapsibleStockHeight}

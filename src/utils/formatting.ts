@@ -26,7 +26,7 @@ export const formatPrice = function (
 };
 
 //Форматирование комментария по числу товаров
-const quantityFormatting = function (quantity: number): string {
+export const quantityFormatting = function (quantity: number): string {
   let quantityComment;
   if (quantity % 10 === 1 && quantity % 100 !== 11) {
     quantityComment = quantity.toString() + " товар";

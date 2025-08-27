@@ -1,8 +1,9 @@
 import { ShopItemsData } from "../../shared.types";
+import { formatPrice, quantityFormatting } from "../../utils/formatting";
 import { CartSlice } from "./cartSlice";
 
 interface CartItemsTopSummaryProps {
-  cartItems: ShopItemsData[];
+  cartItemsInStock: ShopItemsData[];
   userCart: CartSlice[];
   collapsedInStock: boolean;
   setCollapsibleStockHeight: React.Dispatch<
@@ -12,17 +13,23 @@ interface CartItemsTopSummaryProps {
 }
 
 export default function CartItemsTopSummary({
-  cartItems,
+  cartItemsInStock,
   userCart,
   collapsedInStock,
   setCollapsibleStockHeight,
   collapsibleStockEl,
 }: CartItemsTopSummaryProps) {
-  const shopItemMap = new Map(cartItems.map((item) => [item.idNum, item]));
+  const shopItemMap = new Map(
+    cartItemsInStock.map((item) => [item.idNum, item])
+  );
   const totalCost = userCart.reduce((sum, userItem) => {
     const shopItem = shopItemMap.get(userItem.idNum);
     if (!shopItem) return sum;
     return sum + userItem.quant * shopItem.discPrice.value;
+  }, 0);
+  const totalQuant = userCart.reduce((sum, userItem) => {
+    const inStock = shopItemMap.has(userItem.idNum);
+    return inStock ? sum + userItem.quant : sum;
   }, 0);
 
   function handleCollapse() {
@@ -39,9 +46,11 @@ export default function CartItemsTopSummary({
       className={`cart__items-top ${collapsedInStock ? "show-summary" : ""}`}
     >
       <div className="cart__items-summary headline4">
-        <span className="items-top-quantity">266 товаров</span>
+        <span className="items-top-quantity">
+          {quantityFormatting(totalQuant)}
+        </span>
         {` · `}
-        <span id="items-top-sum">{totalCost}</span>
+        <span id="items-top-sum">{formatPrice(totalCost, "largeSpace")}</span>
         <span className="current-currency">&nbsp;сом</span>
       </div>
       <div className="cart__selectAll custom-checkbox">
