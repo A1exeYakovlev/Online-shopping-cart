@@ -33,11 +33,13 @@ export default function CartItems() {
     return item !== undefined;
   }
 
+  const shopItemsMap = new Map(shopItemsData.map((item) => [item.idNum, item]));
+
   const cartItems = userCart
-    .map((userItem) =>
-      shopItemsData.find((item) => item.idNum === userItem.idNum)
-    )
+    .map((userItem) => shopItemsMap.get(userItem.idNum))
     .filter(isShopItemsData);
+  console.log(cartItems);
+
   const cartItemsInStock = cartItems.filter(
     (item) => item.remains && item.remains > 0
   );
