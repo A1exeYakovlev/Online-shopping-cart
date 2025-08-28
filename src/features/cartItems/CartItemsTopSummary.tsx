@@ -9,6 +9,7 @@ interface CartItemsTopSummaryProps {
   setCollapsibleStockHeight: React.Dispatch<
     React.SetStateAction<string | null>
   >;
+  missingItemsQuantity: number;
   collapsibleStockEl: React.RefObject<HTMLDivElement | null>;
 }
 
@@ -18,6 +19,7 @@ export default function CartItemsTopSummary({
   collapsedInStock,
   setCollapsibleStockHeight,
   collapsibleStockEl,
+  missingItemsQuantity,
 }: CartItemsTopSummaryProps) {
   const shopItemMap = new Map(
     cartItemsInStock.map((item) => [item.idNum, item])
@@ -44,6 +46,9 @@ export default function CartItemsTopSummary({
   return (
     <div
       className={`cart__items-top ${collapsedInStock ? "show-summary" : ""}`}
+      style={{
+        marginBottom: missingItemsQuantity === 0 ? "4.3rem" : "",
+      }}
     >
       <div className="cart__items-summary headline4">
         <span className="items-top-quantity">

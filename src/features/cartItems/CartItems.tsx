@@ -75,6 +75,7 @@ export default function CartItems() {
           collapsedInStock={collapsedInStock}
           setCollapsibleStockHeight={setCollapsibleStockHeight}
           collapsibleStockEl={collapsibleStockEl}
+          missingItemsQuantity={missingItemsQuantity}
         />
         <div
           className={`cart__items-wrap ${collapsedInStock ? "hide" : ""}`}
