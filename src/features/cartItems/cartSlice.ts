@@ -6,6 +6,7 @@ export interface CartSlice {
   idNum: number;
   quant: number;
   favourite: boolean;
+  selected: boolean;
 }
 
 const cartSlice = createSlice({
@@ -38,6 +39,13 @@ const cartSlice = createSlice({
           : { ...item, favourite: !item.favourite }
       );
     },
+    selectItem(state, action: PayloadAction<number>) {
+      return state.map((item) =>
+        item.idNum === action.payload
+          ? { ...item, selected: !item.selected }
+          : item
+      );
+    },
   },
 });
 
@@ -46,6 +54,7 @@ export const {
   changeItemQuantity,
   deleteItem,
   toggleFavouriteItem,
+  selectItem,
 } = cartSlice.actions;
 
 export default cartSlice.reducer;

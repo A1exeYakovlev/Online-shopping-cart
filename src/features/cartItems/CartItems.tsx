@@ -38,7 +38,6 @@ export default function CartItems() {
   const cartItems = userCart
     .map((userItem) => shopItemsMap.get(userItem.idNum))
     .filter(isShopItemsData);
-  console.log(cartItems);
 
   const cartItemsInStock = cartItems.filter(
     (item) => item.remains && item.remains > 0

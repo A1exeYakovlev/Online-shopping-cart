@@ -2,6 +2,7 @@ export type UserCart = Array<{
   idNum: number;
   quant: number;
   favourite: boolean;
+  selected: boolean;
 }>;
 
 export interface ShopItemsData {

@@ -34,7 +34,7 @@ export default function CartItem({ itemData, type }: CartItemProps) {
   return (
     <>
       <div className={itemStyles} id={`cart-item${itemData.idNum.toString()}`}>
-        <CartItemPic itemData={itemData} />
+        <CartItemPic itemId={itemData.idNum} />
         {type !== "missing" && <CartItemPrice itemData={itemData} />}
         <p className="cart-item__name body-text2">{itemData.name}</p>
         <div className="cart-item__properties caption">
