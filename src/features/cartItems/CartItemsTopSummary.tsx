@@ -1,10 +1,9 @@
-import { ShopItemsData } from "../../shared.types";
+import { useSelector } from "react-redux";
 import { formatPrice, quantityFormatting } from "../../utils/formatting";
-import { CartSlice } from "./cartSlice";
+import { useCartItems } from "./hooks";
+import { RootState } from "../../store";
 
 interface CartItemsTopSummaryProps {
-  cartItemsInStock: ShopItemsData[];
-  userCart: CartSlice[];
   collapsedInStock: boolean;
   setCollapsibleStockHeight: React.Dispatch<
     React.SetStateAction<string | null>
@@ -14,16 +13,21 @@ interface CartItemsTopSummaryProps {
 }
 
 export default function CartItemsTopSummary({
-  cartItemsInStock,
-  userCart,
   collapsedInStock,
   setCollapsibleStockHeight,
   collapsibleStockEl,
   missingItemsQuantity,
 }: CartItemsTopSummaryProps) {
+  const cartItems = useCartItems();
+  const cartItemsInStock = cartItems.filter(
+    (item) => item.remains && item.remains > 0
+  );
   const shopItemMap = new Map(
     cartItemsInStock.map((item) => [item.idNum, item])
   );
+
+  const userCart = useSelector((state: RootState) => state.cart);
+
   const totalCost = userCart.reduce((sum, userItem) => {
     const shopItem = shopItemMap.get(userItem.idNum);
     if (!shopItem) return sum;

@@ -1,4 +1,3 @@
-import { ShopItemsData } from "../../shared.types";
 import {
   deleteFromLocalStorage,
   updateLocalStorageFav,
@@ -15,34 +14,38 @@ import { useEffect, useState } from "react";
 import { formatRemainsComment } from "../../utils/formatting";
 import FavouriteBtn from "../../ui/FavouriteBtn";
 import DeleteBtn from "../../ui/DeleteBtn";
+import { useCartItemData } from "./hooks";
 
 interface CartItemControlsProps {
-  itemData: ShopItemsData;
+  itemId: number;
 }
 
-export default function CartItemControls({ itemData }: CartItemControlsProps) {
+export default function CartItemControls({ itemId }: CartItemControlsProps) {
   const dispatch = useDispatch();
-  const idNumStr = itemData.idNum.toString();
+  const itemData = useCartItemData(itemId);
+  const itemIdStr = itemId.toString();
 
   const userCart = useSelector((state: RootState) => state.cart);
 
   const { quant: itemQuantity = 1, favourite: selectedAsFavourite = false } =
-    userCart.find((item) => item.idNum === itemData.idNum) || {};
+    userCart.find((item) => item.idNum === itemId) || {};
   const [quantVal, setQuantVal] = useState<string>(itemQuantity.toString());
 
-  const remainsComment = formatRemainsComment(
-    itemData.remains - itemQuantity,
-    3
-  );
+  let remainsComment;
+  if (itemData) {
+    remainsComment = formatRemainsComment(itemData.remains - itemQuantity, 3);
+  }
 
   function onManageQuantity(type: "increase" | "decrease") {
+    if (!itemData) return;
     let newQuantity = 1;
+
     if (type === "increase") {
       newQuantity = Math.min(itemData.remains, itemQuantity + 1);
     } else newQuantity = Math.max(1, itemQuantity - 1);
 
     updateLocalStorageQuant(itemData, newQuantity);
-    dispatch(changeItemQuantity(itemData.idNum, newQuantity));
+    dispatch(changeItemQuantity(itemId, newQuantity));
   }
 
   function onChangeQuantity(e: React.ChangeEvent<HTMLInputElement>) {
@@ -50,23 +53,29 @@ export default function CartItemControls({ itemData }: CartItemControlsProps) {
   }
 
   function onBlurQuantity() {
+    if (!itemData) return;
     let newQuantity = Number(quantVal);
+
     if (!newQuantity || newQuantity < 1) newQuantity = 1;
     if (newQuantity > itemData.remains) newQuantity = itemData.remains;
 
     setQuantVal(newQuantity.toString());
     updateLocalStorageQuant(itemData, newQuantity);
-    dispatch(changeItemQuantity(itemData.idNum, newQuantity));
+    dispatch(changeItemQuantity(itemId, newQuantity));
   }
 
   function onDeleteItem() {
-    deleteFromLocalStorage(itemData.idNum);
-    dispatch(deleteItem(itemData.idNum));
+    if (!itemData) return;
+
+    deleteFromLocalStorage(itemId);
+    dispatch(deleteItem(itemId));
   }
 
   function onFavouriteBtn() {
-    updateLocalStorageFav(itemData.idNum);
-    dispatch(toggleFavouriteItem(itemData.idNum));
+    if (!itemData) return;
+
+    updateLocalStorageFav(itemId);
+    dispatch(toggleFavouriteItem(itemId));
   }
 
   useEffect(() => {
@@ -79,7 +88,7 @@ export default function CartItemControls({ itemData }: CartItemControlsProps) {
         <button
           className="cart-item__minus-btn body-text3"
           type="button"
-          data-item={itemData.idNum.toString()}
+          data-item={itemIdStr}
           onClick={onManageQuantity.bind(null, "decrease")}
           disabled={itemQuantity <= 1}
         >
@@ -88,8 +97,8 @@ export default function CartItemControls({ itemData }: CartItemControlsProps) {
         <input
           className="cart-item__quantity-number body-text2"
           type="number"
-          data-item={itemData.idNum.toString()}
-          id={`cart-item${itemData.idNum.toString()}-quantity`}
+          data-item={itemIdStr}
+          id={`cart-item${itemIdStr}-quantity`}
           value={quantVal}
           onChange={onChangeQuantity}
           onBlur={onBlurQuantity}
@@ -97,16 +106,16 @@ export default function CartItemControls({ itemData }: CartItemControlsProps) {
         <button
           className="cart-item__plus-btn body-text3"
           type="button"
-          data-item={itemData.idNum.toString()}
+          data-item={itemIdStr}
           onClick={onManageQuantity.bind(null, "increase")}
-          disabled={itemQuantity >= itemData.remains}
+          disabled={itemQuantity >= (itemData?.remains || 0)}
         >
           +
         </button>
       </div>
       <p
         className="cart-item__remains caption caption--coral"
-        data-item={idNumStr}
+        data-item={itemIdStr}
       >
         {remainsComment}
       </p>

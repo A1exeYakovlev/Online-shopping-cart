@@ -1,18 +1,19 @@
 import { useState } from "react";
-import { ShopItemsData } from "../../shared.types";
 import { missingFormatting } from "../../utils/formatting";
 import CartItem from "./CartItem";
+import { useCartItems } from "./hooks";
 
 interface MissingItemsProps {
-  missingItems: ShopItemsData[];
   missingItemsQuantity: number;
 }
 
 export default function MissingItems({
-  missingItems,
   missingItemsQuantity,
 }: MissingItemsProps) {
   const [collapsedMissing, setCollapsedMissing] = useState(false);
+
+  const cartItems = useCartItems();
+  const missingItems = cartItems.filter((item) => item.remains === 0);
 
   return (
     <section className="cart__missing">
@@ -50,7 +51,7 @@ export default function MissingItems({
       >
         <div className="cart__missing-wrap">
           {missingItems.map((item) => (
-            <CartItem itemData={item} key={item.idNum} type={"missing"} />
+            <CartItem itemId={item.idNum} key={item.idNum} type={"missing"} />
           ))}
         </div>
       </div>

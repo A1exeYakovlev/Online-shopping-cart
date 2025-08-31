@@ -1,56 +1,61 @@
 import { useSelector } from "react-redux";
-import { ShopItemsData } from "../../shared.types";
 import { formatPrice } from "../../utils/formatting";
 import { RootState } from "../../store";
+import { useCartItemData } from "./hooks";
 
 interface CartItemPriceProps {
-  itemData: ShopItemsData;
+  itemId: number;
 }
 
-export default function CartItemPrice({ itemData }: CartItemPriceProps) {
+export default function CartItemPrice({ itemId }: CartItemPriceProps) {
+  const itemData = useCartItemData(itemId);
   const userCart = useSelector((state: RootState) => state.cart);
-  const quantity =
-    userCart.find((item) => item.idNum === itemData.idNum)?.quant || 1;
+  const quantity = userCart.find((item) => item.idNum === itemId)?.quant || 1;
 
-  const discPriceVal = formatPrice(
-    itemData.discPrice.value * quantity,
-    "smallSpace",
-    3
-  );
-  const fullPriceVal = formatPrice(
-    itemData.fullPrice.value * quantity,
-    "smallSpace",
-    6
-  );
+  let discPriceVal = "";
+  let fullPriceVal = "";
+
+  if (itemData) {
+    discPriceVal = formatPrice(
+      itemData.discPrice.value * quantity,
+      "smallSpace",
+      3
+    );
+    fullPriceVal = formatPrice(
+      itemData.fullPrice.value * quantity,
+      "smallSpace",
+      6
+    );
+  }
 
   return (
     <div className="cart-item__price">
       <div className="cart-item__price-discount-wrap headline3 headline3--lg">
         <span
           className="cart-item__price-discount-value"
-          id={`cart-item${itemData.idNum.toString()}-disc-price`}
+          id={`cart-item${itemId.toString()}-disc-price`}
         >
           {discPriceVal}
         </span>
         <span
           className="headline3"
-          id={`cart-item${itemData.idNum.toString()}-disc-cur`}
+          id={`cart-item${itemId.toString()}-disc-cur`}
         >
-          &nbsp;{itemData.discPrice.currency}
+          &nbsp;{itemData?.discPrice.currency}
         </span>
       </div>
       <div
         className="cart-item__price-full-wrap caption caption--gray"
-        data-id={itemData.idNum.toString()}
+        data-id={itemId.toString()}
       >
         <span
           className="cart-item__price-full-value"
-          id={`cart-item${itemData.idNum.toString()}-full-price`}
+          id={`cart-item${itemId.toString()}-full-price`}
         >
           {fullPriceVal}
         </span>
-        <span id={`cart-item${itemData.idNum.toString()}-full-cur`}>
-          &nbsp;{itemData.fullPrice.currency}
+        <span id={`cart-item${itemId.toString()}-full-cur`}>
+          &nbsp;{itemData?.fullPrice.currency}
         </span>
         <div className="cart-item__price-tooltip tooltip">
           <div className="cart-item__price-itemDisc">

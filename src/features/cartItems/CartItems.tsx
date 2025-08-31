@@ -2,15 +2,13 @@ import CartItem from "./CartItem";
 import MissingItems from "./MissingItems";
 import { ShopItemsData } from "../../shared.types";
 import { getCartItemsData } from "../../services/apiCartItems";
-import { useLoaderData, useNavigation } from "react-router";
-import { useSelector } from "react-redux";
-import { RootState } from "../../store";
+import { useNavigation } from "react-router";
 import CartItemsTopSummary from "./CartItemsTopSummary";
 import { useEffect, useRef, useState } from "react";
+import { useCartItems } from "./hooks";
 
 export async function loader() {
   const shopItemsData = (await getCartItemsData()) as ShopItemsData[];
-
   return shopItemsData;
 }
 
@@ -19,32 +17,16 @@ export default function CartItems() {
     string | null
   >(null);
   const collapsibleStockEl = useRef<HTMLDivElement>(null);
+  const collapsedInStock = collapsibleStockHeight === "0px";
 
   const navigation = useNavigation();
   const isLoading = navigation.state === "loading";
-  const shopItemsData: ShopItemsData[] = useLoaderData();
-  const userCart = useSelector((state: RootState) => state.cart);
 
-  const collapsedInStock = collapsibleStockHeight === "0px";
-
-  function isShopItemsData(
-    item: ShopItemsData | undefined
-  ): item is ShopItemsData {
-    return item !== undefined;
-  }
-
-  const shopItemsMap = new Map(shopItemsData.map((item) => [item.idNum, item]));
-
-  const cartItems = userCart
-    .map((userItem) => shopItemsMap.get(userItem.idNum))
-    .filter(isShopItemsData);
-
+  const cartItems = useCartItems();
   const cartItemsInStock = cartItems.filter(
     (item) => item.remains && item.remains > 0
   );
-
-  const missingItems = cartItems.filter((item) => item.remains === 0);
-  const missingItemsQuantity = missingItems.length || 0;
+  const missingItemsQuantity = cartItems.length - cartItemsInStock.length;
 
   useEffect(() => {
     if (collapsibleStockHeight !== null || !collapsibleStockEl.current) return;
@@ -69,8 +51,6 @@ export default function CartItems() {
           Корзина
         </h1>
         <CartItemsTopSummary
-          cartItemsInStock={cartItemsInStock}
-          userCart={userCart}
           collapsedInStock={collapsedInStock}
           setCollapsibleStockHeight={setCollapsibleStockHeight}
           collapsibleStockEl={collapsibleStockEl}
@@ -93,14 +73,11 @@ export default function CartItems() {
           {!isLoading &&
             cartItemsInStock.length > 0 &&
             cartItemsInStock.map((item) => (
-              <CartItem itemData={item} key={item.idNum} />
+              <CartItem itemId={item.idNum} key={item.idNum} />
             ))}
         </div>
         {missingItemsQuantity > 0 && (
-          <MissingItems
-            missingItems={missingItems}
-            missingItemsQuantity={missingItemsQuantity}
-          />
+          <MissingItems missingItemsQuantity={missingItemsQuantity} />
         )}
       </div>
     </section>

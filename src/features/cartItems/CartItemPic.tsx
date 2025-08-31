@@ -48,12 +48,12 @@ export default function CartItemPic({ itemId }: CartItemPicProps) {
         </label>
       </div>
       <img
-        src={itemData?.imgUrl[0].url || ""}
-        alt={itemData?.imgAlt || ""}
+        src={itemData?.imgUrl[0].url}
+        alt={itemData?.imgAlt}
         srcSet={srcSet}
       />
       <div className="cart-item__pic-property body-text2">
-        {itemData?.properties[1]?.value || ""}
+        {itemData?.properties[1]?.value}
       </div>
     </div>
   );

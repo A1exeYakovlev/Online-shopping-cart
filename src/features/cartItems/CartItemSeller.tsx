@@ -1,20 +1,21 @@
-import { CartItemData } from "../../shared.types";
+import { useCartItemData } from "./hooks";
 
 interface CartItemSellerProps {
-  itemData: CartItemData;
+  itemId: number;
 }
 
-export default function CartItemSeller({ itemData }: CartItemSellerProps) {
+export default function CartItemSeller({ itemId }: CartItemSellerProps) {
+  const itemData = useCartItemData(itemId);
   return (
     <div className="cart-item__seller">
       <p className="cart-item__seller-name caption caption--gray">
-        {itemData.seller}
+        {itemData?.seller}
       </p>
       <div className="cart-item__seller-btn-wrap">
         <button
           className="cart-item__seller-tooltip-btn"
           type="button"
-          data-seller={itemData.idNum.toString()}
+          data-seller={itemId.toString()}
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
