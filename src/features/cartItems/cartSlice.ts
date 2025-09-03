@@ -46,6 +46,9 @@ const cartSlice = createSlice({
           : item
       );
     },
+    selectAllItems(state, action: PayloadAction<boolean>) {
+      return state.map((item) => ({ ...item, selected: action.payload }));
+    },
   },
 });
 
@@ -55,6 +58,7 @@ export const {
   deleteItem,
   toggleFavouriteItem,
   selectItem,
+  selectAllItems,
 } = cartSlice.actions;
 
 export default cartSlice.reducer;

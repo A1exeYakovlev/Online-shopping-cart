@@ -1,7 +1,9 @@
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { formatPrice, quantityFormatting } from "../../utils/formatting";
 import { useCartItems } from "./hooks";
 import { RootState } from "../../store";
+import { selectAllItems } from "./cartSlice";
+import { updateLocalStorageAllSelected } from "../../services/localStorageServices";
 
 interface CartItemsTopSummaryProps {
   collapsedInStock: boolean;
@@ -18,6 +20,7 @@ export default function CartItemsTopSummary({
   collapsibleStockEl,
   missingItemsQuantity,
 }: CartItemsTopSummaryProps) {
+  const dispatch = useDispatch();
   const cartItems = useCartItems();
   const cartItemsInStock = cartItems.filter(
     (item) => item.remains && item.remains > 0
@@ -27,6 +30,8 @@ export default function CartItemsTopSummary({
   );
 
   const userCart = useSelector((state: RootState) => state.cart);
+
+  const allSelected = userCart.every((item) => item.selected);
 
   const totalCost = userCart.reduce((sum, userItem) => {
     const shopItem = shopItemMap.get(userItem.idNum);
@@ -47,6 +52,11 @@ export default function CartItemsTopSummary({
     } else setCollapsibleStockHeight("0px");
   }
 
+  function handleAllSelected() {
+    updateLocalStorageAllSelected(!allSelected);
+    dispatch(selectAllItems(!allSelected));
+  }
+
   return (
     <div
       className={`cart__items-top ${collapsedInStock ? "show-summary" : ""}`}
@@ -65,12 +75,13 @@ export default function CartItemsTopSummary({
       <div className="cart__selectAll custom-checkbox">
         <input
           className="custom-checkbox__input cart__selectAll-input cart-item__select-input"
-          checked
+          checked={allSelected}
           data-item="all"
           name="selectAll"
           type="checkbox"
           id="selectAll"
           value="all selected"
+          onChange={handleAllSelected}
         />
         <label
           className="cart__selectAll-label custom-checkbox__label"

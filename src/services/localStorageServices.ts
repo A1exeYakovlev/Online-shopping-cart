@@ -54,3 +54,11 @@ export function updateLocalStorageSelected(idNum: number) {
   );
   localStorage.setItem("userCartItems", JSON.stringify(updatedCartItems));
 }
+
+export function updateLocalStorageAllSelected(selectAll: boolean) {
+  const updatedCartItems = getUserCartItems().map((item) => ({
+    ...item,
+    selected: selectAll,
+  }));
+  localStorage.setItem("userCartItems", JSON.stringify(updatedCartItems));
+}
