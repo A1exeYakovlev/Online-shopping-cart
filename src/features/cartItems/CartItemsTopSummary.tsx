@@ -12,6 +12,7 @@ interface CartItemsTopSummaryProps {
   >;
   missingItemsQuantity: number;
   collapsibleStockEl: React.RefObject<HTMLDivElement | null>;
+  cartItemsInStockQuantity: number;
 }
 
 export default function CartItemsTopSummary({
@@ -19,6 +20,7 @@ export default function CartItemsTopSummary({
   setCollapsibleStockHeight,
   collapsibleStockEl,
   missingItemsQuantity,
+  cartItemsInStockQuantity,
 }: CartItemsTopSummaryProps) {
   const dispatch = useDispatch();
   const cartItems = useCartItems();
@@ -31,7 +33,10 @@ export default function CartItemsTopSummary({
 
   const userCart = useSelector((state: RootState) => state.cart);
 
-  const allSelected = userCart.every((item) => item.selected);
+  const allSelected =
+    cartItemsInStockQuantity > 0
+      ? userCart.every((item) => item.selected)
+      : false;
 
   const totalCost = userCart.reduce((sum, userItem) => {
     const shopItem = shopItemMap.get(userItem.idNum);
@@ -76,6 +81,7 @@ export default function CartItemsTopSummary({
         <input
           className="custom-checkbox__input cart__selectAll-input cart-item__select-input"
           checked={allSelected}
+          disabled={cartItemsInStockQuantity === 0}
           data-item="all"
           name="selectAll"
           type="checkbox"

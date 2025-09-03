@@ -26,6 +26,8 @@ export default function CartItems() {
   const cartItemsInStock = cartItems.filter(
     (item) => item.remains && item.remains > 0
   );
+
+  const cartItemsInStockQuantity = cartItemsInStock.length;
   const missingItemsQuantity = cartItems.length - cartItemsInStock.length;
 
   useEffect(() => {
@@ -55,6 +57,7 @@ export default function CartItems() {
           setCollapsibleStockHeight={setCollapsibleStockHeight}
           collapsibleStockEl={collapsibleStockEl}
           missingItemsQuantity={missingItemsQuantity}
+          cartItemsInStockQuantity={cartItemsInStockQuantity}
         />
         <div
           className={`cart__items-wrap ${collapsedInStock ? "hide" : ""}`}
