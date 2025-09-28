@@ -1,6 +1,6 @@
 import { useDispatch, useSelector } from "react-redux";
 import { formatPrice, quantityFormatting } from "../../utils/formatting";
-import { useCartItems } from "./hooks";
+import { useCartItems, useCartItemsTotals } from "./hooks";
 import { RootState } from "../../store";
 import { selectAllItems } from "./cartSlice";
 import { updateLocalStorageAllSelected } from "../../services/localStorageServices";
@@ -24,13 +24,6 @@ export default function CartItemsTopSummary({
 }: CartItemsTopSummaryProps) {
   const dispatch = useDispatch();
   const cartItems = useCartItems();
-  const cartItemsInStock = cartItems.filter(
-    (item) => item.remains && item.remains > 0
-  );
-  const shopItemMap = new Map(
-    cartItemsInStock.map((item) => [item.idNum, item])
-  );
-
   const userCart = useSelector((state: RootState) => state.cart);
 
   const allSelected =
@@ -38,15 +31,7 @@ export default function CartItemsTopSummary({
       ? userCart.every((item) => item.selected)
       : false;
 
-  const totalCost = userCart.reduce((sum, userItem) => {
-    const shopItem = shopItemMap.get(userItem.idNum);
-    if (!shopItem) return sum;
-    return sum + userItem.quant * shopItem.discPrice.value;
-  }, 0);
-  const totalQuant = userCart.reduce((sum, userItem) => {
-    const inStock = shopItemMap.has(userItem.idNum);
-    return inStock ? sum + userItem.quant : sum;
-  }, 0);
+  const { totalCost, totalQuant, currency } = useCartItemsTotals(cartItems);
 
   function handleCollapse() {
     if (!collapsibleStockEl.current) return;
@@ -75,7 +60,7 @@ export default function CartItemsTopSummary({
         </span>
         {` · `}
         <span id="items-top-sum">{formatPrice(totalCost, "largeSpace")}</span>
-        <span className="current-currency">&nbsp;сом</span>
+        <span className="current-currency">&nbsp;{currency}</span>
       </div>
       <div className="cart__selectAll custom-checkbox">
         <input

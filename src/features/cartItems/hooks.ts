@@ -13,7 +13,7 @@ export function useCartItemData(itemId: number) {
   return itemData;
 }
 
-export function useCartItems() {
+export function useCartItems(selection?: "only-selected") {
   const shopItemsData: ShopItemsData[] = useLoaderData();
   const userCart = useSelector((state: RootState) => state.cart);
   const shopItemsMap = new Map(shopItemsData.map((item) => [item.idNum, item]));
@@ -24,9 +24,47 @@ export function useCartItems() {
     return item !== undefined;
   }
 
-  const cartItems = userCart
+  let prefilteredCartItems = userCart;
+
+  if (selection === "only-selected") {
+    prefilteredCartItems = userCart.filter((userItem) => userItem.selected);
+  }
+
+  const cartItems = prefilteredCartItems
     .map((userItem) => shopItemsMap.get(userItem.idNum))
     .filter(isShopItemsData);
 
   return cartItems;
+}
+
+export function useCartItemsTotals(cartItems: ShopItemsData[]) {
+  const cartItemsInStock = cartItems.filter(
+    (item) => item.remains && item.remains > 0
+  );
+  const shopItemMap = new Map(
+    cartItemsInStock.map((item) => [item.idNum, item])
+  );
+
+  const userCart = useSelector((state: RootState) => state.cart);
+
+  const currency = cartItems[0]?.discPrice.currency || "сом";
+
+  const totalCost = userCart.reduce((sum, userItem) => {
+    const shopItem = shopItemMap.get(userItem.idNum);
+    if (!shopItem) return sum;
+    return sum + userItem.quant * shopItem.discPrice.value;
+  }, 0);
+
+  const totalQuant = userCart.reduce((sum, userItem) => {
+    const inStock = shopItemMap.has(userItem.idNum);
+    return inStock ? sum + userItem.quant : sum;
+  }, 0);
+
+  const fullCost = userCart.reduce((sum, userItem) => {
+    const shopItem = shopItemMap.get(userItem.idNum);
+    if (!shopItem) return sum;
+    return sum + userItem.quant * shopItem.fullPrice.value;
+  }, 0);
+
+  return { totalCost, totalQuant, fullCost, currency };
 }
