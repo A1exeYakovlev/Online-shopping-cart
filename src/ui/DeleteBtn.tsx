@@ -5,7 +5,7 @@ interface DeleteBtnProps {
 export default function DeleteBtn({ onClickFunc }: DeleteBtnProps) {
   return (
     <button
-      className="cart-item__additional-buttons-delete"
+      className="additional-buttons-delete"
       type="button"
       onClick={onClickFunc}
     >

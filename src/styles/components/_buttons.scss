@@ -142,3 +142,22 @@
     }
   }
 }
+
+.additional-buttons-favourite.selected {
+  opacity: 1;
+  & svg path {
+    fill: var(--system-magenta);
+  }
+}
+
+.additional-buttons-favourite:hover svg path {
+  @include responsive(desktop-sm) {
+    fill: var(--system-magenta);
+  }
+}
+
+.additional-buttons-delete:hover svg path {
+  @include responsive(desktop-sm) {
+    fill: var(--system-red);
+  }
+}

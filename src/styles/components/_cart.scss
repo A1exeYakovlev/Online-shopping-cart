@@ -356,26 +356,6 @@
     }
   }
 
-  &__additional-buttons-favourite.selected {
-    opacity: 1;
-
-    & svg path {
-      fill: var(--system-magenta);
-    }
-  }
-
-  &__additional-buttons-favourite:hover svg path {
-    @include responsive(desktop-sm) {
-      fill: var(--system-magenta);
-    }
-  }
-
-  &__additional-buttons-delete:hover svg path {
-    @include responsive(desktop-sm) {
-      fill: var(--system-red);
-    }
-  }
-
   &__remains {
     @include responsive(desktop-sm) {
       align-self: flex-start;
@@ -593,7 +573,7 @@
 }
 
 //если .cart-item__remains - пустая строка
-.empty-remains .cart-item__buttons {
+.empty-remains .cart-item__additional-buttons {
   @include responsive(desktop-sm) {
     margin-top: 0.09rem;
   }
@@ -639,7 +619,7 @@
   }
 }
 
-.cart-item--missing .cart-item__buttons {
+.cart-item--missing .cart-item__additional-buttons {
   @include responsive(desktop-sm) {
     margin-top: 0;
   }
