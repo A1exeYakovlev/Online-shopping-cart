@@ -5,14 +5,15 @@
 @import "base/base";
 @import "base/typography";
 
-@import "components/header";
+@import "components/buttons";
 @import "components/custom-checkbox";
 @import "components/custom-radio";
+@import "components/badge-count";
+@import "components/tooltip";
+@import "components/modal-window";
+@import "components/header";
 @import "components/footer";
 @import "components/navbar";
-@import "components/badge-count";
-@import "components/modal-window";
-@import "components/tooltip";
 @import "components/cart";
 
 @import "layout/container";

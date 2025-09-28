@@ -85,12 +85,7 @@
   }
 
   &__collapse-btn {
-    display: block;
     margin: 0.2rem 0.4rem 0 0;
-    border: transparent;
-    background-color: transparent;
-    width: 2rem;
-    height: 2rem;
 
     @include responsive(desktop-sm) {
       margin: 0;
@@ -225,20 +220,6 @@
   }
 }
 
-.collapse-btn {
-  display: block;
-  border: transparent;
-  background-color: transparent;
-  width: 2rem;
-  height: 2rem;
-  cursor: pointer;
-  transition: transform 0.5s;
-
-  &--closed {
-    transform: rotate(-180deg) translateY(-0.2rem);
-  }
-}
-
 .cart-item {
   padding-top: 1.2rem;
   display: grid;
@@ -366,112 +347,33 @@
     }
   }
 
-  &__quantity {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 0 0.67rem 0.33rem 0.77rem;
-    width: 8rem;
-    height: 3.2rem;
-    border-radius: 0.4rem;
-    background: var(--system-white);
-
+  &__quantity-btns {
     @include responsive(desktop-sm) {
-      width: 10rem;
-      height: 4.4rem;
-      border-radius: 0.8rem;
       margin-bottom: 0.755rem;
-      padding: 0 0.84rem 0.33rem 0.95rem;
-    }
-
-    button {
-      background-color: transparent;
-      border: transparent;
-      cursor: pointer;
     }
 
     input {
-      display: block;
-      width: 3.2rem;
       margin-top: 0.05rem;
-      text-align: center;
-      border: none;
-      outline: none;
-      appearance: none;
-      -webkit-appearance: none;
-      -moz-appearance: textfield;
-
-      &::-webkit-outer-spin-button,
-      &::-webkit-inner-spin-button {
-        -webkit-appearance: none;
-      }
 
       @include responsive(desktop-sm) {
         margin-top: -0.13rem;
-        width: 4.4rem;
-        height: 2.3rem;
       }
     }
   }
 
-  &__plus-btn,
-  &__minus-btn {
-    height: 3.2rem;
-
+  &__additional-buttons {
     @include responsive(desktop-sm) {
-      height: 2.4rem;
-      text-align: center;
-    }
-  }
-
-  //если cart-item__quantity-number имеет минимальное значение 1 (единица) или максимальное (остаток 0)
-  .minimal-number &__minus-btn,
-  .maximum-number &__plus-btn {
-    opacity: 0.2;
-    cursor: default;
-  }
-
-  &__buttons {
-    display: flex;
-    gap: 2.4rem;
-    align-items: center;
-    justify-content: center;
-    width: 8.8rem;
-
-    @include responsive(desktop-sm) {
-      place-self: end;
-      align-self: flex-end;
-      width: 5.6rem;
-      gap: 1.6rem;
       margin-top: 0.88rem;
     }
-
-    button {
-      border: transparent;
-      cursor: pointer;
-      background: none;
-
-      @include responsive(desktop-sm) {
-        opacity: 0;
-        transition: opacity 0.3s ease-in;
-      }
-
-      svg {
-        display: block;
-        width: 2rem;
-        height: 2rem;
-        pointer-events: none;
-      }
-    }
   }
 
-  &:hover &__buttons button {
+  &:hover &__additional-buttons button {
     @include responsive(desktop-sm) {
       opacity: 1;
     }
   }
 
-  &__buttons-favourite.selected {
+  &__additional-buttons-favourite.selected {
     opacity: 1;
 
     & svg path {
@@ -479,13 +381,13 @@
     }
   }
 
-  &__buttons-favourite:hover svg path {
+  &__additional-buttons-favourite:hover svg path {
     @include responsive(desktop-sm) {
       fill: var(--system-magenta);
     }
   }
 
-  &__buttons-delete:hover svg path {
+  &__additional-buttons-delete:hover svg path {
     @include responsive(desktop-sm) {
       fill: var(--system-red);
     }
@@ -665,19 +567,6 @@
       position: relative;
     }
 
-    &-tooltip-btn {
-      background-color: transparent;
-      border: transparent;
-      cursor: pointer;
-
-      svg {
-        display: block;
-        width: 2rem;
-        height: 2rem;
-        pointer-events: none;
-      }
-    }
-
     &-tooltip {
       max-width: 28rem;
       width: max-content;
@@ -782,7 +671,7 @@
 }
 
 .cart-item--missing .cart-item__select,
-.cart-item--missing .cart-item__quantity,
+.cart-item--missing .cart-item__quantity-btns,
 .cart-item--missing .cart-item__remains {
   display: none;
 }
@@ -1289,19 +1178,6 @@
   }
 }
 
-.change-btn {
-  border: transparent;
-  background-color: transparent;
-  cursor: pointer;
-
-  svg {
-    display: block;
-    pointer-events: none;
-    width: 2rem;
-    height: 2rem;
-  }
-}
-
 .payment {
   padding-top: 1.6rem;
   padding-bottom: 2.4rem;
@@ -1785,10 +1661,8 @@
     }
   }
 
-  &__order-btn {
+  & .order-btn {
     margin-top: 2.42rem;
-    padding: 0.75rem 3.2rem 1.25rem 3.2rem;
-    width: 100%;
 
     @include responsive(desktop-sm) {
       margin-top: 2.45rem;

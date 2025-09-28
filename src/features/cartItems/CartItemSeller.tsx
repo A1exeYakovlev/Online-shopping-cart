@@ -13,7 +13,7 @@ export default function CartItemSeller({ itemId }: CartItemSellerProps) {
       </p>
       <div className="cart-item__seller-btn-wrap">
         <button
-          className="cart-item__seller-tooltip-btn"
+          className="tooltip-btn"
           type="button"
           data-seller={itemId.toString()}
         >

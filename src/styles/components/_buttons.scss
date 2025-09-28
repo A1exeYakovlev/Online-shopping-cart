@@ -1,0 +1,129 @@
+.change-btn {
+  border: transparent;
+  background-color: transparent;
+  cursor: pointer;
+
+  svg {
+    display: block;
+    pointer-events: none;
+    width: 2rem;
+    height: 2rem;
+  }
+}
+
+.collapse-btn {
+  display: block;
+  border: transparent;
+  background-color: transparent;
+  width: 2rem;
+  height: 2rem;
+  cursor: pointer;
+  transition: transform 0.5s;
+
+  &--closed {
+    transform: rotate(-180deg) translateY(-0.2rem);
+  }
+}
+
+.order-btn {
+  padding: 0.75rem 3.2rem 1.25rem 3.2rem;
+  width: 100%;
+}
+
+.quantity-btns {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 0.67rem 0.33rem 0.77rem;
+  width: 8rem;
+  height: 3.2rem;
+  border-radius: 0.4rem;
+  background: var(--system-white);
+
+  @include responsive(desktop-sm) {
+    width: 10rem;
+    height: 4.4rem;
+    border-radius: 0.8rem;
+    margin-bottom: 0.755rem;
+    padding: 0 0.84rem 0.33rem 0.95rem;
+  }
+
+  button {
+    background-color: transparent;
+    border: transparent;
+    cursor: pointer;
+  }
+
+  input {
+    display: block;
+    width: 3.2rem;
+    margin-top: 0.05rem;
+    text-align: center;
+    border: none;
+    outline: none;
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: textfield;
+
+    &::-webkit-outer-spin-button,
+    &::-webkit-inner-spin-button {
+      -webkit-appearance: none;
+    }
+
+    @include responsive(desktop-sm) {
+      margin-top: -0.13rem;
+      width: 4.4rem;
+      height: 2.3rem;
+    }
+  }
+}
+
+.quantity-plus-btn,
+.quantity-minus-btn {
+  height: 3.2rem;
+
+  @include responsive(desktop-sm) {
+    height: 2.4rem;
+    text-align: center;
+  }
+}
+
+//если cart-item__quantity-number имеет минимальное значение 1 (единица) или максимальное (остаток 0)
+.minimal-number .quantity-minus-btn,
+.maximum-number .quantity-plus-btn {
+  opacity: 0.2;
+  cursor: default;
+}
+
+.additional-buttons {
+  display: flex;
+  gap: 2.4rem;
+  align-items: center;
+  justify-content: center;
+  width: 8.8rem;
+
+  @include responsive(desktop-sm) {
+    place-self: end;
+    align-self: flex-end;
+    width: 5.6rem;
+    gap: 1.6rem;
+  }
+
+  button {
+    border: transparent;
+    cursor: pointer;
+    background: none;
+
+    @include responsive(desktop-sm) {
+      opacity: 0;
+      transition: opacity 0.3s ease-in;
+    }
+
+    svg {
+      display: block;
+      width: 2rem;
+      height: 2rem;
+      pointer-events: none;
+    }
+  }
+}

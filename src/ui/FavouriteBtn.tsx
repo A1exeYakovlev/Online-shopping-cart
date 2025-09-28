@@ -9,7 +9,7 @@ export default function FavouriteBtn({
 }: FavouriteBtnProps) {
   return (
     <button
-      className={`cart-item__buttons-favourite ${
+      className={`cart-item__additional-buttons-favourite ${
         selectedAsFavourite ? "selected" : ""
       }`}
       type="button"

@@ -84,9 +84,9 @@ export default function CartItemControls({ itemId }: CartItemControlsProps) {
 
   return (
     <div className="cart-item__management">
-      <div className="cart-item__quantity">
+      <div className="cart-item__quantity-btns quantity-btns">
         <button
-          className="cart-item__minus-btn body-text3"
+          className="quantity-minus-btn body-text3"
           type="button"
           data-item={itemIdStr}
           onClick={onManageQuantity.bind(null, "decrease")}
@@ -104,7 +104,7 @@ export default function CartItemControls({ itemId }: CartItemControlsProps) {
           onBlur={onBlurQuantity}
         />
         <button
-          className="cart-item__plus-btn body-text3"
+          className="quantity-plus-btn body-text3"
           type="button"
           data-item={itemIdStr}
           onClick={onManageQuantity.bind(null, "increase")}
@@ -119,7 +119,7 @@ export default function CartItemControls({ itemId }: CartItemControlsProps) {
       >
         {remainsComment}
       </p>
-      <div className="cart-item__buttons">
+      <div className="cart-item__additional-buttons additional-buttons">
         <FavouriteBtn
           onClickFunc={onFavouriteBtn}
           selectedAsFavourite={selectedAsFavourite}

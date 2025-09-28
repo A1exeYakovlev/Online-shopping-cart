@@ -20,3 +20,16 @@
     cursor: auto;
   }
 }
+
+.tooltip-btn {
+  background-color: transparent;
+  border: transparent;
+  cursor: pointer;
+
+  svg {
+    display: block;
+    width: 2rem;
+    height: 2rem;
+    pointer-events: none;
+  }
+}
