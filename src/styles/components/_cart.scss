@@ -695,21 +695,6 @@
   }
 }
 
-.brand-button {
-  border-radius: 0.8rem;
-  border: transparent;
-  background: var(--system-magenta);
-  transform: filter 0.3s;
-
-  &:hover {
-    filter: saturate(115%);
-  }
-
-  &:active {
-    filter: brightness(95%);
-  }
-}
-
 .refuse-descr {
   position: relative;
   border-radius: 0.8rem;
