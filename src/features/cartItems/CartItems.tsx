@@ -49,7 +49,7 @@ export default function CartItems() {
   return (
     <section className="cart__items">
       <div className="container container--mob-only">
-        <h1 className="cart__title headline2 headline2--lg-htmlFor-desktop">
+        <h1 className="cart__title headline2 headline2--lg-for-desktop">
           Корзина
         </h1>
         <CartItemsTopSummary

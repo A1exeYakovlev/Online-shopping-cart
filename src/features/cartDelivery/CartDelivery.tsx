@@ -108,7 +108,7 @@ export default function CartDelivery() {
       <div className="change-delivery modal-window hidden pickpoint-tab">
         <div className="change-delivery__inner modal-window__inner">
           <div className="change-delivery__title-wrap modal-window__title-wrap">
-            <h3 className="change-delivery__title modal-window__title headline2 headline2--sbold-htmlFor-mobile headline2--sm-htmlFor-desktop">
+            <h3 className="change-delivery__title modal-window__title headline2 headline2--sbold-for-mobile headline2--sm-for-desktop">
               Способ доставки
             </h3>
             <button

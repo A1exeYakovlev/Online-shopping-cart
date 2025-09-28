@@ -72,7 +72,7 @@ export default function CartResultDesktopPayment() {
                 </defs>
               </svg>
             </div>
-            <span className="payment__card-number body-text body-text--sm-htmlFor-desktop">
+            <span className="payment__card-number body-text body-text--sm-for-desktop">
               1234 56•• •••• 1234
             </span>
             <span className="payment__card-date result__payment-card-date body-text">

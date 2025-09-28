@@ -16,7 +16,7 @@ export default function CartResultDesktopSum() {
           <span className="result__total-price-value items-result-cost">
             {formatPrice(totalCost, "largeSpace")}
           </span>
-          <span className="headline2 headline2--sm-htmlFor-desktop current-currency">
+          <span className="headline2 headline2--sm-for-desktop current-currency">
             &nbsp;{currency}
           </span>
         </span>
@@ -27,7 +27,6 @@ export default function CartResultDesktopSum() {
         </span>
         <span className="body-text body-text">
           <span className="items-result-full">
-            {" "}
             {formatPrice(fullCost, "largeSpace")}
           </span>
           <span className="current-currency">&nbsp;{currency}</span>
@@ -37,7 +36,6 @@ export default function CartResultDesktopSum() {
         <span className="body-text body-text">Скидка</span>
         <span className="body-text body-text">
           <span className="items-result-discount">
-            {" "}
             {"−" + formatPrice(totalDiscount).toString()}
           </span>
           <span className="current-currency">&nbsp;{currency}</span>

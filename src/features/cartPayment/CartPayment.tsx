@@ -65,7 +65,7 @@ export default function CartPayment() {
       <div className="change-payment modal-window hidden">
         <div className="change-payment__inner modal-window__inner">
           <div className="change-payment__title-wrap modal-window__title-wrap">
-            <h3 className="change-payment__title modal-window__title headline2 headline2--sbold-htmlFor-mobile headline2--sm-htmlFor-desktop">
+            <h3 className="change-payment__title modal-window__title headline2 headline2--sbold-for-mobile headline2--sm-for-desktop">
               Способ оплаты
             </h3>
             <button
