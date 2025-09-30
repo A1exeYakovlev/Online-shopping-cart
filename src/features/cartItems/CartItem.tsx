@@ -4,6 +4,8 @@ import CartItemControls from "./CartItemControls";
 import CartItemSeller from "./CartItemSeller";
 import CartItemPic from "./CartItemPic";
 import { useCartItemData } from "./hooks";
+import { RootState } from "../../store";
+import { useSelector } from "react-redux";
 
 interface CartItemProps {
   itemId: number;
@@ -12,7 +14,9 @@ interface CartItemProps {
 
 export default function CartItem({ itemId, type }: CartItemProps) {
   const itemData = useCartItemData(itemId);
-
+  const userCart = useSelector((state: RootState) => state.cart);
+  const userCartItem = userCart.find((item) => item.idNum === itemId);
+  const itemQuantity = userCartItem?.quant || 1;
   const picPropertyClass = itemData?.properties.some(
     (prop) => prop.showOnPic === true
   )
@@ -26,6 +30,9 @@ export default function CartItem({ itemId, type }: CartItemProps) {
     (itemData?.remains ?? 0) > 3 ? "empty-remains " : "";
 
   const missingItemsClass = type === "missing" ? "cart-item--missing " : "";
+  const minQuantLimit = itemQuantity === 1 ? "minimal-number" : "";
+  const maxQuantLimit =
+    itemQuantity === itemData?.remains ? "maximal-number" : "";
 
   const itemClasses =
     "cart-item cart__cart-item " +
@@ -33,7 +40,9 @@ export default function CartItem({ itemId, type }: CartItemProps) {
     multilineNameClass +
     emptyPropertiesClass +
     emptyRemainsClass +
-    missingItemsClass;
+    missingItemsClass +
+    minQuantLimit +
+    maxQuantLimit;
 
   return (
     <>

@@ -105,7 +105,7 @@
 
 //если cart-item__quantity-number имеет минимальное значение 1 (единица) или максимальное (остаток 0)
 .minimal-number .quantity-minus-btn,
-.maximum-number .quantity-plus-btn {
+.maximal-number .quantity-plus-btn {
   opacity: 0.2;
   cursor: default;
 }
