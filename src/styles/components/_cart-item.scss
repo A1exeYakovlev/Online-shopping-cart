@@ -1,0 +1,471 @@
+.cart-item {
+  padding-top: 1.2rem;
+  display: grid;
+  grid-auto-columns: 0;
+  border-top: 0.1rem solid rgba(0, 0, 0, 0.1);
+  grid-template:
+    "picture . price price" 2.4rem
+    "picture . name name" min-content
+    "picture . properties properties" min-content
+    "picture . storage storage" min-content
+    ". . . ." 1.2rem
+    "management management management management" 3.2rem
+    / 8rem 1.6rem auto 7.6rem;
+  transition: opacity 0.5s ease-out;
+
+  @include responsive(tablet) {
+    padding-left: 10vw;
+    padding-right: 10vw;
+  }
+
+  @include responsive(desktop-sm) {
+    grid-template:
+      "picture . name . management . price" min-content
+      "picture . properties . management . price" min-content
+      "picture . storage . management . ." min-content
+      "picture . seller . management . ." min-content
+      / 10.6rem 1.6rem 27.5rem auto 10rem 1.6rem 11rem;
+    padding: 1.15rem 0 0 0;
+    border-top: none;
+  }
+
+  &__pic {
+    grid-area: picture;
+    display: block;
+    position: relative;
+
+    @include responsive(desktop-sm) {
+      padding-left: 3.4rem;
+    }
+
+    img {
+      display: block;
+      width: 8rem;
+      height: 10.6rem;
+      border-radius: 0.8rem;
+      background: linear-gradient(
+          0deg,
+          rgba(0, 0, 0, 0.05) 0%,
+          rgba(0, 0, 0, 0.05) 100%
+        ),
+        url(<path-to-image>), lightgray 50% / cover no-repeat;
+
+      @include responsive(desktop-sm) {
+        width: 7.2rem;
+        height: 9.6rem;
+      }
+    }
+
+    &-property {
+      display: flex;
+      position: absolute;
+      bottom: 0.4rem;
+      left: 0.4rem;
+      justify-content: center;
+      align-items: center;
+      width: 2.2rem;
+      height: 2.2rem;
+      padding: 0rem 0.4rem 0.3rem 0.4rem;
+      border-radius: 0.6rem;
+      background: var(--system-white);
+      z-index: 3;
+
+      &--three-digit {
+        width: auto;
+        max-width: 7.2rem;
+      }
+
+      @include responsive(desktop-sm) {
+        display: none;
+      }
+    }
+  }
+
+  &__select {
+    position: relative;
+    z-index: 3;
+
+    &-label {
+      position: absolute;
+      width: 2.2rem;
+      height: 2.2rem;
+      top: 0.4rem;
+      left: 0.4rem;
+
+      @include responsive(desktop-sm) {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        top: 3.75rem;
+        left: -3.4rem;
+      }
+    }
+
+    &-checkbox::before {
+      opacity: 0;
+    }
+
+    &-input:checked ~ &-label &-checkbox::before {
+      opacity: 1;
+    }
+  }
+
+  &__management {
+    grid-area: management;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1.6rem;
+
+    @include responsive(desktop-sm) {
+      flex-direction: column;
+      justify-content: flex-start;
+      gap: 0rem;
+      padding: 0;
+    }
+  }
+
+  &__quantity-btns {
+    @include responsive(desktop-sm) {
+      margin-bottom: 0.755rem;
+    }
+
+    input {
+      margin-top: 0.05rem;
+
+      @include responsive(desktop-sm) {
+        margin-top: -0.13rem;
+      }
+    }
+  }
+
+  &__additional-buttons {
+    @include responsive(desktop-sm) {
+      margin-top: 0.88rem;
+    }
+  }
+
+  &:hover &__additional-buttons button {
+    @include responsive(desktop-sm) {
+      opacity: 1;
+    }
+  }
+
+  &__remains {
+    @include responsive(desktop-sm) {
+      align-self: flex-start;
+    }
+  }
+
+  &__price {
+    grid-area: price;
+    display: flex;
+    align-items: baseline;
+    height: 2.4rem;
+    position: relative;
+    top: 0.03rem;
+    left: 0.07rem;
+
+    @include responsive(desktop-sm) {
+      flex-direction: column;
+      align-items: flex-end;
+      gap: 0.6rem;
+    }
+
+    &-discount-wrap {
+      display: flex;
+      align-items: baseline;
+
+      @include responsive(desktop-sm) {
+        margin: -0.12rem 0.12rem 0 0;
+      }
+    }
+
+    &-full-wrap {
+      display: block;
+      margin-left: 0.5rem;
+      position: relative;
+      cursor: pointer;
+
+      @include responsive(desktop-sm) {
+        margin: -0.25rem 0.15rem 0 0;
+      }
+
+      &::after {
+        content: "";
+        display: block;
+        position: relative;
+        bottom: 0.65rem;
+        background-repeat: repeat-x;
+        height: 0.2rem;
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='57' height='2' viewBox='0 0 57 2' fill='none'%3E%3Cpath d='M1 1H56' stroke='%23A0A0A4' stroke-linecap='square'/%3E%3C/svg%3E");
+      }
+
+      &::before {
+        content: "";
+        display: block;
+        position: relative;
+        bottom: -1.9rem;
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='57' height='2' viewBox='0 0 57 2' fill='none'%3E%3Cpath d='M1 1H56' stroke='black' stroke-opacity='0.2' stroke-linecap='square' stroke-dasharray='4 2'/%3E%3C/svg%3E");
+        background-repeat: repeat-x;
+        height: 0.2rem;
+      }
+    }
+
+    &-tooltip {
+      top: 2.53rem;
+      right: -1rem;
+
+      @include responsive(tablet) {
+        right: 50%;
+        transform: translateX(50%);
+      }
+
+      @include responsive(desktop-sm) {
+        right: -1rem;
+        transform: translateX(0%);
+      }
+    }
+
+    &-itemDisc {
+      display: flex;
+      gap: 1.5rem;
+      justify-content: space-between;
+
+      &-info,
+      &-amount {
+        display: flex;
+      }
+    }
+
+    &-userDisc {
+      display: flex;
+      gap: 1.5rem;
+      justify-content: space-between;
+
+      &-info,
+      &-amount {
+        display: flex;
+      }
+    }
+
+    &-itemDisc,
+    &-userDisc {
+      text-wrap: nowrap;
+    }
+
+    &-itemDisc.hidden,
+    &-userDisc.hidden {
+      display: none;
+    }
+  }
+
+  &__name {
+    grid-area: name;
+    margin-top: 0.2rem;
+    --max-name-lines: 2;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: var(--max-name-lines);
+    line-clamp: var(--max-name-lines);
+    max-height: calc(var(--max-name-lines) * var(--body-text2-lh));
+    overflow: hidden;
+
+    @include responsive(desktop-sm) {
+      --max-name-lines: 10;
+      margin-top: 0;
+      width: 25rem;
+    }
+  }
+
+  &__properties {
+    grid-area: properties;
+    display: block;
+    margin-top: -0.45rem;
+
+    @include responsive(desktop-sm) {
+      display: flex;
+      align-items: center;
+      gap: 1.71rem;
+      margin-top: 0.23rem;
+    }
+
+    &--on-pic {
+      display: none;
+
+      @include responsive(desktop-sm) {
+        display: block;
+      }
+    }
+  }
+
+  &__storage {
+    grid-area: storage;
+    margin-top: -0.5rem;
+
+    @include responsive(desktop-sm) {
+      margin-top: 0.59rem;
+    }
+  }
+
+  &__seller {
+    grid-area: seller;
+    display: none;
+
+    @include responsive(desktop-sm) {
+      display: flex;
+      margin-top: 0.2rem;
+      height: 1.6rem;
+      align-items: center;
+      gap: 0.6rem;
+      margin-top: 0.09rem;
+    }
+
+    &-btn-wrap {
+      position: relative;
+    }
+
+    &-tooltip {
+      max-width: 28rem;
+      width: max-content;
+      min-height: 10.4rem;
+      top: 2.53rem;
+      left: 50%;
+      transform: translateX(-50%);
+
+      &.long-address {
+        max-width: 24rem;
+      }
+    }
+  }
+}
+
+//если cart-item__name занимает 2 и более строки
+.multiline-name .cart-item__properties,
+.multiline-name .cart-item__storage {
+  margin-top: 0.8rem;
+}
+
+.multiline-name .cart-item__seller {
+  margin-top: 0.4rem;
+}
+
+.multiline-name .cart-item__name {
+  margin-top: 0.13rem;
+
+  @include responsive(desktop-sm) {
+    margin-top: 0.03rem;
+  }
+}
+
+//если cart-item__properties - пустая строка
+.empty-properties .cart-item__storage {
+  margin-top: -2.19rem;
+
+  @include responsive(desktop-sm) {
+    margin-top: -0.01rem;
+  }
+}
+
+//если .cart-item__remains - пустая строка
+.empty-remains .cart-item__additional-buttons {
+  @include responsive(desktop-sm) {
+    margin-top: 0.09rem;
+  }
+}
+
+//если cart-item__pic-property отсутствует
+.empty-pic-property .cart-item__pic-property {
+  display: none;
+}
+
+.cart-item--missing:first-child {
+  @include responsive(desktop-sm) {
+    border-top: 0.1rem solid rgba(0, 0, 0, 0.1);
+  }
+}
+
+//При сворачивании блока по collabse-btn
+.hide .cart-item--missing:first-child {
+  border: transparent;
+}
+
+.cart-item--missing .cart-item__name {
+  margin-top: 0.01rem;
+
+  @include responsive(desktop-sm) {
+    width: 29rem;
+  }
+}
+
+.cart-item--missing .cart-item__pic {
+  padding: 0;
+}
+
+.cart-item--missing .cart-item__properties {
+  margin-top: 0.8rem;
+}
+
+.cart-item--missing .cart-item__management {
+  justify-content: flex-end;
+
+  @include responsive(desktop-sm) {
+    justify-content: flex-start;
+  }
+}
+
+.cart-item--missing .cart-item__additional-buttons {
+  @include responsive(desktop-sm) {
+    margin-top: 0;
+  }
+}
+
+.cart-item--missing .cart-item__pic,
+.cart-item--missing .cart-item__name,
+.cart-item--missing .cart-item__properties {
+  -webkit-filter: grayscale(100%);
+  filter: grayscale(100%);
+  color: var(--system-gray);
+}
+
+.cart-item--missing .cart-item__select,
+.cart-item--missing .cart-item__quantity-btns,
+.cart-item--missing .cart-item__remains {
+  display: none;
+}
+
+.cart-item--missing.cart-item {
+  grid-template:
+    "picture . name" min-content
+    "picture . properties" min-content
+    "picture . . " min-content
+    ". . . " 1.2rem
+    "management management management" 2.4rem
+    / 8rem 1.6rem auto;
+
+  @include responsive(desktop-sm) {
+    grid-template:
+      "picture . name management ." min-content
+      "picture . properties . ." min-content
+      "picture . . . ." min-content
+      / 7.2rem 1.6rem auto auto 12.6rem;
+  }
+}
+
+.cart-item--missing.cart-item.multiline-name {
+  grid-template:
+    "picture . name" min-content
+    "picture . properties" min-content
+    "picture . . " min-content
+    ". . . " 1.19rem
+    "management management management" 2.4rem
+    / 8rem 1.6rem auto;
+
+  @include responsive(desktop-sm) {
+    grid-template:
+      "picture . name management ." min-content
+      "picture . properties . ." min-content
+      "picture . . . ." min-content
+      / 7.2rem 1.6rem auto auto 12.6rem;
+  }
+}
