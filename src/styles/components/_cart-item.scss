@@ -387,7 +387,8 @@
 
 //При сворачивании блока по collabse-btn
 .hide .cart-item--missing:first-child {
-  border: transparent;
+  border-color: rgba(0, 0, 0, 0);
+  transition: border-color 0.5s ease-out;
 }
 
 .cart-item--missing .cart-item__name {
