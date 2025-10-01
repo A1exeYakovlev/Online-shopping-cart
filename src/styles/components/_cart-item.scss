@@ -368,7 +368,7 @@
 }
 
 //если .cart-item__remains - пустая строка
-.empty-remains .cart-item__additional-buttons {
+.empty-remains-text .cart-item__additional-buttons {
   @include responsive(desktop-sm) {
     margin-top: 0.09rem;
   }

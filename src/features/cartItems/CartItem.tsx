@@ -17,6 +17,7 @@ export default function CartItem({ itemId, type }: CartItemProps) {
   const userCart = useSelector((state: RootState) => state.cart);
   const userCartItem = userCart.find((item) => item.idNum === itemId);
   const itemQuantity = userCartItem?.quant || 1;
+  const noRemainsText = (itemData?.remains ?? 0) - itemQuantity > 3;
   const picPropertyClass = itemData?.properties.some(
     (prop) => prop.showOnPic === true
   )
@@ -26,8 +27,7 @@ export default function CartItem({ itemId, type }: CartItemProps) {
     (itemData?.name.length ?? 0) > 31 ? "multiline-name " : "";
   const emptyPropertiesClass =
     itemData?.properties.length === 0 ? "empty-properties " : "";
-  const emptyRemainsClass =
-    (itemData?.remains ?? 0) > 3 ? "empty-remains " : "";
+  const emptyRemainsTextClass = noRemainsText ? "empty-remains-text " : "";
 
   const missingItemsClass = type === "missing" ? "cart-item--missing " : "";
   const minQuantLimit = itemQuantity === 1 ? "minimal-number" : "";
@@ -39,7 +39,7 @@ export default function CartItem({ itemId, type }: CartItemProps) {
     picPropertyClass +
     multilineNameClass +
     emptyPropertiesClass +
-    emptyRemainsClass +
+    emptyRemainsTextClass +
     missingItemsClass +
     minQuantLimit +
     maxQuantLimit;
