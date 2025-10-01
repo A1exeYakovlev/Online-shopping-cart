@@ -8,8 +8,8 @@ export default function CartResult() {
       <div className="container">
         <CartResultTotals />
         <p className="result__refuse-descr refuse-descr refuse-descr--smoky-dark-bg caption">
-          Обратная доставка товаров на&nbsp;склад при
-          отказе&nbsp;&mdash;&nbsp;&hairsp;
+          Обратная доставка товаров на&nbsp;склад при отказе&nbsp;&mdash;&nbsp;
+          {"\u200A"}
           <span className="refuse-descr__tooltip-trigger caption caption--green">
             бесплатно
           </span>
