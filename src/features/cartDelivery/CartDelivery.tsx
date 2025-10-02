@@ -1,3 +1,5 @@
+import RefuseDescr from "../../ui/RefuseDescr";
+
 export default function CartDelivery() {
   return (
     <section className="delivery pickpoint-selected" id="delivery-section">
@@ -97,13 +99,7 @@ export default function CartDelivery() {
             </div>
           </div>
         </div>
-        <p className="delivery__refuse-descr refuse-descr caption">
-          Обратная доставка товаров на&nbsp;склад при
-          отказе&nbsp;&mdash;&nbsp;&hairsp;
-          <span className="refuse-descr__tooltip-trigger caption caption--green">
-            бесплатно
-          </span>
-        </p>
+        <RefuseDescr />
       </div>
       <div className="change-delivery modal-window hidden pickpoint-tab">
         <div className="change-delivery__inner modal-window__inner">

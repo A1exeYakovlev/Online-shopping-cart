@@ -1,19 +1,14 @@
 import CartResultTotals from "./CartResultTotals";
 import OrderBtn from "../../ui/OrderBtn";
 import TermsInfo from "../../ui/TermsInfo";
+import RefuseDescr from "../../ui/RefuseDescr";
 
 export default function CartResult() {
   return (
     <section className="cart__result result">
       <div className="container">
         <CartResultTotals />
-        <p className="result__refuse-descr refuse-descr refuse-descr--smoky-dark-bg caption">
-          Обратная доставка товаров на&nbsp;склад при отказе&nbsp;&mdash;&nbsp;
-          {"\u200A"}
-          <span className="refuse-descr__tooltip-trigger caption caption--green">
-            бесплатно
-          </span>
-        </p>
+        <RefuseDescr bgStyle="smoky-dark" />
         <div className="result__pay-option pay-option">
           <div className="pay-option__instant-pay custom-checkbox">
             <input

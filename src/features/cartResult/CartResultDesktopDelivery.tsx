@@ -1,3 +1,5 @@
+import RefuseDescr from "../../ui/RefuseDescr";
+
 export default function CartResultDesktopDelivery() {
   return (
     <>
@@ -37,12 +39,7 @@ export default function CartResultDesktopDelivery() {
       >
         5–8 фев
       </a>
-      <p className="result__refuse-descr refuse-descr refuse-descr--smoky-bg caption">
-        Обратная доставка товаров на&nbsp;склад при отказе&nbsp;&mdash;&thinsp;
-        <span className="refuse-descr__tooltip-trigger caption caption--green">
-          бесплатно
-        </span>
-      </p>
+      <RefuseDescr bgStyle="smoky" />
     </>
   );
 }
