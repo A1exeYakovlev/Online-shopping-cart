@@ -13,7 +13,6 @@ export default function RefuseDescr({ bgStyle }: RefuseDescrProps) {
           : ""
       }`}
     >
-      {" "}
       Обратная доставка товаров на&nbsp;склад при отказе&nbsp;&mdash;&nbsp;
       {"\u200A"}
       <span className="refuse-descr__tooltip-trigger caption caption--green">
