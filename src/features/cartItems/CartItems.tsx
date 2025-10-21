@@ -1,15 +1,20 @@
 import CartItem from "./CartItem";
 import MissingItems from "./MissingItems";
-import { ShopItemsData } from "../../shared.types";
-import { getCartItemsData } from "../../services/apiCartItems";
+
+import { getShopDataBase } from "../../services/apiCartItems";
 import { useNavigation } from "react-router";
 import CartItemsTopSummary from "./CartItemsTopSummary";
 import { useEffect, useRef, useState } from "react";
 import { useCartItems } from "./hooks";
+import { ShopData, ShopItemsData } from "../../shared.types";
 
 export async function loader() {
-  const shopItemsData = (await getCartItemsData()) as ShopItemsData[];
-  return shopItemsData;
+  const [shopItems, shopData] = await Promise.all([
+    getShopDataBase<ShopItemsData>("shopItems"),
+    getShopDataBase<ShopData>("shopData"),
+  ]);
+
+  return { shopItems, shopData };
 }
 
 export default function CartItems() {

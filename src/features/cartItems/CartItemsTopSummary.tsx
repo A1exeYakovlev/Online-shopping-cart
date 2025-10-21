@@ -1,8 +1,8 @@
 import { useDispatch, useSelector } from "react-redux";
 import { formatPrice, quantityFormatting } from "../../utils/formatting";
 import { useCartItems, useCartItemsTotals } from "./hooks";
-import { RootState } from "../../store";
-import { selectAllItems } from "./cartSlice";
+import { RootState } from "../../store/store";
+import { selectAllItems } from "../../store/cartSlice";
 import { updateLocalStorageAllSelected } from "../../services/localStorageServices";
 
 interface CartItemsTopSummaryProps {

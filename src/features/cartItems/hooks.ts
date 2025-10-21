@@ -1,10 +1,11 @@
 import { useLoaderData } from "react-router";
-import { ShopItemsData } from "../../shared.types";
-import { RootState } from "../../store";
+import { ShopDataBase, ShopItemsData } from "../../shared.types";
+import { RootState } from "../../store/store";
 import { useSelector } from "react-redux";
 
 export function useCartItemData(itemId: number) {
-  const shopItemsData: ShopItemsData[] = useLoaderData();
+  const shopDataBase: ShopDataBase = useLoaderData();
+  const shopItemsData = shopDataBase.shopItems;
   const shopItemsDataMap = new Map(
     shopItemsData.map((item) => [item.idNum, item])
   );
@@ -14,7 +15,8 @@ export function useCartItemData(itemId: number) {
 }
 
 export function useCartItems(selection?: "only-selected") {
-  const shopItemsData: ShopItemsData[] = useLoaderData();
+  const shopDataBase: ShopDataBase = useLoaderData();
+  const shopItemsData = shopDataBase.shopItems;
   const userCart = useSelector((state: RootState) => state.cart);
   const shopItemsMap = new Map(shopItemsData.map((item) => [item.idNum, item]));
 

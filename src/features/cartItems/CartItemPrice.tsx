@@ -1,6 +1,6 @@
 import { useSelector } from "react-redux";
 import { formatPrice } from "../../utils/formatting";
-import { RootState } from "../../store";
+import { RootState } from "../../store/store";
 import { useCartItemData } from "./hooks";
 
 interface CartItemPriceProps {

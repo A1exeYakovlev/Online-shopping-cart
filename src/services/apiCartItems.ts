@@ -1,18 +1,17 @@
-import { ShopItemsData } from "../shared.types";
+const CART_ITEMS_URL = "http://localhost:5000";
 
-const CART_ITEMS_URL = "http://localhost:5173";
-
-export async function getCartItemsData() {
+export async function getShopDataBase<T>(route: string): Promise<T> {
   try {
-    const response = await fetch(`${CART_ITEMS_URL}/cartItems.json`);
+    const response = await fetch(`${CART_ITEMS_URL}/${route}`);
 
     if (!response.ok) {
-      throw new Error("Ошибка загрузки данных о товарах в корзине");
+      throw new Error("Ошибка загрузки из базы данных магазина");
     }
 
-    const data = (await response.json()) as ShopItemsData[];
+    const data = (await response.json()) as T;
     return data;
   } catch (err) {
-    console.error(err.message);
+    console.error((err as Error).message);
+    throw err;
   }
 }

@@ -4,7 +4,7 @@ import CartItemControls from "./CartItemControls";
 import CartItemSeller from "./CartItemSeller";
 import CartItemPic from "./CartItemPic";
 import { useCartItemData } from "./hooks";
-import { RootState } from "../../store";
+import { RootState } from "../../store/store";
 import { useSelector } from "react-redux";
 
 interface CartItemProps {

@@ -8,8 +8,8 @@ import {
   changeItemQuantity,
   deleteItem,
   toggleFavouriteItem,
-} from "./cartSlice";
-import { RootState } from "../../store";
+} from "../../store/cartSlice";
+import { RootState } from "../../store/store";
 import { useEffect, useState } from "react";
 import { formatRemainsComment } from "../../utils/formatting";
 import FavouriteBtn from "../../ui/FavouriteBtn";

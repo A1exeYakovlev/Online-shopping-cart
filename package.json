@@ -9,7 +9,7 @@
     "build": "tsc -b && vite build",
     "lint": "eslint .",
     "preview": "vite preview",
-    "server": "json-server --watch public/cartItems.json --port 5173"
+    "server": "json-server --watch public/db.json --port 5000"
   },
   "dependencies": {
     "@reduxjs/toolkit": "^2.8.2",

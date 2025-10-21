@@ -1,19 +1,13 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { UserCart } from "../shared.types";
 
-const initialState: CartSlice[] = [];
-
-export interface CartSlice {
-  idNum: number;
-  quant: number;
-  favourite: boolean;
-  selected: boolean;
-}
+const initialState: UserCart = [];
 
 const cartSlice = createSlice({
   name: "cart",
   initialState,
   reducers: {
-    setCartItems(state, action: PayloadAction<CartSlice[]>) {
+    setCartItems(state, action: PayloadAction<UserCart>) {
       return action.payload;
     },
 
