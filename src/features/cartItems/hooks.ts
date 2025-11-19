@@ -15,7 +15,7 @@ export function useCartItemData(itemId: number) {
 }
 
 export function useCartItems(selection?: "only-selected") {
-  const shopDataBase: ShopDataBase = useLoaderData();
+  const shopDataBase = useLoaderData<ShopDataBase>();
   const shopItemsData = shopDataBase.shopItems;
   const userCart = useSelector((state: RootState) => state.cart);
   const shopItemsMap = new Map(shopItemsData.map((item) => [item.idNum, item]));

@@ -2,7 +2,7 @@ import { UserData } from "../shared.types";
 
 const INITIAL_USER_DATA: UserData = {
   name: "Алексей",
-  selectedDelivery: { courier: true, optionId: 1 },
+  selectedDelivery: { courier: false, optionId: 1 },
   deliveryAddress: {
     pickpointId: [1, 2, 3],
     courierAddress: [

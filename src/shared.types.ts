@@ -8,11 +8,8 @@ export interface UserCartItem {
 
 export interface UserData {
   name: string | null;
-  selectedDelivery: { courier: boolean; optionId: number } | null;
-  deliveryAddress: {
-    pickpointId: number[];
-    courierAddress: { optionId: number; address: string }[];
-  } | null;
+  selectedDelivery: SelectedDelivery | null;
+  deliveryAddress: DeliveryAddress | null;
   selectedPaymentOption: number | null;
   paymentOptionData:
     | {
@@ -25,6 +22,16 @@ export interface UserData {
   personalDiscount: number | null;
 }
 
+export interface SelectedDelivery {
+  courier: boolean;
+  optionId: number;
+}
+
+export interface DeliveryAddress {
+  pickpointId: number[];
+  courierAddress: { optionId: number; address: string }[];
+}
+
 export interface ShopDataBase {
   shopItems: ShopItemsData[];
   shopData: ShopData;
@@ -33,12 +40,14 @@ export interface ShopDataBase {
 export interface ShopData {
   currency: string;
   costOfDelivery: { value: number; currency: string };
-  pickpoints: {
-    pickPointId: number;
-    address: string;
-    schedule: string;
-    rating: number;
-  }[];
+  pickpoints: PickPointData[];
+}
+
+export interface PickPointData {
+  pickPointId: number;
+  address: string;
+  schedule: string;
+  rating: number;
 }
 
 export interface ShopItemsData {

@@ -1,6 +1,18 @@
 import RefuseDescr from "../../ui/RefuseDescr";
+import { useUserData } from "../../store/useUserData";
+import { useLoaderData } from "react-router";
+import { ShopDataBase } from "../../shared.types";
+import DeliveryAddressInfo from "./DeliveryAddressInfo";
 
 export default function CartDelivery() {
+  const { selectedDelivery } = useUserData();
+  const { shopData } = useLoaderData<ShopDataBase>();
+
+  const { costOfDelivery } = shopData;
+  const costOfDeliveryText = selectedDelivery?.courier
+    ? `${costOfDelivery.value.toString()} ${costOfDelivery.currency}`
+    : "Бесплатно";
+
   return (
     <section className="delivery pickpoint-selected" id="delivery-section">
       <div className="container">
@@ -13,21 +25,10 @@ export default function CartDelivery() {
             Изменить
           </button>
         </div>
-        <div className="delivery__delivery-point">
-          <p className="delivery__delivery-type headline4">Пункт выдачи</p>
-          <div className="delivery__delivery-point-info">
-            <p className="body-text delivery-address">
-              Бишкек, улица Ахматбека Суюмбаева, 12/1
-            </p>
-            <p className="delivery__schedule-wrap caption">
-              <span className="delivery__pickpoint-rating">4.99</span>
-              <span className="delivery__schedule">Ежедневно с 10 до 21</span>
-            </p>
-          </div>
-        </div>
+        <DeliveryAddressInfo />
         <div className="delivery__cost-wrap">
           <p className="headline4">Стоимость доставки</p>
-          <p className="body-text delivery-cost">Бесплатно</p>
+          <p className="body-text delivery-cost">{costOfDeliveryText}</p>
         </div>
         <div className="delivery__date-wrap">
           <div className="delivery__date">
