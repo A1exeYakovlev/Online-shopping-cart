@@ -2,7 +2,7 @@ import {
   deleteFromLocalStorage,
   updateLocalStorageFav,
   updateLocalStorageQuant,
-} from "../../services/localStorageServices";
+} from "../../services/cartLocalStorageServices";
 import { useDispatch, useSelector } from "react-redux";
 import {
   changeItemQuantity,

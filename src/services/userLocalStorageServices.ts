@@ -44,7 +44,7 @@ const INITIAL_USER_DATA: UserData = {
   personalDiscount: 0.09,
 };
 
-export function getUserData() {
+export function getUserData(): UserData {
   let storedUserData = localStorage.getItem("userData");
 
   if (!storedUserData || storedUserData === "[]") {
@@ -55,4 +55,13 @@ export function getUserData() {
   const userData = JSON.parse(storedUserData) as UserData;
 
   return userData;
+}
+
+export function updateUserSelectedDelivery(selectedDeliveryOption: number) {
+  const userData = getUserData();
+
+  if (!userData.selectedDelivery) return;
+
+  userData.selectedDelivery.optionId = selectedDeliveryOption;
+  localStorage.setItem("userData", JSON.stringify(userData));
 }

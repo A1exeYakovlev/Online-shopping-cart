@@ -6,7 +6,7 @@ import CartReceiver from "../features/cartReceiver/CartReceiver";
 import CartResult from "../features/cartResult/CartResult";
 import CartResultDesktop from "../features/cartResult/CartResultDesktop";
 import { useEffect } from "react";
-import { getUserCartItems } from "../services/localStorageServices";
+import { getUserCartItems } from "../services/cartLocalStorageServices";
 import { setCartItems } from "../store/cartSlice";
 import { getUserData } from "../services/userLocalStorageServices";
 import { setUserData } from "../store/userSlice";

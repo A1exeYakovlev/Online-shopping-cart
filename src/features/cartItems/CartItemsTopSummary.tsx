@@ -3,7 +3,7 @@ import { formatPrice, quantityFormatting } from "../../utils/formatting";
 import { useCartItems, useCartItemsTotals } from "./hooks";
 import { RootState } from "../../store/store";
 import { selectAllItems } from "../../store/cartSlice";
-import { updateLocalStorageAllSelected } from "../../services/localStorageServices";
+import { updateLocalStorageAllSelected } from "../../services/cartLocalStorageServices";
 
 interface CartItemsTopSummaryProps {
   collapsedInStock: boolean;

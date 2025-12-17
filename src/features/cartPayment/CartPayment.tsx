@@ -62,7 +62,7 @@ export default function CartPayment() {
           Спишем оплату с карты при получении
         </p>
       </div>
-      <div className="change-payment modal-window hidden">
+      {/* <div className="change-payment modal-window hidden">
         <div className="change-payment__inner modal-window__inner">
           <div className="change-payment__title-wrap modal-window__title-wrap">
             <h3 className="change-payment__title modal-window__title headline2 headline2--sbold-for-mobile headline2--sm-for-desktop">
@@ -286,7 +286,7 @@ export default function CartPayment() {
             </button>
           </form>
         </div>
-      </div>
+      </div> */}
     </section>
   );
 }

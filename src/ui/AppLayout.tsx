@@ -10,7 +10,6 @@ export default function AppLayout() {
       <Outlet />
       <Footer />
       <Navbar />
-      <div className="overlay hidden"></div>
     </>
   );
 }

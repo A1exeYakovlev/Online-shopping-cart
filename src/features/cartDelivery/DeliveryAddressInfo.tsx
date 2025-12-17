@@ -1,29 +1,26 @@
-import { useLoaderData } from "react-router";
-import { PickPointData, ShopDataBase } from "../../shared.types";
 import { useUserData } from "../../store/useUserData";
+import { usePickpoint } from "./hooks";
 
 export default function DeliveryAddressInfo() {
   const { selectedDelivery, deliveryAddress } = useUserData();
-  const { shopData } = useLoaderData<ShopDataBase>();
-  const pickpoints = shopData.pickpoints;
 
   const courierIsSelected = selectedDelivery?.courier;
   const deliveryTypeText = courierIsSelected ? "Курьером" : "Пункт выдачи";
   const selectedDeliveryOption = selectedDelivery?.optionId;
+  const pickpointData = usePickpoint(selectedDeliveryOption);
 
-  let address: string | undefined;
-  let selectedPickpoint: PickPointData | undefined;
+  let address;
+  let schedule;
+  let rating;
 
   if (courierIsSelected)
     address = deliveryAddress?.courierAddress.find(
       (option) => option.optionId === selectedDeliveryOption
     )?.address;
   if (!courierIsSelected && selectedDeliveryOption) {
-    const pickpointsMap = new Map(
-      pickpoints.map((point) => [point.pickPointId, point])
-    );
-    selectedPickpoint = pickpointsMap.get(selectedDeliveryOption);
-    address = selectedPickpoint?.address;
+    address = pickpointData?.address;
+    schedule = pickpointData?.schedule;
+    rating = pickpointData?.rating;
   }
 
   return (
@@ -33,12 +30,8 @@ export default function DeliveryAddressInfo() {
         <p className="body-text delivery-address">{address}</p>
         {!selectedDelivery?.courier && (
           <p className="delivery__schedule-wrap caption">
-            <span className="delivery__pickpoint-rating">
-              {selectedPickpoint?.rating}
-            </span>
-            <span className="delivery__schedule">
-              {selectedPickpoint?.schedule}
-            </span>
+            <span className="delivery__pickpoint-rating">{rating}</span>
+            <span className="delivery__schedule">{schedule}</span>
           </p>
         )}
       </div>

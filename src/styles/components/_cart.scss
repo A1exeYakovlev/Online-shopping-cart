@@ -423,13 +423,7 @@
     }
   }
 
-  &__pickpoint-wrap,
-  &__courier-wrap {
-    display: none;
-  }
-
-  &.pickpoint-tab &__pickpoint-wrap,
-  &.courier-tab &__courier-wrap {
+  &__content {
     display: flex;
     flex-direction: column;
     flex-grow: 1;
@@ -717,30 +711,6 @@
     @include responsive(tablet) {
       width: var(--modal-select-btn);
     }
-  }
-}
-
-.overlay {
-  @include responsive(tablet) {
-    background: rgba(5, 0, 10, 0.3);
-    width: 100vw;
-    min-height: 100vh;
-    position: fixed;
-    top: 0;
-    left: 0;
-    z-index: 4;
-    opacity: 1;
-    transition: opacity 0.5s ease-in-out;
-
-    &--transparent {
-      opacity: 0;
-    }
-  }
-
-  &.hidden {
-    opacity: 0;
-    pointer-events: none;
-    visibility: hidden;
   }
 }
 

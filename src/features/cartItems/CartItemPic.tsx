@@ -1,7 +1,7 @@
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../store/store";
 import { selectItem } from "../../store/cartSlice";
-import { updateLocalStorageSelected } from "../../services/localStorageServices";
+import { updateLocalStorageSelected } from "../../services/cartLocalStorageServices";
 import { useCartItemData } from "./hooks";
 
 interface CartItemPicProps {
