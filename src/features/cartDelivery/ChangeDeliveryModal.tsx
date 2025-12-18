@@ -7,11 +7,11 @@ import { useDispatch } from "react-redux";
 import { updateUserSelectedDelivery } from "../../services/userLocalStorageServices";
 
 interface ChangeDeliveryModalProps {
-  onClose: React.Dispatch<React.SetStateAction<boolean>>;
+  onModalIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 export default function ChangeDeliveryModal({
-  onClose,
+  onModalIsOpen,
 }: ChangeDeliveryModalProps) {
   const dispatch = useDispatch();
   const { selectedDelivery, deliveryAddress } = useUserData();
@@ -28,11 +28,15 @@ export default function ChangeDeliveryModal({
 
     updateUserSelectedDelivery(selectedPickpoint);
     dispatch(changeDeliveryOption(selectedPickpoint));
-    onClose(false);
+    onModalIsOpen(false);
   }
 
   return (
-    <Modal>
+    <Modal
+      onClose={() => {
+        onModalIsOpen(false);
+      }}
+    >
       <div className="change-delivery modal-window">
         <div className="change-delivery__inner modal-window__inner">
           <div className="change-delivery__title-wrap modal-window__title-wrap">
@@ -43,7 +47,7 @@ export default function ChangeDeliveryModal({
               className="change-delivery__close-btn modal-window__close-btn"
               type="button"
               onClick={() => {
-                onClose(false);
+                onModalIsOpen(false);
               }}
             >
               <svg

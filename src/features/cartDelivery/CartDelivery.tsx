@@ -108,7 +108,7 @@ export default function CartDelivery() {
         </div>
         <RefuseDescr />
       </div>
-      {modalIsOpen && <ChangeDeliveryModal onClose={setModalIsOpen} />}
+      {modalIsOpen && <ChangeDeliveryModal onModalIsOpen={setModalIsOpen} />}
     </section>
   );
 }
