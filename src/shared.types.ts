@@ -24,7 +24,7 @@ export interface UserData {
 
 export interface SelectedDelivery {
   courier: boolean;
-  optionId: number;
+  optionId: number | null;
 }
 
 export interface DeliveryAddress {

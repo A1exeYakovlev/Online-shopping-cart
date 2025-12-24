@@ -1,4 +1,6 @@
+import { useDispatch } from "react-redux";
 import { usePickpoint } from "./hooks";
+import { deletePickpoint } from "../../store/userSlice";
 
 interface PickPointOptionProps {
   pickpointId: number;
@@ -12,6 +14,11 @@ export default function PickpointOption({
   onSelectedPickpoint,
 }: PickPointOptionProps) {
   const { address, rating } = usePickpoint(pickpointId) ?? {};
+  const dispatch = useDispatch();
+
+  function handleDelete(pickpointId: number) {
+    dispatch(deletePickpoint(pickpointId));
+  }
 
   return (
     <div className="change-delivery__option-wrap">
@@ -43,7 +50,13 @@ export default function PickpointOption({
           </span>
         </p>
       </div>
-      <button className="change-delivery__option-delete-btn" type="button">
+      <button
+        className="change-delivery__option-delete-btn"
+        type="button"
+        onClick={() => {
+          handleDelete(pickpointId);
+        }}
+      >
         <svg
           xmlns="http://www.w3.org/2000/svg"
           width="20"

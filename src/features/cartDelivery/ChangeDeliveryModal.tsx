@@ -100,15 +100,20 @@ export default function ChangeDeliveryModal({
                       />
                     </li>
                   ))}
+                  {deliveryAddress?.pickpointId.length === 0 && (
+                    <p className="body-text">Нет сохранённых пунктов выдачи</p>
+                  )}
                 </ul>
               </fieldset>
-              <button
-                className="change-delivery__select-btn modal-window__select-btn brand-button headline3 headline3--white"
-                type="submit"
-                data-tab="pickpoint"
-              >
-                Выбрать
-              </button>
+              {deliveryAddress?.pickpointId.length !== 0 && (
+                <button
+                  className="change-delivery__select-btn modal-window__select-btn brand-button headline3 headline3--white"
+                  type="submit"
+                  data-tab="pickpoint"
+                >
+                  Выбрать
+                </button>
+              )}
             </form>
           </div>
         </div>

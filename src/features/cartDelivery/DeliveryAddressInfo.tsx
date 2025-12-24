@@ -27,8 +27,10 @@ export default function DeliveryAddressInfo() {
     <div className="delivery__delivery-point">
       <p className="delivery__delivery-type headline4">{deliveryTypeText}</p>
       <div className="delivery__delivery-point-info">
-        <p className="body-text delivery-address">{address}</p>
-        {!selectedDelivery?.courier && (
+        <p className="body-text delivery-address">
+          {selectedDeliveryOption ? address : "Не указан"}
+        </p>
+        {selectedDeliveryOption && !selectedDelivery.courier && (
           <p className="delivery__schedule-wrap caption">
             <span className="delivery__pickpoint-rating">{rating}</span>
             <span className="delivery__schedule">{schedule}</span>

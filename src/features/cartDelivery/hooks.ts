@@ -2,7 +2,7 @@ import { useLoaderData } from "react-router";
 import { ShopDataBase, PickPointData } from "../../shared.types";
 
 export function usePickpoint(
-  pickpointId: number | undefined
+  pickpointId: number | null | undefined
 ): PickPointData | undefined {
   const { shopData } = useLoaderData<ShopDataBase>();
 

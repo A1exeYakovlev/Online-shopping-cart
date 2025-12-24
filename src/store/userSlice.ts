@@ -23,8 +23,20 @@ const userSlice = createSlice({
         state.selectedDelivery.optionId = action.payload;
       }
     },
+    deletePickpoint(state, action: PayloadAction<number>) {
+      if (!state.deliveryAddress) return;
+      state.deliveryAddress.pickpointId =
+        state.deliveryAddress.pickpointId.filter(
+          (pickpointId) => pickpointId !== action.payload
+        );
+
+      if (state.selectedDelivery?.optionId === action.payload) {
+        state.selectedDelivery.optionId = null;
+      }
+    },
   },
 });
 
-export const { setUserData, changeDeliveryOption } = userSlice.actions;
+export const { setUserData, changeDeliveryOption, deletePickpoint } =
+  userSlice.actions;
 export default userSlice.reducer;
