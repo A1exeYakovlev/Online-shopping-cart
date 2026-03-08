@@ -6,11 +6,13 @@ interface PickPointOptionProps {
   pickpointId: number;
   selected: boolean;
   onSelectedPickpoint: (pickpoint: number) => void;
+  prevSelectedPickpoint: number | null | undefined;
 }
 
 export default function PickpointOption({
   pickpointId,
   selected,
+  prevSelectedPickpoint,
   onSelectedPickpoint,
 }: PickPointOptionProps) {
   const { address, rating } = usePickpoint(pickpointId) ?? {};
@@ -18,6 +20,9 @@ export default function PickpointOption({
 
   function handleDelete(pickpointId: number) {
     dispatch(deletePickpoint(pickpointId));
+    if (selected && typeof prevSelectedPickpoint === "number") {
+      onSelectedPickpoint(prevSelectedPickpoint);
+    }
   }
 
   return (

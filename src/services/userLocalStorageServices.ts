@@ -45,23 +45,18 @@ const INITIAL_USER_DATA: UserData = {
 };
 
 export function getUserData(): UserData {
-  let storedUserData = localStorage.getItem("userData");
+  try {
+    const storedUserData = localStorage.getItem("userData");
 
-  if (!storedUserData || storedUserData === "[]") {
+    if (!storedUserData) {
+      localStorage.setItem("userData", JSON.stringify(INITIAL_USER_DATA));
+      return INITIAL_USER_DATA;
+    }
+
+    return JSON.parse(storedUserData) as UserData;
+  } catch {
     localStorage.setItem("userData", JSON.stringify(INITIAL_USER_DATA));
-    storedUserData = JSON.stringify(INITIAL_USER_DATA);
+
+    return INITIAL_USER_DATA;
   }
-
-  const userData = JSON.parse(storedUserData) as UserData;
-
-  return userData;
-}
-
-export function updateUserSelectedDelivery(selectedDeliveryOption: number) {
-  const userData = getUserData();
-
-  if (!userData.selectedDelivery) return;
-
-  userData.selectedDelivery.optionId = selectedDeliveryOption;
-  localStorage.setItem("userData", JSON.stringify(userData));
 }

@@ -4,7 +4,6 @@ import { useUserData } from "../../store/useUserData";
 import PickpointOption from "./PickpointOption";
 import { changeDeliveryOption } from "../../store/userSlice";
 import { useDispatch } from "react-redux";
-import { updateUserSelectedDelivery } from "../../services/userLocalStorageServices";
 
 interface ChangeDeliveryModalProps {
   onModalIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
@@ -16,17 +15,16 @@ export default function ChangeDeliveryModal({
   const dispatch = useDispatch();
   const { selectedDelivery, deliveryAddress } = useUserData();
   const [courierSelected, setCourierSelected] = useState(
-    selectedDelivery?.courier ?? false
+    selectedDelivery?.courier ?? false,
   );
   const [selectedPickpoint, setSelectedPickpoint] = useState(
-    selectedDelivery?.optionId
+    selectedDelivery?.optionId,
   );
 
   function onSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     if (!selectedPickpoint) return;
 
-    updateUserSelectedDelivery(selectedPickpoint);
     dispatch(changeDeliveryOption(selectedPickpoint));
     onModalIsOpen(false);
   }
@@ -96,6 +94,7 @@ export default function ChangeDeliveryModal({
                       <PickpointOption
                         pickpointId={pickpoint}
                         selected={selectedPickpoint === pickpoint}
+                        prevSelectedPickpoint={selectedDelivery?.optionId}
                         onSelectedPickpoint={setSelectedPickpoint}
                       />
                     </li>

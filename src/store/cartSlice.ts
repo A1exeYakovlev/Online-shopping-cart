@@ -19,7 +19,7 @@ const cartSlice = createSlice({
         return state.map((item) =>
           item.idNum === action.payload.idNum
             ? { ...item, quant: action.payload.quant }
-            : item
+            : item,
         );
       },
     },
@@ -30,14 +30,14 @@ const cartSlice = createSlice({
       return state.map((item) =>
         item.idNum !== action.payload
           ? item
-          : { ...item, favourite: !item.favourite }
+          : { ...item, favourite: !item.favourite },
       );
     },
     selectItem(state, action: PayloadAction<number>) {
       return state.map((item) =>
         item.idNum === action.payload
           ? { ...item, selected: !item.selected }
-          : item
+          : item,
       );
     },
     selectAllItems(state, action: PayloadAction<boolean>) {

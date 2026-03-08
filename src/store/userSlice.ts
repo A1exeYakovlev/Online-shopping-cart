@@ -27,12 +27,8 @@ const userSlice = createSlice({
       if (!state.deliveryAddress) return;
       state.deliveryAddress.pickpointId =
         state.deliveryAddress.pickpointId.filter(
-          (pickpointId) => pickpointId !== action.payload
+          (pickpointId) => pickpointId !== action.payload,
         );
-
-      if (state.selectedDelivery?.optionId === action.payload) {
-        state.selectedDelivery.optionId = null;
-      }
     },
   },
 });
