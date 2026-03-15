@@ -3,7 +3,6 @@ import { formatPrice, quantityFormatting } from "../../utils/formatting";
 import { useCartItems, useCartItemsTotals } from "./hooks";
 import { RootState } from "../../store/store";
 import { selectAllItems } from "../../store/cartSlice";
-import { updateLocalStorageAllSelected } from "../../services/cartLocalStorageServices";
 
 interface CartItemsTopSummaryProps {
   collapsedInStock: boolean;
@@ -37,13 +36,12 @@ export default function CartItemsTopSummary({
     if (!collapsibleStockEl.current) return;
     if (collapsedInStock) {
       setCollapsibleStockHeight(
-        collapsibleStockEl.current.scrollHeight.toString() + "px"
+        collapsibleStockEl.current.scrollHeight.toString() + "px",
       );
     } else setCollapsibleStockHeight("0px");
   }
 
   function handleAllSelected() {
-    updateLocalStorageAllSelected(!allSelected);
     dispatch(selectAllItems(!allSelected));
   }
 

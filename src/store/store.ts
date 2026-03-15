@@ -11,9 +11,10 @@ const preloadedState = {
 
 const localStorageMiddleware: Middleware = (storeAPI) => (next) => (action) => {
   const result = next(action);
-  const state = storeAPI.getState() as RootState;
+  const { cart, user } = storeAPI.getState() as RootState;
 
-  localStorage.setItem("userData", JSON.stringify(state.user));
+  localStorage.setItem("userData", JSON.stringify(user));
+  localStorage.setItem("userCartItems", JSON.stringify(cart));
 
   return result;
 };

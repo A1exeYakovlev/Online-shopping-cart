@@ -1,7 +1,6 @@
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../store/store";
 import { selectItem } from "../../store/cartSlice";
-import { updateLocalStorageSelected } from "../../services/cartLocalStorageServices";
 import { useCartItemData } from "./hooks";
 
 interface CartItemPicProps {
@@ -19,11 +18,10 @@ export default function CartItemPic({ itemId }: CartItemPicProps) {
   }
 
   const isSelected = userCart.find(
-    (cartItem) => cartItem.idNum === itemId
+    (cartItem) => cartItem.idNum === itemId,
   )?.selected;
 
   function handleSelect() {
-    updateLocalStorageSelected(itemId);
     dispatch(selectItem(itemId));
   }
 

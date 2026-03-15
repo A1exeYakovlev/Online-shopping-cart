@@ -1,8 +1,3 @@
-import {
-  deleteFromLocalStorage,
-  updateLocalStorageFav,
-  updateLocalStorageQuant,
-} from "../../services/cartLocalStorageServices";
 import { useDispatch, useSelector } from "react-redux";
 import {
   changeItemQuantity,
@@ -44,7 +39,6 @@ export default function CartItemControls({ itemId }: CartItemControlsProps) {
       newQuantity = Math.min(itemData.remains, itemQuantity + 1);
     } else newQuantity = Math.max(1, itemQuantity - 1);
 
-    updateLocalStorageQuant(itemData, newQuantity);
     dispatch(changeItemQuantity(itemId, newQuantity));
   }
 
@@ -60,21 +54,18 @@ export default function CartItemControls({ itemId }: CartItemControlsProps) {
     if (newQuantity > itemData.remains) newQuantity = itemData.remains;
 
     setQuantVal(newQuantity.toString());
-    updateLocalStorageQuant(itemData, newQuantity);
     dispatch(changeItemQuantity(itemId, newQuantity));
   }
 
   function onDeleteItem() {
     if (!itemData) return;
 
-    deleteFromLocalStorage(itemId);
     dispatch(deleteItem(itemId));
   }
 
   function onFavouriteBtn() {
     if (!itemData) return;
 
-    updateLocalStorageFav(itemId);
     dispatch(toggleFavouriteItem(itemId));
   }
 

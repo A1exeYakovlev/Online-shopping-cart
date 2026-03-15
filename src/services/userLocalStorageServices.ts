@@ -1,4 +1,5 @@
 import { UserData } from "../shared.types";
+import { getFromLocalStorage } from "../utils/getFromLocalStorage";
 
 const INITIAL_USER_DATA: UserData = {
   name: "Алексей",
@@ -44,19 +45,6 @@ const INITIAL_USER_DATA: UserData = {
   personalDiscount: 0.09,
 };
 
-export function getUserData(): UserData {
-  try {
-    const storedUserData = localStorage.getItem("userData");
-
-    if (!storedUserData) {
-      localStorage.setItem("userData", JSON.stringify(INITIAL_USER_DATA));
-      return INITIAL_USER_DATA;
-    }
-
-    return JSON.parse(storedUserData) as UserData;
-  } catch {
-    localStorage.setItem("userData", JSON.stringify(INITIAL_USER_DATA));
-
-    return INITIAL_USER_DATA;
-  }
+export function getUserData() {
+  return getFromLocalStorage<UserData>("userData", INITIAL_USER_DATA);
 }
