@@ -15,10 +15,10 @@ export default function ChangeDeliveryModal({
   const dispatch = useDispatch();
   const { selectedDelivery, deliveryAddress } = useUserData();
   const [courierSelected, setCourierSelected] = useState(
-    selectedDelivery?.courier ?? false,
+    selectedDelivery.courier,
   );
   const [selectedPickpoint, setSelectedPickpoint] = useState(
-    selectedDelivery?.optionId,
+    selectedDelivery.optionId,
   );
 
   function onSubmit(e: React.FormEvent<HTMLFormElement>) {
@@ -85,7 +85,7 @@ export default function ChangeDeliveryModal({
             <form action="" onSubmit={onSubmit}>
               <fieldset>
                 <ul className="change-delivery__options-list">
-                  {deliveryAddress?.pickpointId.map((pickpoint) => (
+                  {deliveryAddress.pickpointId.map((pickpoint) => (
                     <li
                       className="change-delivery__option custom-radio"
                       data-option="154"
@@ -94,17 +94,17 @@ export default function ChangeDeliveryModal({
                       <PickpointOption
                         pickpointId={pickpoint}
                         selected={selectedPickpoint === pickpoint}
-                        prevSelectedPickpoint={selectedDelivery?.optionId}
+                        prevSelectedPickpoint={selectedDelivery.optionId}
                         onSelectedPickpoint={setSelectedPickpoint}
                       />
                     </li>
                   ))}
-                  {deliveryAddress?.pickpointId.length === 0 && (
+                  {deliveryAddress.pickpointId.length === 0 && (
                     <p className="body-text">Нет сохранённых пунктов выдачи</p>
                   )}
                 </ul>
               </fieldset>
-              {deliveryAddress?.pickpointId.length !== 0 && (
+              {deliveryAddress.pickpointId.length !== 0 && (
                 <button
                   className="change-delivery__select-btn modal-window__select-btn brand-button headline3 headline3--white"
                   type="submit"

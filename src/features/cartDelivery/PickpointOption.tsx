@@ -15,7 +15,7 @@ export default function PickpointOption({
   prevSelectedPickpoint,
   onSelectedPickpoint,
 }: PickPointOptionProps) {
-  const { address, rating } = usePickpoint(pickpointId) ?? {};
+  const pickpointData = usePickpoint(pickpointId);
   const dispatch = useDispatch();
 
   function handleDelete(pickpointId: number) {
@@ -26,7 +26,9 @@ export default function PickpointOption({
   }
 
   return (
-    <div className="change-delivery__option-wrap">
+    <div
+      className={`change-delivery__option-wrap ${pickpointData?.address ? "" : "notavailable"}`}
+    >
       <div className="change-delivery__option-pickpoint">
         <div className="change-delivery__option-address">
           <input
@@ -36,6 +38,7 @@ export default function PickpointOption({
             value={pickpointId}
             id={`change-delivery__pickpoint${pickpointId.toString()}`}
             checked={selected}
+            disabled={!pickpointData?.address}
             onChange={() => {
               onSelectedPickpoint(pickpointId);
             }}
@@ -45,15 +48,19 @@ export default function PickpointOption({
             htmlFor={`change-delivery__pickpoint${pickpointId.toString()}`}
           >
             <span className="change-delivery__option-radio custom-radio__radio-btn"></span>
-            {address}
+            {pickpointData?.address ?? "Пункт выдачи недоступен"}
           </label>
         </div>
-        <p className="change-delivery__option-rating caption caption--gray">
-          <span className="change-delivery__option-rating-num">{rating}</span>
-          <span className="change-delivery__option-rating-label">
-            Пункт выдачи
-          </span>
-        </p>
+        {pickpointData && (
+          <p className="change-delivery__option-rating caption caption--gray">
+            <span className="change-delivery__option-rating-num">
+              {pickpointData.rating}
+            </span>
+            <span className="change-delivery__option-rating-label">
+              Пункт выдачи
+            </span>
+          </p>
+        )}
       </div>
       <button
         className="change-delivery__option-delete-btn"

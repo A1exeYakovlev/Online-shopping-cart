@@ -257,6 +257,10 @@
     }
   }
 
+  .notavailable &__schedule-wrap {
+    display: none;
+  }
+
   &__cost-wrap {
     margin-top: 1.63rem;
     padding-bottom: 0.42rem;
@@ -297,12 +301,10 @@
       width: 4.09255rem;
       height: 5.6rem;
       border-radius: 0.8rem;
-      background: linear-gradient(
-          0deg,
-          rgba(0, 0, 0, 0.05) 0%,
-          rgba(0, 0, 0, 0.05) 100%
-        ),
-        url(<path-to-image>), lightgray 50% / cover no-repeat;
+      background:
+        linear-gradient(0deg, rgba(0, 0, 0, 0.05) 0%, rgba(0, 0, 0, 0.05) 100%),
+        url(<path-to-image>),
+        lightgray 50% / cover no-repeat;
     }
   }
 
@@ -492,6 +494,10 @@
       }
     }
 
+    &-delete-btn {
+      cursor: pointer;
+    }
+
     &-label {
       display: flex;
       margin-left: -0.05rem;
@@ -511,6 +517,15 @@
 
     &-input:checked ~ &-label &-radio::before {
       opacity: 1;
+    }
+
+    .notavailable &-radio,
+    .notavailable &-label {
+      cursor: default;
+    }
+
+    .notavailable &-label {
+      opacity: 0.5;
     }
   }
 

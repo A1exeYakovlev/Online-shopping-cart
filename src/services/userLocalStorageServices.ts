@@ -46,5 +46,17 @@ const INITIAL_USER_DATA: UserData = {
 };
 
 export function getUserData() {
-  return getFromLocalStorage<UserData>("userData", INITIAL_USER_DATA);
+  const userData = getFromLocalStorage<UserData>("userData", INITIAL_USER_DATA);
+
+  if (userData.deliveryAddress.pickpointId.length === 0) {
+    userData.deliveryAddress.pickpointId = [
+      ...INITIAL_USER_DATA.deliveryAddress.pickpointId,
+    ];
+    userData.selectedDelivery = {
+      ...INITIAL_USER_DATA.selectedDelivery,
+    };
+    localStorage.setItem("userData", JSON.stringify(userData));
+  }
+
+  return userData;
 }

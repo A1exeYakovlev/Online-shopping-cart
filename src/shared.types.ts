@@ -7,24 +7,22 @@ export interface UserCartItem {
 }
 
 export interface UserData {
-  name: string | null;
-  selectedDelivery: SelectedDelivery | null;
-  deliveryAddress: DeliveryAddress | null;
-  selectedPaymentOption: number | null;
-  paymentOptionData:
-    | {
-        optionId: number;
-        system: string;
-        number: string;
-        expiration: string;
-      }[]
-    | null;
-  personalDiscount: number | null;
+  name: string;
+  selectedDelivery: SelectedDelivery;
+  deliveryAddress: DeliveryAddress;
+  selectedPaymentOption: number;
+  paymentOptionData: {
+    optionId: number;
+    system: string;
+    number: string;
+    expiration: string;
+  }[];
+  personalDiscount: number;
 }
 
 export interface SelectedDelivery {
   courier: boolean;
-  optionId: number | null;
+  optionId: number;
 }
 
 export interface DeliveryAddress {

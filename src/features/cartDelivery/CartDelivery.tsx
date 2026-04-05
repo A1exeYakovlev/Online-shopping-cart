@@ -12,7 +12,7 @@ export default function CartDelivery() {
   const { shopData } = useLoaderData<ShopDataBase>();
 
   const { costOfDelivery } = shopData;
-  const costOfDeliveryText = selectedDelivery?.courier
+  const costOfDeliveryText = selectedDelivery.courier
     ? `${costOfDelivery.value.toString()} ${costOfDelivery.currency}`
     : "Бесплатно";
 
